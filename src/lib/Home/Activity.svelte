@@ -24,7 +24,7 @@
 			<div class="flex justify-center p-4 border-t border-base-300">
 				<iframe
 					title="Spotify embed"
-					src="https://open.spotify.com/embed/playlist/37i9dQZF1EporX1WaV5moq"
+					src="https://open.spotify.com/embed/playlist/37i9dQZF1EpF91ywObwSKq?utm_source=generator"
 					width="100%"
 					height="500"
 					frameBorder="0"

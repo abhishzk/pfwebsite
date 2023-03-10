@@ -126,37 +126,42 @@
 </div>
 
 <style>
-	.step-icon-savvyy:after,
-	.step-icon-cast:after,
-	.step-icon-uoft:after,
-	.step-icon-ib:after,
-	.step-icon-bibf:after {
+	.step-icon-mastercard:after,
+	.step-icon-infosys:after,
+	.step-icon-tus:after,
+	.step-icon-amp:after,
+	.step-icon-apsj:after {
 		background-repeat: no-repeat;
 		background-position: center;
 	}
 
-	.step-icon-savvyy:after {
-		background-image: url('/images/experience/savvyy.webp');
+	.step-icon-mastercard:after {
+		background-image: url('/images/experience/mastercard.webp');
 		background-size: 50%;
 	}
 
-	.step-icon-cast:after {
-		background-image: url('/images/experience/cast.webp');
+	.step-icon-infosys:after {
+		background-image: url('/images/experience/infosys.webp');
 		background-size: 75%;
 	}
 
-	.step-icon-uoft:after {
-		background-image: url('/images/experience/uoft.webp');
+	.step-icon-vidac:after {
+		background-image: url('/images/experience/vidac.webp');
 		background-size: 75%;
 	}
 
-	.step-icon-ib:after {
-		background-image: url('/images/experience/ib.webp');
+	.step-icon-tus:after {
+		background-image: url('/images/experience/tus.webp');
+		background-size: 75%;
+	}
+
+	.step-icon-amp:after {
+		background-image: url('/images/experience/amp.webp');
 		background-size: 60%;
 	}
 
-	.step-icon-bibf:after {
-		background-image: url('/images/experience/bibf.webp');
+	.step-icon-apsj:after {
+		background-image: url('/images/experience/apsj.webp');
 		background-size: 75%;
 	}
 </style>

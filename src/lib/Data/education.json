@@ -1,23 +1,23 @@
 [
 	{
-		"institution": "University of Toronto",
-		"role": "CS & Maths",
-		"location": "Toronto, ON",
-		"duration": "2014 - 2019",
-		"short": "uoft"
+		"institution": "Technological University of Shannon: Athlone",
+		"role": "B.E(Hons) Software Engineering",
+		"location": "Athlone, IE",
+		"duration": "2020 - 2021",
+		"short": "tus"
 	},
 	{
-		"institution": "Modern Knowledge School",
-		"role": "International Baccalaureate",
-		"location": "Manama, BH",
-		"duration": "2012 - 2014",
-		"short": "ib"
+		"institution": "BVDU Amplify Mindware",
+		"role": "B.Sc Information Technology",
+		"location": "Pune, IN",
+		"duration": "2016 - 2019",
+		"short": "amp"
 	},
 	{
-		"institution": "BI Banking & Finance",
-		"role": "Crown Prince Scholarship",
-		"location": "Manama, BH",
-		"duration": "2012 - 2014",
-		"short": "bibf"
+		"institution": "Army Public School",
+		"role": "Army Student Welfare Scholorship",
+		"location": "Jhansi, IN",
+		"duration": "2013 - 2015",
+		"short": "apsj"
 	}
 ]

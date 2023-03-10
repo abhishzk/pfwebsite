@@ -3,7 +3,7 @@
 
 	onMount(async () => {
 		var i = 0;
-		var codeBlurb = '\tdeveloper, reader, curator, techie';
+		var codeBlurb = '\tdeveloper, gamer, traveller, techie';
 
 		function typeWriter() {
 			if (i < codeBlurb.length) {
@@ -22,20 +22,20 @@
 	>
 		<img
 			src="/images/headshot.webp"
-			class="max-w-sm rounded-lg lg:mr-6"
+			class="max-w-md rounded-lg lg:mr-10"
 			alt="Drawing of Andrew Novac's headshot"
 		/>
 		<div>
 			<h1
 				class="text-5xl font-bold bg-gradient-to-r bg-clip-text leading-normal text-transparent from-[#048eaa] via-blue-500 to-[#048eaa] animate-text text-center"
 			>
-				Hi, I'm Andrew!
+				Hi, I'm Abhishek!
 			</h1>
 			<br />
-			<div class="lg:min-w-[400px] max-w-[100vw] mockup-code">
+			<div class="lg:min-w-[400px] max-w-[110dvw] mockup-code">
 				<pre data-prefix="1"><code
 						><span class="text-info">traits</span>{'[] '}<span class="text-secondary"
-							>novatorem</span
+							>abhishzk</span
 						>{' ='}</code
 					></pre>
 				<pre data-prefix="2"><code>{'{'}</code></pre>

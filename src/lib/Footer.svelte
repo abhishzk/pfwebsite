@@ -3,7 +3,7 @@
 >
 	<div class="items-center grid-flow-col">
 		<img width="24" height="24" src="favicon.png" alt="Website logo" class="grayscale" />
-		<p>Andrew Novac</p>
+		<p>Abhishek Kumar</p>
 	</div>
 	<div class="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
 		<label for="mail" class="cursor-pointer"
@@ -27,7 +27,7 @@
 		<label for="mail" class="modal modal-bottom cursor-pointer sm:modal-middle">
 			<label class="modal-box" for="">
 				<div class="overflow-x-auto w-full">
-					<iframe
+					<!-- <iframe
 						src="https://mail.novac.dev"
 						title="Mail"
 						width="100%"
@@ -35,11 +35,12 @@
 						frameBorder="0"
 						class="rounded-xl"
 						allow="clipboard-write"
-					/>
+					/> -->
+					<a href = "mailto:abhishzk.dev@gmail.com?subject=Email from site">Send Email</a>
 				</div>
 			</label>
 		</label>
-		<a href="https://github.com/novatorem"
+		<a href="https://github.com/abhishzk"
 			><svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="24"
@@ -55,7 +56,7 @@
 				/><path d="M9 18c-4.51 2-5-2-7-2" /></svg
 			>
 		</a>
-		<a href="https://github.com/andrew-novac"
+		<a href="https://linkedin.com/in/abhishzk"
 			><svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="24"

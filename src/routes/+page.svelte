@@ -15,7 +15,7 @@
 </script>
 
 <svelte:head>
-	<title>Andrew Novac</title>
+	<title>Abhishek Kumar</title>
 </svelte:head>
 
 <div class="h-0 m-0">
@@ -43,7 +43,7 @@
 <Footer />
 
 <MetaTags
-	title="Andrew Novac"
+	title="Abhishek Kumar"
 	titleTemplate="%s | The Homepage"
 	description="The homepage of Andrew Novac - software developer in Toronto"
 	canonical="https://novac.dev"
