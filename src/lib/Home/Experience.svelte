@@ -1,5 +1,6 @@
 <script lang="ts">
 	import work from '../Data/work.json?raw';
+	
 	import education from '../Data/education.json?raw';
 
 	interface experience {
