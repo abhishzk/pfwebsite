@@ -6,39 +6,33 @@
 		"image": "/images/projects/seman.png"
 	},
 	{
-		"title": "Cover Hack",
-		"description": "Create custom cover letters where users can input reactive fields",
-		"link": "https://cover-hack.novac.dev/",
-		"image": "/images/projects/coverhack.webp"
+		"title": "Billing System",
+		"description": "Costcutter Billing System that provides day-to-day product transactions with all the information needed in receipt.",
+		"link": "https://github.com/abhishzk/software-design-billing",
+		"image": "/images/projects/costc.png"
 	},
 	{
-		"title": "StreamWeaver",
-		"description": "A cross-platform application for virtual events and performances, transmitting data globally",
-		"link": "https://www.liminalet.com/streamweaver-lite",
-		"image": "/images/projects/streamweaver.webp"
+		"title": "Booking System",
+		"description": "A basic Java application which is based on LinkedList where a admin can use to entry data of check-in customers. ",
+		"link": "https://github.com/abhishzk/motel-booking-system",
+		"image": "/images/projects/motel.png"
 	},
 	{
-		"title": "Plan",
-		"description": "Turn an idea into an actual website or app, in a course-like format",
-		"link": "https://plan.novac.dev",
-		"image": "/images/projects/plan.webp"
+		"title": "Music App",
+		"description": "A app that lets you play random high note sound which comes with flex and dark mode.",
+		"link": "https://music-app-abhishzk.vercel.app/",
+		"image": "/images/projects/music.png"
 	},
 	{
-		"title": "AKA",
-		"description": "Link shortener using serverless programming with custom short codes",
-		"link": "https://aka.novae.one",
-		"image": "/images/projects/aka.webp"
+		"title": "Database SQL System",
+		"description": "Made Student directory system using only SQL and Java with minimalistic GUI with less less memory consumption.",
+		"link": "https://github.com/abhishzk/database-jdbc-assignment",
+		"image": "/images/projects/sql.png"
 	},
 	{
-		"title": "Robotics",
-		"description": "Collision detection, integrated motion planning, dynamic tracking, and pathing",
-		"link": "https://github.com/novatorem/Robotics",
-		"image": "/images/projects/robotics.webp"
-	},
-	{
-		"title": "Emergency Response Aid",
-		"description": "Team application designed as an intermediatory to help users seek medical attention",
-		"link": "https://github.com/novatorem/ERA-Emergency-Response-Aid",
-		"image": "/images/projects/era.webp"
+		"title": "Client Server Application",
+		"description": "Distributed System that implements client and server architechture with the use of REST services.",
+		"link": "https://github.com/abhishzk/distributed-system",
+		"image": "/images/projects/ds.png"
 	}
 ]
