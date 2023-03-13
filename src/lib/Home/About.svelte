@@ -23,73 +23,73 @@
 
 	<div class="flex flex-wrap w-full">
 		<p class="mb-6">
-			Thank you for visiting my portfolio page! I appreciate your interest in my work and
-			achievements. If you'd like to learn more about me and what I do, be sure to check out my
-			other pages. Connect with me on my social media profiles for updates on my latest projects and
-			musings.
+			A multi-skilled and adaptable Computer Engineering professional with problem-solving 
+			initiative and a result-oriented attitude. An excellent team-centred person with a positive 
+			attitude and belief in building relations.
 		</p>
 
-		<h3 class="font-bold text-lg mb-6">Technologies & Credits</h3>
+		<h3 class="font-bold text-lg mb-6">Tech Stack</h3>
 		<div class="overflow-x-auto w-full">
 			<table class="table table-zebra w-full">
 				<thead>
 					<tr>
 						<th />
-						<th>Source</th>
-						<th>Description</th>
+						<th>Professional Skillset</th>
+						<th>Tools I use</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td>
 							<img
-								class="w-6 h-6 object-contain"
-								src="/images/about/svelte.webp"
+								class="w-8 h-8 object-contain"
+								src="/images/about/IntJ.png"
 								alt="Source logo"
 							/>
 						</td>
-						<th><a href="https://kit.svelte.dev/">SvelteKit</a></th>
-						<th>Front-end framework </th>
+						<th><a href="https://www.jetbrains.com/help/idea/creating-and-running-your-first-java-application.html">Java</a>
+						</th>
+						<th>IntelliJ </th>
 					</tr>
 					<tr>
 						<td>
 							<img
-								class="w-6 h-6 object-contain"
-								src="/images/about/tailwind.webp"
+								class="w-8 h-8 object-contain"
+								src="/images/about/ana.png"
 								alt="Source logo"
 							/>
 						</td>
-						<th><a href="https://tailwindcss.com/">TailwindCSS</a></th>
-						<th>CSS framework </th>
+						<th><a href="https://anaconda.org/anaconda/python">Python</a></th>
+						<th>Anaconda </th>
 					</tr>
 					<tr>
 						<td>
-							<img class="w-6 h-6 object-contain" src="/images/about/daisy.ico" alt="Source logo" />
+							<img class="w-8 h-8 object-contain" src="/images/about/sqlser.png" alt="Source logo" />
 						</td>
-						<th><a href="https://daisyui.com/">DaisyUI</a></th>
-						<th>Component library </th>
-					</tr>
-					<tr>
-						<td>
-							<img
-								class="w-6 h-6 object-contain"
-								src="/images/about/swiper.webp"
-								alt="Source logo"
-							/>
-						</td>
-						<th><a href="https://swiperjs.com/">SwiperJS</a></th>
-						<th>Carousel component </th>
+						<th><a href="https://dev.mysql.com/doc/mysql-getting-started/en/">SQL</a></th>
+						<th>MS SQL Server </th>
 					</tr>
 					<tr>
 						<td>
 							<img
-								class="w-6 h-6 object-contain"
-								src="/images/about/lucide.webp"
+								class="w-8 h-8 object-contain"
+								src="/images/about/javasc.png"
 								alt="Source logo"
 							/>
 						</td>
-						<th><a href="https://lucide.dev/icon/activity">Lucide</a></th>
-						<th>Icons library </th>
+						<th><a href="https://code.visualstudio.com/docs/languages/javascript">JavaScript</a></th>
+						<th>VSCode</th>
+					</tr>
+					<tr>
+						<td>
+							<img
+								class="w-8 h-8 object-contain"
+								src="/images/about/shell.png"
+								alt="Source logo"
+							/>
+						</td>
+						<th><a href="https://www.tutorialspoint.com/unix/shell_scripting.htm">Shell Scripting</a></th>
+						<th>Linux</th>
 					</tr>
 				</tbody>
 			</table>
