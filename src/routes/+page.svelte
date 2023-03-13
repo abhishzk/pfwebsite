@@ -45,26 +45,26 @@
 <MetaTags
 	title="Abhishek Kumar"
 	titleTemplate="%s | The Homepage"
-	description="The homepage of Andrew Novac - software developer in Toronto"
-	canonical="https://novac.dev"
+	description="The homepage of Abhishek Kumar - Software Engineer in Ireland"
+	canonical="https://abhishzk.com"
 	openGraph={{
-		url: 'https://novac.dev',
-		title: 'Andrew Novac',
-		description: 'The homepage of Andrew Novac - software developer in Toronto',
+		url: 'https://abhishzk.com',
+		title: 'Abhishek Kumar',
+		description: 'The homepage of Abhishek Kumar - Software Engineer in Ireland',
 		images: [
 			{
-				url: '/images/openGraph/image-01.webp',
+				url: '/images/openGraph/img-1.png',
 				width: 800,
 				height: 600,
 				alt: 'Website preview'
 			},
 			{
-				url: '/images/openGraph/image-02.webp',
+				url: '/images/openGraph/img-2.png',
 				width: 900,
 				height: 800,
 				alt: 'Website preview'
 			},
-			{ url: '/images/openGraph/image-03.webp' }
+			{ url: '/images/openGraph/img-3.png' }
 		],
 		site_name: 'novac'
 	}}

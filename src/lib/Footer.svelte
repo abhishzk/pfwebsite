@@ -27,15 +27,6 @@
 		<label for="mail" class="modal modal-bottom cursor-pointer sm:modal-middle">
 			<label class="modal-box" for="">
 				<div class="overflow-x-auto w-full">
-					<!-- <iframe
-						src="https://mail.novac.dev"
-						title="Mail"
-						width="100%"
-						height="500"
-						frameBorder="0"
-						class="rounded-xl"
-						allow="clipboard-write"
-					/> -->
 					<a href = "mailto:abhishzk.dev@gmail.com?subject=Email from site">Send Email</a>
 				</div>
 			</label>
