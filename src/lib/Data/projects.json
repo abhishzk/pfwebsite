@@ -1,9 +1,9 @@
 [
 	{
-		"title": "Melodify",
-		"description": "Spotify interface with user stats, music videos, pane views, suggestions, and more",
-		"link": "https://github.com/novatorem/Melodify",
-		"image": "/images/projects/melodify.webp"
+		"title": "Semantic Segmentation",
+		"description": "Semantic segmentation is about automatically extracting information from images.",
+		"link": "https://github.com/abhishzk/semantic-segmentation",
+		"image": "/images/projects/seman.png"
 	},
 	{
 		"title": "Cover Hack",
