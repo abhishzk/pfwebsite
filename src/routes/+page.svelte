@@ -66,7 +66,7 @@
 			},
 			{ url: '/images/openGraph/img-3.png' }
 		],
-		site_name: 'novac'
+		site_name: 'abhishzk'
 	}}
 />
 

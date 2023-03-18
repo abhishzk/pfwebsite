@@ -23,7 +23,7 @@
 		<img
 			src="/images/headshot.webp"
 			class="max-w-md rounded-lg lg:mr-10"
-			alt="Drawing of Andrew Novac's headshot"
+			alt="Drawing of Abhishek Kumar's headshot"
 		/>
 		<div>
 			<h1
