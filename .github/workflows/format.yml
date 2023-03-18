@@ -19,8 +19,8 @@ jobs:
           npm run format
       - name: push formatted code
         run: |
-          git config --global user.name github-actions
-          git config --global user.email github-actions@github.com
+          git config --global user.name "abhishzk" github-actions
+          git config --global user.email "abhishzk.dev@gmail.com" github-actions@github.com
           git add --all
           git diff-index --quiet HEAD || git commit -m "Format Code"
           git pull
