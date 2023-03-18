@@ -34,8 +34,7 @@
 			<br />
 			<div class="lg:min-w-[400px] max-w-[110dvw] mockup-code">
 				<pre data-prefix="1"><code
-						><span class="text-info">traits</span>{'[] '}<span class="text-secondary"
-							>abhishzk</span
+						><span class="text-info">traits</span>{'[] '}<span class="text-secondary">abhishzk</span
 						>{' ='}</code
 					></pre>
 				<pre data-prefix="2"><code>{'{'}</code></pre>

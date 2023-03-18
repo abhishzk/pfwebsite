@@ -23,8 +23,8 @@
 
 	<div class="flex flex-wrap w-full">
 		<p class="mb-6">
-			A multi-skilled and adaptable Computer Engineering professional with problem-solving 
-			initiative and a result-oriented attitude. An excellent team-centred person with a positive 
+			A multi-skilled and adaptable Computer Engineering professional with problem-solving
+			initiative and a result-oriented attitude. An excellent team-centred person with a positive
 			attitude and belief in building relations.
 		</p>
 
@@ -41,30 +41,30 @@
 				<tbody>
 					<tr>
 						<td>
-							<img
-								class="w-8 h-8 object-contain"
-								src="/images/about/IntJ.png"
-								alt="Source logo"
-							/>
+							<img class="w-8 h-8 object-contain" src="/images/about/IntJ.png" alt="Source logo" />
 						</td>
-						<th><a href="https://www.jetbrains.com/help/idea/creating-and-running-your-first-java-application.html">Java</a>
+						<th
+							><a
+								href="https://www.jetbrains.com/help/idea/creating-and-running-your-first-java-application.html"
+								>Java</a
+							>
 						</th>
 						<th>IntelliJ </th>
 					</tr>
 					<tr>
 						<td>
-							<img
-								class="w-8 h-8 object-contain"
-								src="/images/about/ana.png"
-								alt="Source logo"
-							/>
+							<img class="w-8 h-8 object-contain" src="/images/about/ana.png" alt="Source logo" />
 						</td>
 						<th><a href="https://anaconda.org/anaconda/python">Python</a></th>
 						<th>Anaconda </th>
 					</tr>
 					<tr>
 						<td>
-							<img class="w-8 h-8 object-contain" src="/images/about/sqlser.png" alt="Source logo" />
+							<img
+								class="w-8 h-8 object-contain"
+								src="/images/about/sqlser.png"
+								alt="Source logo"
+							/>
 						</td>
 						<th><a href="https://dev.mysql.com/doc/mysql-getting-started/en/">SQL</a></th>
 						<th>MS SQL Server </th>
@@ -77,18 +77,18 @@
 								alt="Source logo"
 							/>
 						</td>
-						<th><a href="https://code.visualstudio.com/docs/languages/javascript">JavaScript</a></th>
+						<th><a href="https://code.visualstudio.com/docs/languages/javascript">JavaScript</a></th
+						>
 						<th>VSCode</th>
 					</tr>
 					<tr>
 						<td>
-							<img
-								class="w-8 h-8 object-contain"
-								src="/images/about/shell.png"
-								alt="Source logo"
-							/>
+							<img class="w-8 h-8 object-contain" src="/images/about/shell.png" alt="Source logo" />
 						</td>
-						<th><a href="https://www.tutorialspoint.com/unix/shell_scripting.htm">Shell Scripting</a></th>
+						<th
+							><a href="https://www.tutorialspoint.com/unix/shell_scripting.htm">Shell Scripting</a
+							></th
+						>
 						<th>Linux</th>
 					</tr>
 				</tbody>
