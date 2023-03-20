@@ -25,7 +25,7 @@
 	},
 	{
 		"title": "Database SQL System",
-		"description": "Made Student directory system using only SQL and Java with minimalistic GUI with less less memory consumption.",
+		"description": "Made Student directory system using only SQL and Java with minimalistic GUI with less memory consumption.",
 		"link": "https://github.com/abhishzk/database-jdbc-assignment",
 		"image": "/images/projects/sql.png"
 	},
