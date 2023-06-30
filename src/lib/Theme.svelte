@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 
-	export let darkMode = true;
+	export let darkMode = false; //setting light default
 
 	function handleSwitchDarkMode() {
 		darkMode = !darkMode;
@@ -19,8 +19,8 @@
 
 	if (browser) {
 		if (
-			localStorage.theme === 'light' ||
-			(!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)
+			localStorage.theme === 'dark' ||
+			(!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
 		) {
 			document.documentElement.classList.add('dark');
 			document.documentElement.setAttribute('data-theme', 'dark');
