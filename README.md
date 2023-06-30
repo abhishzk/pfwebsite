@@ -1,7 +1,7 @@
 # abhishzk.com
 
 Deployment:  
-[![Netlify Status](https://api.netlify.com/api/v1/badges/d3b36ccb-91ce-429b-8771-76e25a282716/deploy-status)](https://app.netlify.com/sites/regal-gelato-46596b/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d3b36ccb-91ce-429b-8771-76e25a282716/deploy-status)](https://app.netlify.com/sites/abhishzk-gelato/deploys)
 
 ## Developing
 
