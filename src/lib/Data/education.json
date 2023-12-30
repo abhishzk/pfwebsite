@@ -1,6 +1,13 @@
 [
 	{
 		"institution": "Technological University of Shannon: Athlone",
+		"role": "M.E Engineering Management",
+		"location": "Athlone, IE",
+		"duration": "2023 - 2024",
+		"short": "tusme"
+	},
+	{
+		"institution": "Technological University of Shannon: Athlone",
 		"role": "B.E(Hons) Software Engineering",
 		"location": "Athlone, IE",
 		"duration": "2020 - 2021",
@@ -12,12 +19,5 @@
 		"location": "Pune, IN",
 		"duration": "2016 - 2019",
 		"short": "amp"
-	},
-	{
-		"institution": "Army Public School",
-		"role": "Army Student Welfare Scholorship",
-		"location": "Jhansi, IN",
-		"duration": "2013 - 2015",
-		"short": "apsj"
 	}
 ]

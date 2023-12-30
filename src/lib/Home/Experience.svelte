@@ -129,6 +129,7 @@
 <style>
 	.step-icon-mastercard:after,
 	.step-icon-infosys:after,
+	.step-icon-tusme:after,
 	.step-icon-tus:after,
 	.step-icon-amp:after,
 	.step-icon-apsj:after {
@@ -148,6 +149,11 @@
 
 	.step-icon-vidac:after {
 		background-image: url('/images/experience/vidac.webp');
+		background-size: 75%;
+	}
+
+	.step-icon-tusme:after {
+		background-image: url('/images/experience/tusme.webp');
 		background-size: 75%;
 	}
 
