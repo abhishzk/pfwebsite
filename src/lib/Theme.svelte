@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 
-	export let darkMode = false; //setting light default
+	export let darkMode = true; //setting light default
 
 	function handleSwitchDarkMode() {
 		darkMode = !darkMode;
@@ -19,15 +19,15 @@
 
 	if (browser) {
 		if (
-			localStorage.theme === 'dark' ||
-			(!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+			localStorage.theme === 'light' ||
+			(!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)
 		) {
 			document.documentElement.classList.add('dark');
-			document.documentElement.setAttribute('data-theme', 'dark');
+			document.documentElement.setAttribute('data-theme', 'light');
 			darkMode = true;
 		} else {
 			document.documentElement.classList.remove('dark');
-			document.documentElement.setAttribute('data-theme', 'light');
+			document.documentElement.setAttribute('data-theme', 'dark');
 			darkMode = false;
 		}
 	}
@@ -39,7 +39,7 @@
 		for="theme-toggle"
 	>
 		<input
-			checked={darkMode}
+			checked={!darkMode}
 			on:click={handleSwitchDarkMode}
 			type="checkbox"
 			id="theme-toggle"
