@@ -1,5 +1,11 @@
 [
 	{
+		"title": "Data Visualization",
+		"description": "Visualizing the India's development journey through 10 correlation points which are shown in public tableau.",
+		"link": "https://public.tableau.com/views/Data-DrivenVisualizationofIndiasDevlopmentJourney/1a-pie?:language=en-GB&:display_count=n&:origin=viz_share_link",
+		"image": "/images/projects/dataviz.png"
+	},
+	{
 		"title": "Semantic Segmentation",
 		"description": "Semantic segmentation is about automatically extracting information from images.",
 		"link": "https://github.com/abhishzk/semantic-segmentation",
