@@ -27,7 +27,9 @@
 		<label for="mail" class="modal modal-bottom cursor-pointer sm:modal-middle">
 			<label class="modal-box" for="">
 				<div class="overflow-x-auto w-full">
-					<a href="mailto:abhishzk.ie@gmail.com?subject=Email from portfolio" class="text-black">Send Email</a>
+					<a href="mailto:abhishzk.ie@gmail.com?subject=Email from portfolio" class="text-black"
+						>Send Email</a
+					>
 				</div>
 			</label>
 		</label>

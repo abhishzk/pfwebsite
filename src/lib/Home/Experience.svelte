@@ -152,10 +152,10 @@
 		background-size: 75%;
 	}
 
-    .step-icon-tusme:after {
-        background-image: url('/images/experience/tusme.webp');
-        background-size: 75%;
-    }
+	.step-icon-tusme:after {
+		background-image: url('/images/experience/tusme.webp');
+		background-size: 75%;
+	}
 
 	.step-icon-tus:after {
 		background-image: url('/images/experience/tus.webp');
