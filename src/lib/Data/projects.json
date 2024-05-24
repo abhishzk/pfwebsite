@@ -1,5 +1,11 @@
 [
 	{
+		"title": "Construction Cost Analysis",
+		"description": "Objective of this project is to utilise data analytics to design a highly accurate predictive model for building costs.",
+		"link": "https://rpubs.com/abhishzk/icc-cost-analysis",
+		"image": "/images/projects/icc.png"
+	},
+	{
 		"title": "Data Visualization",
 		"description": "Visualizing the India's development journey through 10 correlation points which are shown in public tableau.",
 		"link": "https://public.tableau.com/views/Data-DrivenVisualizationofIndiasDevlopmentJourney/1a-pie?:language=en-GB&:display_count=n&:origin=viz_share_link",
