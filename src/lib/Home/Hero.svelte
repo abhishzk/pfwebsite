@@ -115,7 +115,9 @@
 	}
 
 	function resetTransform() {
-		const imgElement = heroContainer?.querySelector('.img-container img') as HTMLImageElement | null;
+		const imgElement = heroContainer?.querySelector(
+			'.img-container img'
+		) as HTMLImageElement | null;
 		if (imgElement) {
 			imgElement.style.transform = 'translate(0, 0)';
 		}
