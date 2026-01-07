@@ -137,34 +137,34 @@
 		background-position: center;
 	}
 
-	.step-icon-mastercard:after {
-		background-image: url('/images/experience/mastercard.webp');
-		background-size: 50%;
+	.step-icon-wfp:after {
+		background-image: url('/images/experience/wfp.webp');
+		background-size: 100%;
 	}
 
-	.step-icon-infosys:after {
-		background-image: url('/images/experience/infosys.webp');
-		background-size: 75%;
+	.step-icon-speeir:after {
+		background-image: url('/images/experience/speeir.webp');
+		background-size: 100%;
 	}
 
-	.step-icon-vidac:after {
-		background-image: url('/images/experience/vidac.webp');
-		background-size: 75%;
+	.step-icon-look:after {
+		background-image: url('/images/experience/look.webp');
+		background-size: 100%;
 	}
 
 	.step-icon-tusme:after {
 		background-image: url('/images/experience/tusme.webp');
-		background-size: 75%;
+		background-size: 100%;
 	}
 
 	.step-icon-tus:after {
 		background-image: url('/images/experience/tus.webp');
-		background-size: 75%;
+		background-size: 100%;
 	}
 
 	.step-icon-amp:after {
 		background-image: url('/images/experience/amp.webp');
-		background-size: 60%;
+		background-size: 100%;
 	}
 
 	.step-icon-apsj:after {

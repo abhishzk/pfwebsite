@@ -1,3 +1,15 @@
+<script lang="ts">
+	let copyButtonText = 'Copy';
+
+	function copyEmail() {
+		navigator.clipboard.writeText('abhishzk.ie@gmail.com');
+		copyButtonText = 'Copied!';
+		setTimeout(() => {
+			copyButtonText = 'Copy';
+		}, 2000);
+	}
+</script>
+
 <footer
 	class="footer items-center p-4 bg-neutral text-neutral-content justify-between grid-flow-col mt-12"
 >
@@ -24,15 +36,58 @@
 		>
 
 		<input type="checkbox" id="mail" class="modal-toggle" />
-		<label for="mail" class="modal modal-bottom cursor-pointer sm:modal-middle">
-			<label class="modal-box" for="">
-				<div class="overflow-x-auto w-full">
-					<a href="mailto:abhishzk.ie@gmail.com?subject=Email from portfolio" class="text-black"
-						>Send Email</a
+		<div class="modal modal-bottom sm:modal-middle">
+			<div class="modal-box">
+				<h3 class="font-bold text-lg mb-4">Get in Touch</h3>
+				<div class="flex flex-col gap-4">
+					<div class="flex items-center gap-3 p-3 bg-base-200 rounded-lg">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<rect x="2" y="4" width="20" height="16" rx="2" />
+							<path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+						</svg>
+						<span class="font-mono text-sm">abhishzk.ie@gmail.com</span>
+						<button class="btn btn-sm btn-ghost ml-auto" on:click={copyEmail}>
+							{copyButtonText}
+						</button>
+					</div>
+					<a
+						href="mailto:abhishzk.ie@gmail.com?subject=Hi Abhishek, I'm interested in your work"
+						class="btn btn-primary w-full"
 					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="mr-2"
+						>
+							<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+							<polyline points="22,6 12,13 2,6" />
+						</svg>
+						Send Email
+					</a>
 				</div>
-			</label>
-		</label>
+				<div class="modal-action">
+					<label for="mail" class="btn">Close</label>
+				</div>
+			</div>
+			<label class="modal-backdrop" for="mail">Close</label>
+		</div>
 		<a href="https://github.com/abhishzk"
 			><svg
 				xmlns="http://www.w3.org/2000/svg"

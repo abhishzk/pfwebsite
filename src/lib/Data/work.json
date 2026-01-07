@@ -1,23 +1,23 @@
 [
 	{
-		"institution": "Mastercard",
-		"role": "Software Engineer",
+		"institution": "Watt Footprint",
+		"role": " Product Owner",
 		"location": "Dublin, IE",
-		"duration": "June 2022 - Jan 2023",
-		"short": "mastercard"
+		"duration": "July 2025 - Dec 2025",
+		"short": "wfp"
 	},
 	{
-		"institution": "Infosys BPM Ltd",
-		"role": "Business Process Consultant",
+		"institution": "Speeir Ltd",
+		"role": " Product Manager",
 		"location": "Athlone, IE",
-		"duration": "Jan 2022 - May 2022",
-		"short": "infosys"
+		"duration": "April 2025 - July 2025",
+		"short": "speeir"
 	},
 	{
-		"institution": "Vida Care",
-		"role": "IT Administrator",
-		"location": "Athlone, IE",
-		"duration": "Oct 2021 - Jan 2022",
-		"short": "vidac"
+		"institution": "Lookinit",
+		"role": "Product Owner",
+		"location": "Remote, IE",
+		"duration": "Sept 2024 - March 2025",
+		"short": "look"
 	}
 ]
