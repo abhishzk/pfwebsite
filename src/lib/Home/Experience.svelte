@@ -147,8 +147,8 @@
 		background-size: 100%;
 	}
 
-	.step-icon-look:after {
-		background-image: url('/images/experience/look.webp');
+	.step-icon-mastercard:after {
+		background-image: url('/images/experience/mastercard.webp');
 		background-size: 100%;
 	}
 
