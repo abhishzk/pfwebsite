@@ -10,7 +10,6 @@
 	import About from '$lib/Home/About.svelte';
 	import Footer from '$lib/Footer.svelte';
 	import Nav from '$lib/Nav.svelte';
-
 </script>
 
 <svelte:head>
@@ -59,4 +58,3 @@
 		site_name: 'abhishzk'
 	}}
 />
-

@@ -55,12 +55,22 @@
 		<h1 class="text-4xl ml-2">Case Study</h1>
 	</a>
 
-	<div class="flex flex-wrap items-center justify-center m-2 overflow-x-hidden w-full lg:max-w-screen-xl">
+	<div
+		class="flex flex-wrap items-center justify-center m-2 overflow-x-hidden w-full lg:max-w-screen-xl"
+	>
 		<swiper-container class="cs-swiper" init="false">
 			{#each CaseStudies as study, i}
-				<swiper-slide id="cs-slide{i}" class="cs-slide card card-compact bg-base-100 shadow-sm min-h-[450px]">
+				<swiper-slide
+					id="cs-slide{i}"
+					class="cs-slide card card-compact bg-base-100 shadow-sm min-h-[450px]"
+				>
 					<figure class="overflow-hidden rounded-t-2xl">
-						<a href={study.link} target="_blank" rel="noopener noreferrer" class="block min-h-[200px] max-h-[200px] min-w-full">
+						<a
+							href={study.link}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="block min-h-[200px] max-h-[200px] min-w-full"
+						>
 							<img
 								class="min-h-[200px] max-h-[200px] min-w-full object-cover object-top"
 								src={study.image}
@@ -79,7 +89,9 @@
 						</div>
 						<div class="card-actions items-center justify-between mt-auto">
 							<span class="text-xs opacity-50">{study.role} · {study.timeline}</span>
-							<a class="btn btn-sm" href={study.link} target="_blank" rel="noopener noreferrer">Read</a>
+							<a class="btn btn-sm" href={study.link} target="_blank" rel="noopener noreferrer"
+								>Read</a
+							>
 						</div>
 					</div>
 				</swiper-slide>

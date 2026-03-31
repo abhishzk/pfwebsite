@@ -10,7 +10,6 @@
 	}
 </script>
 
-
 <style>
 	/* Add smooth transition for theme change */
 	:root {
