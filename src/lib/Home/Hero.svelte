@@ -72,7 +72,7 @@
 
 	onMount(() => {
 		let i = 0;
-		const codeBlurb = '\tProduct Management, Engineering, Economics, Reader...';
+		const codeBlurb = '\tProduct Management, Engineering, Economics and Systems Thinking';
 		let timeoutId: ReturnType<typeof setTimeout>;
 
 		function typeWriter() {
@@ -125,7 +125,7 @@
 </script>
 
 <div
-	class="hero min-h-screen"
+	class="hero min-h-screen relative"
 	bind:this={heroContainer}
 	on:mousemove={handleMouseMove}
 	on:mouseleave={resetTransform}
@@ -158,6 +158,10 @@
 			</div>
 		</div>
 	</div>
+	<a href="#casestudy" class="case-study-link absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-60 hover:opacity-100 transition-opacity">
+		<span class="text-sm font-medium tracking-widest uppercase">Read Case Studies</span>
+		<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+	</a>
 </div>
 
 <style lang="scss">

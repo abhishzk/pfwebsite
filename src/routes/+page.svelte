@@ -5,35 +5,25 @@
 	import Hero from '$lib/Home/Hero.svelte';
 	import Projects from '$lib/Home/Projects.svelte';
 	import Experience from '$lib/Home/Experience.svelte';
+	import CaseStudy from '$lib/Home/CaseStudy.svelte';
 	import Activity from '$lib/Home/Activity.svelte';
 	import About from '$lib/Home/About.svelte';
 	import Footer from '$lib/Footer.svelte';
+	import Nav from '$lib/Nav.svelte';
 
-	function smoothlyScrollUp() {
-		window.scrollTo({ top: 0, behavior: 'smooth' });
-	}
 </script>
 
 <svelte:head>
 	<title>Abhishek Kumar</title>
 </svelte:head>
 
-<div class="h-0 m-0">
-	<button on:click={smoothlyScrollUp}>
-		<img
-			width="42"
-			height="42"
-			src="favicon.png"
-			alt="Website logo"
-			class="logo z-10 cursor-pointer h-8 w-8 fixed top-5 left-6 grayscale"
-		/>
-	</button>
-</div>
-
 <Theme />
+<Nav />
 <Hero />
 <div class="divider" />
 <Experience />
+<div class="divider" />
+<CaseStudy />
 <div class="divider" />
 <Projects />
 <div class="divider" />
@@ -70,8 +60,3 @@
 	}}
 />
 
-<style>
-	.logo:hover {
-		filter: grayscale(0%);
-	}
-</style>

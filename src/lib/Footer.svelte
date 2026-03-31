@@ -123,7 +123,7 @@
 			></a
 		>
 		<a
-			href="/abhishek-kumar-resume.pdf"
+			href="/Abhishek_Kumar_Resume.pdf"
 			target="_blank"
 			rel="noopener noreferrer"
 			aria-label="View resume PDF in new tab"

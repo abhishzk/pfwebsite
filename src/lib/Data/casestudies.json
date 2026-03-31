@@ -1,0 +1,20 @@
+[
+	{
+		"title": "Rebuilding a broken energy bill pipeline — twice",
+		"description": "A direct OpenAI extraction system that no one trusted. Three iterations later: AWS Textract, OpenAI reasoning model validation, a HITL confidence threshold, and 95% PDF accuracy across Ireland, UK, and UAE billing formats.",
+		"tags": ["AI / ML Product", "Energy Tech", "B2B SaaS"],
+		"role": "Product Owner",
+		"timeline": "Jul – Dec 2025",
+		"image": "/images/casestudies/bill-reader-v3.png",
+		"link": "/casestudies/bill-reader-v3.html"
+	},
+	{
+		"title": "From passive pilots to active energy management",
+		"description": "13 enterprise accounts, 7 sprints delivered at 100%, a full platform redesign across web and mobile, and measurable depth of engagement across every core feature by December 2025.",
+		"tags": ["Platform Delivery", "Team Management", "Analytics"],
+		"role": "Product Owner",
+		"timeline": "Jul – Dec 2025",
+		"image": "/images/casestudies/wfp-platform.png",
+		"link": "/casestudies/platform-delivery.html"
+	}
+]

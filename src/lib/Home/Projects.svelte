@@ -15,7 +15,7 @@
 	// But passing as parameters results in a number of run-time errors
 	onMount(async () => {
 		register();
-		const swiperEl = <any>document.querySelector('swiper-container');
+		const swiperEl = <any>document.querySelector('swiper-container.proj-swiper');
 		const swiperParams = {
 			slidesPerView: 1,
 			rewind: true,
@@ -63,7 +63,7 @@
 	<div
 		class="flex flex-wrap items-center justify-center m-2 overflow-x-hidden w-full lg:max-w-screen-xl"
 	>
-		<swiper-container init="false">
+		<swiper-container class="proj-swiper" init="false">
 			{#each Projects as project, i}
 				<swiper-slide
 					id="slide{i}"
