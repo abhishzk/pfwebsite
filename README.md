@@ -42,4 +42,4 @@ The public resume is generated from `scripts/build-resume.py` and published at
 Netlify builds the site with `npm run build` using the dedicated Netlify adapter. Legacy
 case-study URLs redirect through both SvelteKit server handling and the root `_redirects` file.
 
-Publish the linked production site with `npm run deploy`.
+Publish the linked production site with Netlify CLI 27.4.2 or newer.
