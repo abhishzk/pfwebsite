@@ -50,7 +50,7 @@
 	.metric span {
 		max-width: 18ch;
 		color: var(--muted);
-		font-size: 0.8rem;
+		font-size: 0.95rem;
 		font-weight: 600;
 		line-height: 1.4;
 	}
@@ -58,7 +58,7 @@
 	.metric small {
 		color: var(--faint);
 		font-family: 'IBM Plex Mono', ui-monospace, monospace;
-		font-size: 0.6rem;
+		font-size: 0.72rem;
 	}
 
 	.compact {

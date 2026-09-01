@@ -42,7 +42,7 @@
 		display: block;
 		margin-bottom: 12px;
 		color: var(--accent-strong);
-		font-size: 0.64rem;
+		font-size: 0.74rem;
 		text-transform: uppercase;
 	}
 

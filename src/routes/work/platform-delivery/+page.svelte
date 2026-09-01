@@ -236,7 +236,7 @@
 
 	.tier-grid p {
 		margin: 0 !important;
-		font-size: 0.8rem !important;
+		font-size: 0.9rem !important;
 	}
 
 	.adoption-grid article {
@@ -251,7 +251,7 @@
 
 	.adoption-grid span {
 		color: var(--muted);
-		font-size: 0.72rem;
+		font-size: 0.8rem;
 		line-height: 1.5;
 	}
 
@@ -277,7 +277,7 @@
 
 	.delivery-groups p {
 		margin: 0 !important;
-		font-size: 0.8rem !important;
+		font-size: 0.9rem !important;
 	}
 
 	@media (max-width: 650px) {

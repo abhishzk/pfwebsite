@@ -58,19 +58,19 @@
 		align-content: start;
 		gap: 8px;
 		color: var(--faint);
-		font-size: 0.75rem;
+		font-size: 0.82rem;
 	}
 
 	.timeline-meta .mono {
 		color: var(--ink);
-		font-size: 0.68rem;
+		font-size: 0.78rem;
 		text-transform: uppercase;
 	}
 
 	.company {
 		margin-bottom: 6px;
 		color: var(--accent-strong);
-		font-size: 0.88rem;
+		font-size: 1rem;
 		font-weight: 700;
 	}
 
@@ -97,7 +97,7 @@
 	.timeline-copy li {
 		padding-top: 14px;
 		border-top: 2px solid var(--line);
-		font-size: 0.78rem;
+		font-size: 0.9rem;
 		line-height: 1.55;
 	}
 

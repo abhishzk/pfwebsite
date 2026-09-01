@@ -30,7 +30,7 @@
 <header class="site-header">
 	<div class="header-inner">
 		<a class="wordmark" href="/" on:click={closeMenu} aria-label="Abhishek Kumar home">
-			<span class="mark" aria-hidden="true">AK</span>
+			<img class="mark" src="/images/ak-mark.svg" alt="" width="38" height="29" />
 			<span>Abhishek Kumar</span>
 		</a>
 
@@ -92,16 +92,9 @@
 	}
 
 	.mark {
-		display: grid;
-		width: 34px;
-		height: 34px;
-		place-items: center;
-		border-radius: var(--radius);
-		background: var(--ink);
-		color: var(--page);
-		font-family: 'IBM Plex Mono', ui-monospace, monospace;
-		font-size: 0.68rem;
-		letter-spacing: 0;
+		width: 38px;
+		height: 29px;
+		flex: 0 0 auto;
 	}
 
 	nav {
@@ -112,7 +105,7 @@
 
 	nav > a:not(.header-cta) {
 		color: var(--muted);
-		font-size: 0.82rem;
+		font-size: 0.88rem;
 		font-weight: 600;
 		transition: color 180ms ease;
 	}
@@ -145,7 +138,7 @@
 		color: var(--ink);
 		cursor: pointer;
 		font-family: 'IBM Plex Mono', ui-monospace, monospace;
-		font-size: 0.72rem;
+		font-size: 0.78rem;
 		font-weight: 500;
 		text-transform: uppercase;
 	}
@@ -202,8 +195,8 @@
 		}
 
 		.mark {
-			width: 30px;
-			height: 30px;
+			width: 34px;
+			height: 26px;
 		}
 
 		nav.open {

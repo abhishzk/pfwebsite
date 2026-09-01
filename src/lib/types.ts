@@ -41,5 +41,5 @@ export interface Credential {
 export interface ExternalLink {
 	label: string;
 	href: string;
-	event: 'contact_click' | 'resume_download' | 'linkedin_click' | 'product_visit';
+	event: 'contact_click' | 'resume_download' | 'linkedin_click' | 'github_click' | 'product_visit';
 }

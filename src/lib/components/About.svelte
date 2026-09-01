@@ -74,12 +74,12 @@
 	.credentials p {
 		margin-bottom: 8px;
 		color: var(--muted);
-		font-size: 0.82rem;
+		font-size: 0.92rem;
 	}
 
 	.credentials span {
 		color: var(--accent-strong);
-		font-size: 0.64rem;
+		font-size: 0.74rem;
 	}
 
 	@media (max-width: 850px) {

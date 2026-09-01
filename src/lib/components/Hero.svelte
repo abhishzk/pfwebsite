@@ -1,6 +1,23 @@
 <script lang="ts">
 	import { trackEvent } from '$lib/analytics';
 	import { externalLinks } from '$lib/data/portfolio';
+
+	let portraitFrame: HTMLDivElement;
+
+	function handlePortraitMove(event: PointerEvent) {
+		if (!portraitFrame || event.pointerType === 'touch') return;
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		const bounds = portraitFrame.getBoundingClientRect();
+		const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+		const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+		portraitFrame.style.setProperty('--tilt-x', `${y * -4}deg`);
+		portraitFrame.style.setProperty('--tilt-y', `${x * 4}deg`);
+	}
+
+	function resetPortrait() {
+		portraitFrame?.style.setProperty('--tilt-x', '0deg');
+		portraitFrame?.style.setProperty('--tilt-y', '0deg');
+	}
 </script>
 
 <section class="hero">
@@ -28,7 +45,14 @@
 		</div>
 
 		<div class="portrait-wrap">
-			<div class="portrait-frame">
+			<div
+				class="portrait-frame"
+				role="presentation"
+				bind:this={portraitFrame}
+				on:pointermove={handlePortraitMove}
+				on:pointerleave={resetPortrait}
+				on:pointercancel={resetPortrait}
+			>
 				<img
 					src="/images/headshot.webp"
 					srcset="/images/headshot-480.webp 480w, /images/headshot-800.webp 800w, /images/headshot.webp 1024w"
@@ -108,6 +132,10 @@
 		border-radius: var(--radius);
 		background: var(--surface-soft);
 		box-shadow: var(--shadow);
+		transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+		transform-style: preserve-3d;
+		transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+		will-change: transform;
 	}
 
 	.portrait-frame::before {
@@ -127,6 +155,7 @@
 		object-fit: cover;
 		object-position: center top;
 		filter: saturate(0.8) contrast(1.02);
+		transform: translateZ(8px) scale(1.01);
 	}
 
 	.portrait-note {
@@ -134,12 +163,12 @@
 		gap: 4px;
 		padding-top: 16px;
 		color: var(--muted);
-		font-size: 0.76rem;
+		font-size: 0.82rem;
 	}
 
 	.portrait-note .mono {
 		color: var(--ink);
-		font-size: 0.68rem;
+		font-size: 0.74rem;
 		text-transform: uppercase;
 	}
 

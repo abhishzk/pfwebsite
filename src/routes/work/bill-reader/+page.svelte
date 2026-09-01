@@ -186,8 +186,8 @@
 			</div>
 		</div>
 		<p>
-			The result was 95% accuracy for PDF bills, 80% for image-based bills, and roughly 80% less
-			processing time. The human role shifted from data entry and calculation to focused
+			The result was 95% accurate document processing, 80% for image-based bills, and roughly 80%
+			less processing time. The human role shifted from data entry and calculation to focused
 			verification.
 		</p>
 	</CaseStudySection>
@@ -242,7 +242,7 @@
 	.constraint-grid span,
 	.score-grid span {
 		color: var(--muted);
-		font-size: 0.72rem;
+		font-size: 0.8rem;
 		line-height: 1.5;
 	}
 
@@ -263,7 +263,7 @@
 		display: block;
 		margin-bottom: 8px;
 		color: var(--accent-strong);
-		font-size: 0.62rem;
+		font-size: 0.72rem;
 		text-transform: uppercase;
 	}
 
@@ -274,7 +274,7 @@
 
 	.version-list p {
 		margin: 0 !important;
-		font-size: 0.8rem !important;
+		font-size: 0.9rem !important;
 	}
 
 	.pipeline {
@@ -288,7 +288,7 @@
 		background: var(--ink);
 		color: var(--page);
 		font-family: 'IBM Plex Mono', ui-monospace, monospace;
-		font-size: 0.68rem;
+		font-size: 0.76rem;
 	}
 
 	.pipeline b {
@@ -325,7 +325,7 @@
 
 	.before-after p {
 		margin: 0 !important;
-		font-size: 0.8rem !important;
+		font-size: 0.9rem !important;
 	}
 
 	@media (max-width: 650px) {

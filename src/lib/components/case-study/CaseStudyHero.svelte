@@ -55,7 +55,7 @@
 		gap: 8px;
 		margin-bottom: clamp(52px, 8vw, 88px);
 		color: var(--muted);
-		font-size: 0.78rem;
+		font-size: 0.86rem;
 		font-weight: 650;
 	}
 
@@ -74,7 +74,7 @@
 	.case-domains {
 		margin-bottom: 16px;
 		color: var(--accent-strong);
-		font-size: 0.67rem;
+		font-size: 0.76rem;
 		font-weight: 500;
 		text-transform: uppercase;
 	}
@@ -106,7 +106,7 @@
 		margin-bottom: 5px;
 		color: var(--faint);
 		font-family: 'IBM Plex Mono', ui-monospace, monospace;
-		font-size: 0.62rem;
+		font-size: 0.72rem;
 		text-transform: uppercase;
 	}
 

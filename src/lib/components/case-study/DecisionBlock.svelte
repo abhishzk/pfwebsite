@@ -23,7 +23,7 @@
 		display: block;
 		margin-bottom: 10px;
 		color: var(--accent-strong);
-		font-size: 0.62rem;
+		font-size: 0.72rem;
 		text-transform: uppercase;
 	}
 

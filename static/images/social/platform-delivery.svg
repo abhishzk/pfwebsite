@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
   <rect width="1200" height="630" fill="#f3f5f7"/>
+  <g transform="translate(1068 54) scale(1.7)" fill="#2456d8"><path d="M17.803 8.818 26.818 0l.043 8.773-8.835 8.965 8.641-.012 9.024 9.017h-8.806l-9.037-8.855c-2.974 2.901-5.937 5.999-8.955 8.855-2.899-.057-5.81.066-8.893 0 .037-.281 8.908-8.99 8.908-8.99l8.789-.003L8.864 8.803S8.858 2.489 8.792.119c-.002-.051.059-.09.059-.09l1.176 1.095 7.776 7.694Z"/></g>
   <text x="72" y="78" fill="#2456d8" font-family="IBM Plex Mono, monospace" font-size="18" letter-spacing="2">B2B SAAS / PLATFORM ADOPTION</text>
   <text x="72" y="158" fill="#15191f" font-family="Manrope, sans-serif" font-size="50" font-weight="650">Turning passive pilots into</text>
   <text x="72" y="218" fill="#15191f" font-family="Manrope, sans-serif" font-size="50" font-weight="650">active energy management</text>

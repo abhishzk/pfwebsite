@@ -2,7 +2,8 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.ico" sizes="any" />
+		<link rel="icon" href="%sveltekit.assets%/images/ak-mark.svg" type="image/svg+xml" />
+		<link rel="alternate icon" href="%sveltekit.assets%/favicon.ico" sizes="any" />
 		<link rel="apple-touch-icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="theme-color" content="#f3f5f7" media="(prefers-color-scheme: light)" />
@@ -10,8 +11,7 @@
 		<script>
 			(function () {
 				const stored = localStorage.getItem('theme');
-				const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-				const dark = stored === 'dark' || (!stored && systemDark);
+				const dark = stored === 'dark';
 				document.documentElement.dataset.theme = dark ? 'dark' : 'light';
 				document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
 			})();

@@ -146,6 +146,15 @@
 			>
 				Visit employer product
 			</a>
+			<a
+				class="button button-secondary"
+				href={externalLinks.visaJobsExtension.href}
+				target="_blank"
+				rel="noreferrer"
+				on:click={() => trackEvent('product_visit', { product: 'visajobs_extension' })}
+			>
+				Add Job Check extension
+			</a>
 		</div>
 	</CaseStudySection>
 
@@ -261,7 +270,7 @@
 
 	.jobs-grid p {
 		margin: 0 !important;
-		font-size: 0.78rem !important;
+		font-size: 0.88rem !important;
 		line-height: 1.55 !important;
 	}
 
@@ -294,12 +303,12 @@
 
 	.public-facts span {
 		color: var(--muted);
-		font-size: 0.7rem;
+		font-size: 0.78rem;
 		line-height: 1.45;
 	}
 
 	.verification-note {
-		font-size: 0.65rem !important;
+		font-size: 0.74rem !important;
 		text-transform: uppercase;
 	}
 

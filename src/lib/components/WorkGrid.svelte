@@ -141,7 +141,7 @@
 		margin-bottom: 16px;
 		color: var(--faint);
 		font-family: 'IBM Plex Mono', ui-monospace, monospace;
-		font-size: 0.66rem;
+		font-size: 0.76rem;
 		text-transform: uppercase;
 	}
 
@@ -187,7 +187,7 @@
 		margin-bottom: 4px;
 		color: var(--faint);
 		font-family: 'IBM Plex Mono', ui-monospace, monospace;
-		font-size: 0.62rem;
+		font-size: 0.72rem;
 		text-transform: uppercase;
 	}
 

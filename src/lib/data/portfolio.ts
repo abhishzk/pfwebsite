@@ -11,6 +11,11 @@ export const externalLinks = {
 		href: 'https://www.linkedin.com/in/abhishzk/',
 		event: 'linkedin_click'
 	},
+	github: {
+		label: 'GitHub',
+		href: 'https://github.com/abhishzk',
+		event: 'github_click'
+	},
 	resume: {
 		label: 'Resume',
 		href: '/abhishek-kumar-resume.pdf',
@@ -24,6 +29,11 @@ export const externalLinks = {
 	visaJobsEmployer: {
 		label: 'Visit employer product',
 		href: 'https://employers.visajobs.ie/',
+		event: 'product_visit'
+	},
+	visaJobsExtension: {
+		label: 'Add Job Check to Chrome',
+		href: 'https://chromewebstore.google.com/detail/visajobsie-%E2%80%94-job-check/mjhcgjigopcgpfnoekggmfhhfngekmec',
 		event: 'product_visit'
 	}
 } satisfies Record<string, ExternalLink>;
@@ -110,9 +120,9 @@ export const caseStudies: CaseStudy[] = [
 		imageHeight: 900,
 		decision:
 			'Use AWS Textract for extraction, OpenAI for structured validation, and human review below the confidence threshold.',
-		result: '95% PDF accuracy and 80% less processing time.',
+		result: '95% accurate document processing and 80% less processing time.',
 		metrics: [
-			{ value: '95%', label: 'PDF accuracy' },
+			{ value: '95%', label: 'accurate document processing' },
 			{ value: '80%', label: 'image accuracy' },
 			{ value: '80%', label: 'less processing time' }
 		]
@@ -150,7 +160,7 @@ export function getCaseStudy(slug: CaseStudy['slug']): CaseStudy {
 export const homeMetrics: CaseStudyMetric[] = [
 	{ value: '3,500+', label: 'VisaJobs candidates' },
 	{ value: '84%', label: 'platform session growth' },
-	{ value: '95%', label: 'PDF bill accuracy' },
+	{ value: '95%', label: 'accurate document processing' },
 	{ value: '28+', label: 'AI product integrations' }
 ];
 
@@ -177,7 +187,7 @@ export const experience: Experience[] = [
 			'Owned product delivery for an enterprise energy platform across billing, analytics, onboarding, and international expansion.',
 		outcomes: [
 			'Increased external sessions by 84% through instrumented product iteration.',
-			'Shipped bill automation at 95% PDF accuracy.',
+			'Shipped bill automation with 95% accurate document processing.',
 			'Coordinated a nine-person internal and external delivery group.'
 		]
 	},
