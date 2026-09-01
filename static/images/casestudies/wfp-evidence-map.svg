@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Watt Footprint product operating model</title>
+  <desc id="desc">Customer behavior and product evidence informed prioritization, coordinated delivery, and enterprise adoption outcomes.</desc>
+  <rect width="1600" height="900" fill="#111419"/>
+  <text x="96" y="112" fill="#7fa2ff" font-family="IBM Plex Mono, monospace" font-size="22" letter-spacing="2">PLATFORM DELIVERY</text>
+  <text x="96" y="188" fill="#f0f3f6" font-family="Manrope, sans-serif" font-size="54" font-weight="650">From pilot access to operational use</text>
+  <text x="96" y="236" fill="#a7b0bb" font-family="Manrope, sans-serif" font-size="24">Customer evidence shaped the roadmap. Delivery structure made it repeatable.</text>
+
+  <g transform="translate(96 330)">
+    <rect width="400" height="318" rx="8" fill="#191d23" stroke="#303741" stroke-width="2"/>
+    <text x="30" y="52" fill="#7fa2ff" font-family="IBM Plex Mono, monospace" font-size="18">01 EVIDENCE</text>
+    <text x="30" y="110" fill="#f0f3f6" font-family="Manrope, sans-serif" font-size="32" font-weight="650">Understand real use</text>
+    <text x="30" y="166" fill="#a7b0bb" font-family="Manrope, sans-serif" font-size="21">Amplitude behavior</text>
+    <text x="30" y="206" fill="#a7b0bb" font-family="Manrope, sans-serif" font-size="21">Customer feedback</text>
+    <text x="30" y="246" fill="#a7b0bb" font-family="Manrope, sans-serif" font-size="21">Production performance</text>
+  </g>
+  <path d="M516 489H578" stroke="#7fa2ff" stroke-width="4"/>
+  <path d="m570 479 12 10-12 10" fill="none" stroke="#7fa2ff" stroke-width="4"/>
+
+  <g transform="translate(598 330)">
+    <rect width="400" height="318" rx="8" fill="#191d23" stroke="#303741" stroke-width="2"/>
+    <text x="30" y="52" fill="#7fa2ff" font-family="IBM Plex Mono, monospace" font-size="18">02 DECISIONS</text>
+    <text x="30" y="110" fill="#f0f3f6" font-family="Manrope, sans-serif" font-size="32" font-weight="650">Prioritize depth</text>
+    <text x="30" y="166" fill="#a7b0bb" font-family="Manrope, sans-serif" font-size="21">Budgets and alerts</text>
+    <text x="30" y="206" fill="#a7b0bb" font-family="Manrope, sans-serif" font-size="21">Reports and bills</text>
+    <text x="30" y="246" fill="#a7b0bb" font-family="Manrope, sans-serif" font-size="21">Performance and stability</text>
+  </g>
+  <path d="M1018 489H1080" stroke="#7fa2ff" stroke-width="4"/>
+  <path d="m1072 479 12 10-12 10" fill="none" stroke="#7fa2ff" stroke-width="4"/>
+
+  <g transform="translate(1100 330)">
+    <rect width="404" height="318" rx="8" fill="#202c4c" stroke="#7fa2ff" stroke-width="2"/>
+    <text x="30" y="52" fill="#a7beff" font-family="IBM Plex Mono, monospace" font-size="18">03 OUTCOMES</text>
+    <text x="30" y="120" fill="#f0f3f6" font-family="IBM Plex Mono, monospace" font-size="56">84%</text>
+    <text x="30" y="156" fill="#a7b0bb" font-family="Manrope, sans-serif" font-size="20">session growth</text>
+    <text x="220" y="120" fill="#f0f3f6" font-family="IBM Plex Mono, monospace" font-size="56">100%</text>
+    <text x="220" y="156" fill="#a7b0bb" font-family="Manrope, sans-serif" font-size="20">logo retention</text>
+    <text x="30" y="242" fill="#a7b0bb" font-family="Manrope, sans-serif" font-size="21">Seven completed sprints</text>
+  </g>
+
+  <text x="96" y="760" fill="#8b95a2" font-family="IBM Plex Mono, monospace" font-size="19">AMPLITUDE  /  CUSTOMER SIGNALS  /  RELEASE QUALITY  /  INTERNATIONAL DELIVERY</text>
+</svg>

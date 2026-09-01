@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f3f5f7"/>
+  <rect x="824" width="376" height="630" fill="#2456d8"/>
+  <text x="72" y="82" fill="#2456d8" font-family="IBM Plex Mono, monospace" font-size="18" letter-spacing="2">PRODUCT MANAGER / DUBLIN</text>
+  <text x="72" y="172" fill="#15191f" font-family="Manrope, sans-serif" font-size="58" font-weight="650">Abhishek Kumar</text>
+  <text x="72" y="244" fill="#15191f" font-family="Manrope, sans-serif" font-size="42" font-weight="600">Useful, data-rich products.</text>
+  <text x="72" y="294" fill="#5d6672" font-family="Manrope, sans-serif" font-size="24">AI, B2B SaaS, energy and fintech</text>
+  <line x1="72" y1="382" x2="750" y2="382" stroke="#d5dbe2" stroke-width="2"/>
+  <text x="72" y="444" fill="#15191f" font-family="IBM Plex Mono, monospace" font-size="34">3,500+</text>
+  <text x="72" y="478" fill="#5d6672" font-family="Manrope, sans-serif" font-size="18">VisaJobs candidates</text>
+  <text x="318" y="444" fill="#15191f" font-family="IBM Plex Mono, monospace" font-size="34">84%</text>
+  <text x="318" y="478" fill="#5d6672" font-family="Manrope, sans-serif" font-size="18">session growth</text>
+  <text x="540" y="444" fill="#15191f" font-family="IBM Plex Mono, monospace" font-size="34">95%</text>
+  <text x="540" y="478" fill="#5d6672" font-family="Manrope, sans-serif" font-size="18">PDF accuracy</text>
+  <text x="1012" y="290" fill="#ffffff" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="110" font-weight="500">AK</text>
+  <text x="1012" y="354" fill="#dfe7fb" text-anchor="middle" font-family="Manrope, sans-serif" font-size="22">Product leadership</text>
+  <text x="1012" y="392" fill="#dfe7fb" text-anchor="middle" font-family="Manrope, sans-serif" font-size="22">with technical depth</text>
+  <text x="72" y="572" fill="#7b8490" font-family="IBM Plex Mono, monospace" font-size="18">ABHISHZK.COM</text>
+</svg>

@@ -2,6 +2,12 @@
 node_modules
 /build
 /.svelte-kit
+/.netlify/functions-internal
+/.netlify/functions
+/.netlify/netlify.toml
+/.netlify/server
+/.netlify/serverless.js
+/.netlify/shims.js
 /package
 .env
 .env.*

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#111419"/>
+  <text x="72" y="78" fill="#7fa2ff" font-family="IBM Plex Mono, monospace" font-size="18" letter-spacing="2">AI PRODUCT / ENERGY SAAS</text>
+  <text x="72" y="158" fill="#f0f3f6" font-family="Manrope, sans-serif" font-size="50" font-weight="650">Rebuilding an energy bill</text>
+  <text x="72" y="218" fill="#f0f3f6" font-family="Manrope, sans-serif" font-size="50" font-weight="650">pipeline people could trust</text>
+  <g transform="translate(72 302)">
+    <rect width="244" height="112" rx="8" fill="#191d23" stroke="#303741"/>
+    <text x="20" y="46" fill="#a7b0bb" font-family="IBM Plex Mono, monospace" font-size="15">EXTRACT</text>
+    <text x="20" y="82" fill="#f0f3f6" font-family="Manrope, sans-serif" font-size="24">AWS Textract</text>
+    <path d="M264 56H314" stroke="#7fa2ff" stroke-width="4"/>
+    <rect x="334" width="244" height="112" rx="8" fill="#191d23" stroke="#303741"/>
+    <text x="354" y="46" fill="#a7b0bb" font-family="IBM Plex Mono, monospace" font-size="15">VALIDATE</text>
+    <text x="354" y="82" fill="#f0f3f6" font-family="Manrope, sans-serif" font-size="24">OpenAI</text>
+    <path d="M598 56H648" stroke="#7fa2ff" stroke-width="4"/>
+    <rect x="668" width="244" height="112" rx="8" fill="#202c4c" stroke="#7fa2ff"/>
+    <text x="688" y="46" fill="#a7beff" font-family="IBM Plex Mono, monospace" font-size="15">ROUTE</text>
+    <text x="688" y="82" fill="#f0f3f6" font-family="Manrope, sans-serif" font-size="24">Review or save</text>
+  </g>
+  <text x="72" y="500" fill="#f0f3f6" font-family="IBM Plex Mono, monospace" font-size="34">95% PDF accuracy</text>
+  <text x="452" y="500" fill="#f0f3f6" font-family="IBM Plex Mono, monospace" font-size="34">80% less time</text>
+  <text x="72" y="568" fill="#8b95a2" font-family="IBM Plex Mono, monospace" font-size="18">ABHISHEK KUMAR / PRODUCT CASE STUDY</text>
+</svg>

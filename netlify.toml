@@ -2,7 +2,12 @@
   command = "npm run build"
   publish = "build"
 
-# [[redirects]]
-#   from = "/.well-known/webfinger"
-#   to = "https://universeodon.com/.well-known/webfinger?resource=acct:Novatorem@universeodon.com"
-#   status = 200
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    cache-control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/abhishek-kumar-resume.pdf"
+  [headers.values]
+    cache-control = "public, max-age=3600, must-revalidate"

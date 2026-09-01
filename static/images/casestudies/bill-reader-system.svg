@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Bill Reader production workflow</title>
+  <desc id="desc">Energy bills move from upload to AWS Textract extraction, OpenAI structured validation, human review for low-confidence results, and storage for trusted results.</desc>
+  <rect width="1600" height="900" fill="#f3f5f7"/>
+  <text x="96" y="112" fill="#2456d8" font-family="IBM Plex Mono, monospace" font-size="22" letter-spacing="2">PRODUCTION WORKFLOW</text>
+  <text x="96" y="188" fill="#15191f" font-family="Manrope, sans-serif" font-size="54" font-weight="650">A trust layer for energy bill data</text>
+  <text x="96" y="236" fill="#5d6672" font-family="Manrope, sans-serif" font-size="24">Each tool handles the job it does best. Uncertainty is routed, not hidden.</text>
+
+  <g transform="translate(96 330)">
+    <rect width="260" height="250" rx="8" fill="#ffffff" stroke="#d5dbe2" stroke-width="2"/>
+    <text x="28" y="48" fill="#7b8490" font-family="IBM Plex Mono, monospace" font-size="18">01 INPUT</text>
+    <text x="28" y="102" fill="#15191f" font-family="Manrope, sans-serif" font-size="30" font-weight="650">Bill upload</text>
+    <text x="28" y="146" fill="#5d6672" font-family="Manrope, sans-serif" font-size="20">PDF or image</text>
+    <text x="28" y="178" fill="#5d6672" font-family="Manrope, sans-serif" font-size="20">Ireland, UK, UAE</text>
+  </g>
+  <path d="M376 455H438" stroke="#2456d8" stroke-width="4"/>
+  <path d="m430 445 12 10-12 10" fill="none" stroke="#2456d8" stroke-width="4"/>
+
+  <g transform="translate(458 330)">
+    <rect width="300" height="250" rx="8" fill="#ffffff" stroke="#d5dbe2" stroke-width="2"/>
+    <text x="28" y="48" fill="#7b8490" font-family="IBM Plex Mono, monospace" font-size="18">02 EXTRACTION</text>
+    <text x="28" y="102" fill="#15191f" font-family="Manrope, sans-serif" font-size="30" font-weight="650">AWS Textract</text>
+    <text x="28" y="146" fill="#5d6672" font-family="Manrope, sans-serif" font-size="20">OCR and field capture</text>
+    <text x="28" y="178" fill="#5d6672" font-family="Manrope, sans-serif" font-size="20">No business judgment</text>
+  </g>
+  <path d="M778 455H840" stroke="#2456d8" stroke-width="4"/>
+  <path d="m832 445 12 10-12 10" fill="none" stroke="#2456d8" stroke-width="4"/>
+
+  <g transform="translate(860 330)">
+    <rect width="300" height="250" rx="8" fill="#ffffff" stroke="#d5dbe2" stroke-width="2"/>
+    <text x="28" y="48" fill="#7b8490" font-family="IBM Plex Mono, monospace" font-size="18">03 VALIDATION</text>
+    <text x="28" y="102" fill="#15191f" font-family="Manrope, sans-serif" font-size="30" font-weight="650">OpenAI</text>
+    <text x="28" y="146" fill="#5d6672" font-family="Manrope, sans-serif" font-size="20">Structured checks</text>
+    <text x="28" y="178" fill="#5d6672" font-family="Manrope, sans-serif" font-size="20">Financial consistency</text>
+  </g>
+  <path d="M1180 455H1242" stroke="#2456d8" stroke-width="4"/>
+  <path d="m1234 445 12 10-12 10" fill="none" stroke="#2456d8" stroke-width="4"/>
+
+  <g transform="translate(1262 330)">
+    <rect width="242" height="250" rx="8" fill="#dfe7fb" stroke="#2456d8" stroke-width="2"/>
+    <text x="28" y="48" fill="#1942ad" font-family="IBM Plex Mono, monospace" font-size="18">04 ROUTING</text>
+    <text x="28" y="102" fill="#15191f" font-family="Manrope, sans-serif" font-size="30" font-weight="650">Review or save</text>
+    <text x="28" y="146" fill="#5d6672" font-family="Manrope, sans-serif" font-size="20">Below 75%: review</text>
+    <text x="28" y="178" fill="#5d6672" font-family="Manrope, sans-serif" font-size="20">Trusted: database</text>
+  </g>
+
+  <g transform="translate(96 688)">
+    <text x="0" y="0" fill="#15191f" font-family="IBM Plex Mono, monospace" font-size="42">95%</text>
+    <text x="0" y="34" fill="#5d6672" font-family="Manrope, sans-serif" font-size="18">PDF accuracy</text>
+    <text x="310" y="0" fill="#15191f" font-family="IBM Plex Mono, monospace" font-size="42">80%</text>
+    <text x="310" y="34" fill="#5d6672" font-family="Manrope, sans-serif" font-size="18">image accuracy</text>
+    <text x="620" y="0" fill="#15191f" font-family="IBM Plex Mono, monospace" font-size="42">80%</text>
+    <text x="620" y="34" fill="#5d6672" font-family="Manrope, sans-serif" font-size="18">less processing time</text>
+  </g>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f3f5f7"/>
+  <text x="72" y="78" fill="#2456d8" font-family="IBM Plex Mono, monospace" font-size="18" letter-spacing="2">B2B SAAS / PLATFORM ADOPTION</text>
+  <text x="72" y="158" fill="#15191f" font-family="Manrope, sans-serif" font-size="50" font-weight="650">Turning passive pilots into</text>
+  <text x="72" y="218" fill="#15191f" font-family="Manrope, sans-serif" font-size="50" font-weight="650">active energy management</text>
+  <g transform="translate(72 316)">
+    <rect width="310" height="138" rx="8" fill="#ffffff" stroke="#d5dbe2"/>
+    <text x="24" y="46" fill="#7b8490" font-family="IBM Plex Mono, monospace" font-size="16">EVIDENCE</text>
+    <text x="24" y="88" fill="#15191f" font-family="Manrope, sans-serif" font-size="25">Amplitude behavior</text>
+    <path d="M330 69H380" stroke="#2456d8" stroke-width="4"/>
+    <rect x="400" width="310" height="138" rx="8" fill="#ffffff" stroke="#d5dbe2"/>
+    <text x="424" y="46" fill="#7b8490" font-family="IBM Plex Mono, monospace" font-size="16">PRIORITY</text>
+    <text x="424" y="88" fill="#15191f" font-family="Manrope, sans-serif" font-size="25">Depth of use</text>
+    <path d="M730 69H780" stroke="#2456d8" stroke-width="4"/>
+    <rect x="800" width="310" height="138" rx="8" fill="#dfe7fb" stroke="#2456d8"/>
+    <text x="824" y="46" fill="#1942ad" font-family="IBM Plex Mono, monospace" font-size="16">OUTCOME</text>
+    <text x="824" y="91" fill="#15191f" font-family="IBM Plex Mono, monospace" font-size="34">84% sessions</text>
+  </g>
+  <text x="72" y="520" fill="#15191f" font-family="IBM Plex Mono, monospace" font-size="30">100% logo retention</text>
+  <text x="472" y="520" fill="#15191f" font-family="IBM Plex Mono, monospace" font-size="30">7 completed sprints</text>
+  <text x="72" y="568" fill="#7b8490" font-family="IBM Plex Mono, monospace" font-size="18">ABHISHEK KUMAR / PRODUCT CASE STUDY</text>
+</svg>
