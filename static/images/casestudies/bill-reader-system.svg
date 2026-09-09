@@ -46,7 +46,8 @@
 
   <g transform="translate(96 688)">
     <text x="0" y="0" fill="#15191f" font-family="IBM Plex Mono, monospace" font-size="42">95%</text>
-    <text x="0" y="34" fill="#5d6672" font-family="Manrope, sans-serif" font-size="18">PDF accuracy</text>
+    <text x="0" y="34" fill="#5d6672" font-family="Manrope, sans-serif" font-size="18">accurate document</text>
+    <text x="0" y="58" fill="#5d6672" font-family="Manrope, sans-serif" font-size="18">processing</text>
     <text x="310" y="0" fill="#15191f" font-family="IBM Plex Mono, monospace" font-size="42">80%</text>
     <text x="310" y="34" fill="#5d6672" font-family="Manrope, sans-serif" font-size="18">image accuracy</text>
     <text x="620" y="0" fill="#15191f" font-family="IBM Plex Mono, monospace" font-size="42">80%</text>

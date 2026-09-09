@@ -148,6 +148,34 @@ export const caseStudies: CaseStudy[] = [
 			{ value: '84%', label: 'session growth' },
 			{ value: '100%', label: 'logo retention' }
 		]
+	},
+	{
+		slug: 'digital-bau-operating-model',
+		shortTitle: 'Digital BAU Operating Model',
+		title: 'Designing a digital BAU operating model',
+		description:
+			'A research-backed product case study that turns an omnichannel retail strategy into a practical system for prioritisation, delivery, measurement, and continuous improvement.',
+		role: 'Product Manager',
+		period: 'June 2026',
+		domains: ['Product strategy', 'Operating model', 'Omnichannel retail'],
+		image: '/images/casestudies/bau-operating-model.png',
+		imageAlt:
+			'Digital BAU operating model connecting intake, prioritisation, delivery, quality control, measurement, and continuous improvement',
+		imageWidth: 1440,
+		imageHeight: 810,
+		imageFit: 'contain',
+		decision:
+			'Protect capacity for strategic change inside one transparent BAU cycle, with a separate fast lane for genuine live incidents.',
+		result:
+			'A complete operating model covering prioritisation, release governance, measurement, and a 90-day adoption plan.',
+		resultLabel: 'Work produced',
+		metricsLabel: 'Case study scope',
+		metrics: [
+			{ value: '4', label: 'operating principles' },
+			{ value: '3', label: 'stakeholder groups' },
+			{ value: '4-week', label: 'proposed release cadence' },
+			{ value: '90-day', label: 'adoption plan' }
+		]
 	}
 ];
 

@@ -6,7 +6,7 @@ export interface CaseStudyMetric {
 }
 
 export interface CaseStudy {
-	slug: 'visajobs' | 'bill-reader' | 'platform-delivery';
+	slug: 'visajobs' | 'bill-reader' | 'platform-delivery' | 'digital-bau-operating-model';
 	title: string;
 	shortTitle: string;
 	description: string;
@@ -18,8 +18,11 @@ export interface CaseStudy {
 	imageWidth: number;
 	imageHeight: number;
 	imageSrcset?: string;
+	imageFit?: 'cover' | 'contain';
 	decision: string;
 	result: string;
+	resultLabel?: string;
+	metricsLabel?: string;
 	metrics: CaseStudyMetric[];
 }
 

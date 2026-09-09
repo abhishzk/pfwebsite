@@ -41,7 +41,7 @@
 		margin-top: 12px;
 		color: var(--faint);
 		font-family: 'IBM Plex Mono', ui-monospace, monospace;
-		font-size: 0.66rem;
+		font-size: 0.78rem;
 		line-height: 1.55;
 	}
 </style>

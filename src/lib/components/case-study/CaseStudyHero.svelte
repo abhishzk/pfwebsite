@@ -28,7 +28,7 @@
 			</div>
 		</div>
 
-		<div class="case-image">
+		<div class:contain={study.imageFit === 'contain'} class="case-image">
 			<img
 				src={study.image}
 				srcset={study.imageSrcset}
@@ -40,7 +40,7 @@
 				fetchpriority="high"
 			/>
 		</div>
-		<Metrics metrics={study.metrics} compact />
+		<Metrics metrics={study.metrics} compact ariaLabel={study.metricsLabel ?? 'Key outcomes'} />
 	</div>
 </header>
 
@@ -133,6 +133,10 @@
 		object-position: top center;
 	}
 
+	.case-image.contain img {
+		object-fit: contain;
+	}
+
 	@media (max-width: 820px) {
 		.case-title-grid {
 			grid-template-columns: 1fr;
@@ -154,6 +158,10 @@
 
 		.case-image {
 			aspect-ratio: 4 / 3;
+		}
+
+		.case-image.contain {
+			aspect-ratio: 16 / 9;
 		}
 	}
 </style>

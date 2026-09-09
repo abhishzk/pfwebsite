@@ -3,9 +3,10 @@
 
 	export let metrics: CaseStudyMetric[];
 	export let compact = false;
+	export let ariaLabel = 'Key outcomes';
 </script>
 
-<div class:compact class="metrics" aria-label="Key outcomes">
+<div class:compact class="metrics" aria-label={ariaLabel}>
 	{#each metrics as metric}
 		<div class="metric">
 			<strong class="mono">{metric.value}</strong>

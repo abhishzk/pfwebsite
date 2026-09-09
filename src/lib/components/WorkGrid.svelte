@@ -12,16 +12,21 @@
 	<div class="page-shell">
 		<div class="section-heading">
 			<span class="eyebrow">Selected product work</span>
-			<h2>Decisions, trade-offs, and outcomes.</h2>
+			<h2>Decisions, trade-offs, and proof.</h2>
 			<p>
-				Three products that show how I find the real constraint, align teams, and measure what
-				changes after launch.
+				Four case studies showing how I find the real constraint, align teams, design operating
+				systems, and measure what changes after launch.
 			</p>
 		</div>
 
 		<div class="work-list">
 			{#each caseStudies as study, index}
-				<article class:featured={index === 0} class="work-item reveal" use:reveal={index * 80}>
+				<article
+					class:featured={index === 0}
+					class:strategy={study.slug === 'digital-bau-operating-model'}
+					class="work-item reveal"
+					use:reveal={index * 80}
+				>
 					<a
 						class="work-media"
 						href="/work/{study.slug}"
@@ -59,7 +64,7 @@
 								<p>{study.decision}</p>
 							</div>
 							<div>
-								<span class="evidence-label">Outcome</span>
+								<span class="evidence-label">{study.resultLabel ?? 'Outcome'}</span>
 								<p>{study.result}</p>
 							</div>
 						</div>
@@ -105,6 +110,14 @@
 
 	.work-item:nth-child(3) {
 		grid-column: span 5;
+	}
+
+	.work-item.strategy {
+		grid-column: 2 / 12;
+		grid-template-columns: minmax(280px, 0.92fr) minmax(0, 1.08fr);
+		align-items: center;
+		gap: clamp(36px, 6vw, 72px);
+		padding-top: clamp(16px, 3vw, 32px);
 	}
 
 	.work-media {
@@ -199,7 +212,8 @@
 
 		.work-item,
 		.work-item:nth-child(3),
-		.work-item.featured {
+		.work-item.featured,
+		.work-item.strategy {
 			grid-column: auto;
 			grid-template-columns: 1fr;
 			gap: 34px;
