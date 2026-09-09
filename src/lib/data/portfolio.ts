@@ -198,7 +198,7 @@ export const caseStudies: CaseStudy[] = [
 		imageWidth: 1440,
 		imageHeight: 810,
 		imageSrcset:
-			'/images/casestudies/bau-operating-model-720.webp 720w, /images/casestudies/bau-operating-model.webp 1440w',
+			'/images/casestudies/bau-operating-model-720.webp 720w, /images/casestudies/bau-operating-model-960.webp 960w, /images/casestudies/bau-operating-model.webp 1440w',
 		imageFit: 'contain',
 		decision:
 			'Protect capacity for strategic change inside one transparent BAU cycle, with a separate fast lane for genuine live incidents.',
