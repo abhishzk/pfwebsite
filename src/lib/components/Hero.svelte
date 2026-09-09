@@ -90,6 +90,7 @@
 		max-width: 780px;
 		margin-bottom: 28px;
 		letter-spacing: -0.055em;
+		overflow-wrap: anywhere;
 	}
 
 	.hero-copy h1 span {
@@ -110,6 +111,7 @@
 		color: var(--muted);
 		font-size: clamp(1.05rem, 1.6vw, 1.3rem);
 		line-height: 1.55;
+		overflow-wrap: anywhere;
 	}
 
 	.hero-actions {
@@ -187,6 +189,10 @@
 			max-width: 100%;
 		}
 
+		.hero-copy {
+			min-width: 0;
+		}
+
 		.hero-copy h1 span:first-child {
 			font-size: clamp(2.75rem, 6.2vw, 4.25rem);
 		}
@@ -207,11 +213,16 @@
 		}
 
 		.hero-copy h1 span:first-child {
-			font-size: clamp(2.25rem, 10vw, 3rem);
+			font-size: clamp(1.8rem, 8vw, 2.5rem);
 		}
 
 		.hero-copy h1 span:last-child {
-			font-size: clamp(2.1rem, 9vw, 2.75rem);
+			font-size: clamp(1.7rem, 7.6vw, 2.35rem);
+		}
+
+		.hero-copy p {
+			max-width: 100%;
+			font-size: 1rem;
 		}
 
 		.hero-actions {

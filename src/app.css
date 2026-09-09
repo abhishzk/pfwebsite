@@ -118,6 +118,7 @@ h3 {
 
 .page-shell {
 	width: min(calc(100% - 40px), var(--content));
+	min-width: 0;
 	margin-inline: auto;
 }
 

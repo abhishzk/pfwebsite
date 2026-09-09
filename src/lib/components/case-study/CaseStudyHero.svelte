@@ -91,32 +91,47 @@
 
 	.case-title-grid {
 		display: grid;
+		min-width: 0;
 		grid-template-columns: minmax(0, 1.4fr) minmax(300px, 0.6fr);
 		align-items: end;
 		gap: clamp(44px, 7vw, 88px);
 		margin-bottom: clamp(52px, 8vw, 88px);
 	}
 
+	.case-title-grid > * {
+		width: 100%;
+		min-width: 0;
+	}
+
 	.case-domains {
+		max-width: 100%;
 		margin-bottom: 16px;
 		color: var(--accent-strong);
 		font-size: 0.76rem;
 		font-weight: 500;
 		text-transform: uppercase;
+		overflow-wrap: anywhere;
+		word-break: break-word;
 	}
 
 	h1 {
 		max-width: 14ch;
+		width: 100%;
+		min-width: 0;
 		margin-bottom: 0;
 		font-size: clamp(3rem, 5.3vw, 4.1rem);
 		letter-spacing: -0.06em;
+		overflow-wrap: anywhere;
+		word-break: break-word;
 	}
 
 	.case-intro > p {
+		max-width: 100%;
 		margin-bottom: 30px;
 		color: var(--muted);
 		font-size: 1.08rem;
 		line-height: 1.6;
+		overflow-wrap: anywhere;
 	}
 
 	dl {
@@ -143,6 +158,7 @@
 	}
 
 	.case-image {
+		min-width: 0;
 		overflow: hidden;
 		aspect-ratio: 16 / 9;
 		margin-bottom: 48px;
@@ -220,7 +236,8 @@
 		}
 
 		h1 {
-			font-size: clamp(2.7rem, 13vw, 4.3rem);
+			max-width: 100%;
+			font-size: clamp(2.35rem, 11vw, 3.6rem);
 		}
 
 		.case-image {
