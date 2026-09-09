@@ -7,11 +7,9 @@
 <section id="snapshot" class="snapshot section-tight">
 	<div class="page-shell snapshot-grid">
 		<div class="snapshot-intro reveal" use:reveal>
-			<span class="eyebrow">What you get</span>
-			<h2>A clear line from problem to proof.</h2>
-			<p>
-				I turn ambiguous product questions into decisions a team can ship, measure, and improve.
-			</p>
+			<span class="eyebrow">At a glance</span>
+			<h2>Product decisions grounded in evidence.</h2>
+			<p>I work at the seam between customer need, business value, and engineering reality.</p>
 			<div class="snapshot-actions">
 				<a
 					class="button button-primary"
@@ -51,23 +49,22 @@
 
 <style>
 	.snapshot {
-		padding-top: 0;
-		background: var(--page);
+		background: var(--surface);
 	}
 
 	.snapshot-grid {
 		display: grid;
 		grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
 		align-items: start;
-		gap: clamp(48px, 10vw, 140px);
-		padding-block: 28px 12px;
+		gap: clamp(56px, 10vw, 140px);
+		padding-block: 48px 56px;
 		border-top: 1px solid var(--line);
 	}
 
 	.snapshot-intro h2 {
-		max-width: 14ch;
+		max-width: 20ch;
 		margin-bottom: 20px;
-		font-size: clamp(2rem, 4.2vw, 3.8rem);
+		font-size: clamp(2rem, 3.6vw, 3.4rem);
 	}
 
 	.snapshot-intro p {
@@ -86,15 +83,14 @@
 	.snapshot-facts {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		border-top: 1px solid var(--line);
 	}
 
 	.snapshot-facts > div {
 		display: grid;
 		align-content: start;
 		gap: 8px;
-		min-height: 124px;
-		padding: 22px 18px 22px 0;
+		min-height: 138px;
+		padding: 28px 18px 28px 0;
 		border-bottom: 1px solid var(--line);
 	}
 
@@ -122,7 +118,7 @@
 	@media (max-width: 850px) {
 		.snapshot-grid {
 			grid-template-columns: 1fr;
-			gap: 42px;
+			gap: 48px;
 		}
 	}
 
