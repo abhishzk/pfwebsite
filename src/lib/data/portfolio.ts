@@ -192,11 +192,13 @@ export const caseStudies: CaseStudy[] = [
 		role: 'Product Manager',
 		period: 'June 2026',
 		domains: ['Product strategy', 'Operating model', 'Omnichannel retail'],
-		image: '/images/casestudies/bau-operating-model.png',
+		image: '/images/casestudies/bau-operating-model.webp',
 		imageAlt:
 			'Digital BAU operating model connecting intake, prioritisation, delivery, quality control, measurement, and continuous improvement',
 		imageWidth: 1440,
 		imageHeight: 810,
+		imageSrcset:
+			'/images/casestudies/bau-operating-model-720.webp 720w, /images/casestudies/bau-operating-model.webp 1440w',
 		imageFit: 'contain',
 		decision:
 			'Protect capacity for strategic change inside one transparent BAU cycle, with a separate fast lane for genuine live incidents.',
