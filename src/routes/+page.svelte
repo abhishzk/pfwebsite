@@ -1,9 +1,11 @@
 <script lang="ts">
 	import Header from '$lib/components/Header.svelte';
 	import Hero from '$lib/components/Hero.svelte';
+	import HiringSnapshot from '$lib/components/HiringSnapshot.svelte';
 	import Metrics from '$lib/components/Metrics.svelte';
 	import WorkGrid from '$lib/components/WorkGrid.svelte';
 	import Approach from '$lib/components/Approach.svelte';
+	import Capabilities from '$lib/components/Capabilities.svelte';
 	import ExperienceTimeline from '$lib/components/ExperienceTimeline.svelte';
 	import About from '$lib/components/About.svelte';
 	import Contact from '$lib/components/Contact.svelte';
@@ -22,7 +24,11 @@
 				image: 'https://abhishzk.com/images/headshot.webp',
 				jobTitle: 'Product Manager',
 				homeLocation: { '@type': 'Place', name: 'Dublin, Ireland' },
-				sameAs: ['https://www.linkedin.com/in/abhishzk/', 'https://www.visajobs.ie/'],
+				sameAs: [
+					'https://www.linkedin.com/in/abhishzk/',
+					'https://github.com/abhishzk',
+					'https://www.visajobs.ie/'
+				],
 				knowsAbout: [
 					'Product Management',
 					'B2B SaaS',
@@ -67,6 +73,7 @@
 <Header home />
 <main id="main-content">
 	<Hero />
+	<HiringSnapshot />
 	<section class="outcomes section-tight" aria-label="Selected outcomes">
 		<div class="page-shell">
 			<Metrics metrics={homeMetrics} />
@@ -74,6 +81,7 @@
 	</section>
 	<WorkGrid />
 	<Approach />
+	<Capabilities />
 	<ExperienceTimeline />
 	<About />
 	<Contact />

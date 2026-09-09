@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { tick } from 'svelte';
 	import ThemeToggle from './ThemeToggle.svelte';
 	import { trackEvent } from '$lib/analytics';
 	import { externalLinks } from '$lib/data/portfolio';
@@ -6,6 +7,7 @@
 	export let home = false;
 	let menuOpen = false;
 	let menuButton: HTMLButtonElement;
+	let navigation: HTMLElement;
 
 	const links = [
 		{ label: 'Work', href: home ? '#work' : '/#work' },
@@ -16,16 +18,49 @@
 
 	function closeMenu() {
 		menuOpen = false;
+		if (typeof document !== 'undefined') document.body.classList.remove('menu-open');
+	}
+
+	async function setMenuState(next: boolean) {
+		menuOpen = next;
+		if (typeof document !== 'undefined') document.body.classList.toggle('menu-open', next);
+		if (!next) return;
+		await tick();
+		navigation?.querySelector<HTMLElement>('a[href], button:not([disabled])')?.focus();
 	}
 
 	function handleKeydown(event: KeyboardEvent) {
-		if (event.key !== 'Escape' || !menuOpen) return;
-		closeMenu();
-		menuButton?.focus();
+		if (!menuOpen) return;
+		if (event.key === 'Escape') {
+			closeMenu();
+			menuButton?.focus();
+			return;
+		}
+		if (event.key !== 'Tab') return;
+
+		const focusable = Array.from(
+			navigation?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') ?? []
+		);
+		if (!focusable.length) return;
+		const first = focusable[0];
+		const last = focusable[focusable.length - 1];
+		if (event.shiftKey && document.activeElement === first) {
+			event.preventDefault();
+			last.focus();
+		} else if (!event.shiftKey && document.activeElement === last) {
+			event.preventDefault();
+			first.focus();
+		}
+	}
+
+	function handleDocumentClick(event: MouseEvent) {
+		if (!menuOpen || !navigation || !menuButton) return;
+		const target = event.target as Node;
+		if (!navigation.contains(target) && !menuButton.contains(target)) closeMenu();
 	}
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
+<svelte:window on:keydown={handleKeydown} on:click={handleDocumentClick} />
 
 <header class="site-header">
 	<div class="header-inner">
@@ -40,12 +75,17 @@
 			type="button"
 			aria-expanded={menuOpen}
 			aria-controls="site-navigation"
-			on:click={() => (menuOpen = !menuOpen)}
+			on:click={() => setMenuState(!menuOpen)}
 		>
 			{menuOpen ? 'Close' : 'Menu'}
 		</button>
 
-		<nav id="site-navigation" class:open={menuOpen} aria-label="Primary navigation">
+		<nav
+			bind:this={navigation}
+			id="site-navigation"
+			class:open={menuOpen}
+			aria-label="Primary navigation"
+		>
 			{#each links as link}
 				<a href={link.href} on:click={closeMenu}>{link.label}</a>
 			{/each}

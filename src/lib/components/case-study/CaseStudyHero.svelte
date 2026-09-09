@@ -40,7 +40,33 @@
 				fetchpriority="high"
 			/>
 		</div>
+		{#if study.imageCaption}
+			<p class="case-image-caption">{study.imageCaption}</p>
+		{/if}
 		<Metrics metrics={study.metrics} compact ariaLabel={study.metricsLabel ?? 'Key outcomes'} />
+
+		<dl class="case-context" aria-label="Case study context">
+			<div>
+				<dt>Team</dt>
+				<dd>{study.context.team}</dd>
+			</div>
+			<div>
+				<dt>Product stage</dt>
+				<dd>{study.context.stage}</dd>
+			</div>
+			<div>
+				<dt>Customer</dt>
+				<dd>{study.context.customer}</dd>
+			</div>
+			<div>
+				<dt>My ownership</dt>
+				<dd>{study.context.ownership}</dd>
+			</div>
+			<div>
+				<dt>Key constraint</dt>
+				<dd>{study.context.constraint}</dd>
+			</div>
+		</dl>
 	</div>
 </header>
 
@@ -126,6 +152,15 @@
 		box-shadow: var(--shadow);
 	}
 
+	.case-image-caption {
+		max-width: 72ch;
+		margin: -30px 0 42px;
+		color: var(--faint);
+		font-family: 'IBM Plex Mono', ui-monospace, monospace;
+		font-size: 0.76rem;
+		line-height: 1.55;
+	}
+
 	.case-image img {
 		width: 100%;
 		height: 100%;
@@ -137,9 +172,41 @@
 		object-fit: contain;
 	}
 
+	.case-context {
+		display: grid;
+		grid-template-columns: repeat(5, minmax(0, 1fr));
+		gap: 18px;
+		margin-top: 42px;
+		padding-top: 22px;
+		border-top: 1px solid var(--line);
+	}
+
+	.case-context > div {
+		min-width: 0;
+	}
+
+	.case-context dt {
+		margin-bottom: 7px;
+		color: var(--faint);
+		font-family: 'IBM Plex Mono', ui-monospace, monospace;
+		font-size: 0.68rem;
+		text-transform: uppercase;
+	}
+
+	.case-context dd {
+		margin: 0;
+		font-size: 0.8rem;
+		font-weight: 650;
+		line-height: 1.45;
+	}
+
 	@media (max-width: 820px) {
 		.case-title-grid {
 			grid-template-columns: 1fr;
+		}
+
+		.case-context {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
 		}
 
 		h1 {
@@ -162,6 +229,17 @@
 
 		.case-image.contain {
 			aspect-ratio: 16 / 9;
+		}
+
+		.case-image-caption {
+			margin-top: -28px;
+			margin-bottom: 34px;
+			font-size: 0.7rem;
+		}
+
+		.case-context {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 20px 16px;
 		}
 	}
 </style>

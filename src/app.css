@@ -59,6 +59,12 @@ body {
 	-webkit-font-smoothing: antialiased;
 }
 
+@media (max-width: 900px) {
+	body.menu-open {
+		overflow: hidden;
+	}
+}
+
 * {
 	box-sizing: border-box;
 }

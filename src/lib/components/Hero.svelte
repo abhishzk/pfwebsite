@@ -66,7 +66,6 @@
 			</div>
 			<div class="portrait-note">
 				<span class="mono">Dublin, Ireland</span>
-				<span>AI, B2B SaaS, data, energy, fintech</span>
 			</div>
 		</div>
 	</div>
@@ -75,21 +74,21 @@
 <style>
 	.hero {
 		display: flex;
-		min-height: calc(100dvh - 68px);
+		min-height: 560px;
 		align-items: center;
 		padding-block: clamp(56px, 8vw, 96px);
 	}
 
 	.hero-grid {
 		display: grid;
-		grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.7fr);
+		grid-template-columns: minmax(0, 1.14fr) minmax(300px, 0.86fr);
 		align-items: center;
-		gap: clamp(48px, 8vw, 112px);
+		gap: clamp(64px, 9vw, 144px);
 	}
 
 	.hero-copy h1 {
 		max-width: 780px;
-		margin-bottom: 24px;
+		margin-bottom: 28px;
 		letter-spacing: -0.055em;
 	}
 
@@ -98,16 +97,16 @@
 	}
 
 	.hero-copy h1 span:first-child {
-		font-size: clamp(3.2rem, 5.4vw, 5.25rem);
+		font-size: clamp(3rem, 4.8vw, 4.75rem);
 	}
 
 	.hero-copy h1 span:last-child {
-		font-size: clamp(2.25rem, 2.85vw, 2.75rem);
+		font-size: clamp(2rem, 2.45vw, 2.45rem);
 	}
 
 	.hero-copy p {
-		max-width: 55ch;
-		margin-bottom: 32px;
+		max-width: 48ch;
+		margin-bottom: 38px;
 		color: var(--muted);
 		font-size: clamp(1.05rem, 1.6vw, 1.3rem);
 		line-height: 1.55;
@@ -122,6 +121,8 @@
 	.portrait-wrap {
 		position: relative;
 		align-self: end;
+		width: min(100%, 360px);
+		justify-self: end;
 	}
 
 	.portrait-frame {

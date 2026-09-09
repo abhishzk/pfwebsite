@@ -1,4 +1,11 @@
-import type { CaseStudy, CaseStudyMetric, Credential, Experience, ExternalLink } from '$lib/types';
+import type {
+	Capability,
+	CaseStudy,
+	CaseStudyMetric,
+	Credential,
+	Experience,
+	ExternalLink
+} from '$lib/types';
 
 export const externalLinks = {
 	email: {
@@ -102,6 +109,15 @@ export const caseStudies: CaseStudy[] = [
 		decision:
 			'Use official permit history as the trust layer, then connect it to live jobs and decision tools.',
 		result: '3,500+ candidates and a new verified employer product.',
+		imageCaption:
+			'Real VisaJobs product capture showing the search experience built around public permit evidence.',
+		context: {
+			team: 'Founder-led product',
+			stage: '0-to-1, live product',
+			customer: 'Candidates and employers',
+			ownership: 'Product, data, discovery, delivery',
+			constraint: 'Fragmented records and trust risk'
+		},
 		metrics: visaJobsMetrics
 	},
 	{
@@ -121,6 +137,15 @@ export const caseStudies: CaseStudy[] = [
 		decision:
 			'Use AWS Textract for extraction, OpenAI for structured validation, and human review below the confidence threshold.',
 		result: '95% accurate document processing and 80% less processing time.',
+		imageCaption:
+			'Product-system artefact showing the extraction, validation, and human-review decisions behind the workflow.',
+		context: {
+			team: 'Cross-functional energy team',
+			stage: 'Production workflow',
+			customer: 'Enterprise energy teams',
+			ownership: 'Success criteria, evaluation, rollout',
+			constraint: 'Variable formats and financial accuracy'
+		},
 		metrics: [
 			{ value: '95%', label: 'accurate document processing' },
 			{ value: '80%', label: 'image accuracy' },
@@ -144,6 +169,15 @@ export const caseStudies: CaseStudy[] = [
 		decision:
 			'Prioritize adoption and stability together, using Amplitude evidence and structured release gates to guide delivery.',
 		result: '84% session growth with 100% logo retention.',
+		imageCaption:
+			'Product evidence map connecting customer behaviour, analytics signals, roadmap choices, and outcomes.',
+		context: {
+			team: 'Nine-person internal and external team',
+			stage: 'Enterprise platform',
+			customer: 'Energy managers and account admins',
+			ownership: 'Roadmap, sprint cadence, analytics',
+			constraint: 'Move pilots into repeatable adoption'
+		},
 		metrics: [
 			{ value: '84%', label: 'session growth' },
 			{ value: '100%', label: 'logo retention' }
@@ -170,6 +204,15 @@ export const caseStudies: CaseStudy[] = [
 			'A complete operating model covering prioritisation, release governance, measurement, and a 90-day adoption plan.',
 		resultLabel: 'Work produced',
 		metricsLabel: 'Case study scope',
+		imageCaption:
+			'Operating-model artefact from the Woodie’s product case study, connecting intake, prioritisation, delivery, and learning.',
+		context: {
+			team: 'Cross-functional retail stakeholders',
+			stage: 'Strategy and operating model',
+			customer: 'Retail customers and internal teams',
+			ownership: 'Research, model, measures, adoption plan',
+			constraint: 'Protect run while funding change'
+		},
 		metrics: [
 			{ value: '4', label: 'operating principles' },
 			{ value: '3', label: 'stakeholder groups' },
@@ -190,6 +233,44 @@ export const homeMetrics: CaseStudyMetric[] = [
 	{ value: '84%', label: 'platform session growth' },
 	{ value: '95%', label: 'accurate document processing' },
 	{ value: '28+', label: 'AI product integrations' }
+];
+
+export const capabilities: Capability[] = [
+	{
+		title: '0-to-1 product discovery',
+		description:
+			'Turn an observed problem into a focused product, a trust model, and a path to adoption.',
+		proof: 'VisaJobs Ireland',
+		href: '/work/visajobs'
+	},
+	{
+		title: 'AI product evaluation',
+		description:
+			'Define where AI helps, where it fails, and where human judgement belongs in production.',
+		proof: 'Bill Reader',
+		href: '/work/bill-reader'
+	},
+	{
+		title: 'Enterprise adoption',
+		description:
+			'Move customers from access and pilots toward repeatable workflows that create operational value.',
+		proof: 'Watt Footprint',
+		href: '/work/platform-delivery'
+	},
+	{
+		title: 'Product operating systems',
+		description:
+			'Make prioritisation, capacity, release quality, and learning visible across teams.',
+		proof: 'Digital BAU model',
+		href: '/work/digital-bau-operating-model'
+	},
+	{
+		title: 'Technical product decisions',
+		description:
+			'Work fluently with engineering on architecture, data quality, risk, and delivery trade-offs.',
+		proof: 'Bill Reader and platform delivery',
+		href: '/work/bill-reader'
+	}
 ];
 
 export const experience: Experience[] = [

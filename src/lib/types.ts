@@ -23,7 +23,24 @@ export interface CaseStudy {
 	result: string;
 	resultLabel?: string;
 	metricsLabel?: string;
+	imageCaption?: string;
+	context: CaseStudyContext;
 	metrics: CaseStudyMetric[];
+}
+
+export interface CaseStudyContext {
+	team: string;
+	stage: string;
+	customer: string;
+	ownership: string;
+	constraint: string;
+}
+
+export interface Capability {
+	title: string;
+	description: string;
+	proof: string;
+	href: string;
 }
 
 export interface Experience {
