@@ -12,7 +12,7 @@
 
 	const study = getCaseStudy('visajobs');
 	const description =
-		'How Abhishek Kumar built VisaJobs Ireland from a personal job-search problem into a data product for 3,500+ candidates and Irish employers.';
+		'How Abhishek Kumar built VisaJobs Ireland from a personal job-search problem into a data product for 4,500+ candidates and Irish employers.';
 	const structuredData = {
 		'@context': 'https://schema.org',
 		'@type': 'CreativeWork',
