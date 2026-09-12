@@ -50,7 +50,7 @@ export const visaJobsPublicMetrics: CaseStudyMetric[] = [
 		value: '3,500+',
 		label: 'candidates',
 		verifiedAt: 'September 2026',
-		sourceNote: 'Founder-confirmed public product figure'
+		sourceNote: 'Public product figure confirmed by Abhishek'
 	},
 	{
 		value: '204,612',
@@ -79,12 +79,12 @@ export const visaJobsPublicMetrics: CaseStudyMetric[] = [
 	{
 		value: '51,000+',
 		label: 'launch-post views',
-		sourceNote: 'Founder-confirmed launch distribution figure'
+		sourceNote: 'Public launch distribution figure confirmed by Abhishek'
 	},
 	{
 		value: '1,400+',
 		label: 'launch-post click-throughs',
-		sourceNote: 'Founder-confirmed launch distribution figure'
+		sourceNote: 'Public launch distribution figure confirmed by Abhishek'
 	}
 ];
 
@@ -97,7 +97,7 @@ export const caseStudies: CaseStudy[] = [
 		title: 'Making visa sponsorship searchable in Ireland',
 		description:
 			'A 0-to-1 product that turns fragmented government permit records and live jobs into practical decisions for candidates and employers.',
-		role: 'Founder and Product Manager',
+		role: 'Product Manager',
 		period: '2026 to present',
 		domains: ['0-to-1 product', 'Data product', 'Two-sided marketplace'],
 		image: '/images/casestudies/visajobs-product.webp',
@@ -112,7 +112,7 @@ export const caseStudies: CaseStudy[] = [
 		imageCaption:
 			'Real VisaJobs product capture showing the search experience built around public permit evidence.',
 		context: {
-			team: 'Founder-led product',
+			team: 'Product-led, cross-functional build',
 			stage: '0-to-1, live product',
 			customer: 'Candidates and employers',
 			ownership: 'Product, data, discovery, delivery',
@@ -278,7 +278,7 @@ export const capabilities: Capability[] = [
 export const experience: Experience[] = [
 	{
 		company: 'VisaJobs Ireland',
-		role: 'Founder and Product Manager',
+		role: 'Product Manager',
 		period: 'January 2026 to present',
 		location: 'Dublin, Ireland',
 		summary:

@@ -160,10 +160,10 @@
 
 	<CaseStudySection title="I owned the product from signal to release." tone="soft">
 		<p>
-			As Founder and Product Manager, I framed the problem, shaped the roadmap, defined the data
-			model, designed the core journeys, and coordinated implementation and launch. Product
-			decisions covered candidate discovery, employer verification, job publishing, trust language,
-			and the boundary between helpful guidance and legal advice.
+			As Product Manager, I framed the problem, shaped the roadmap, defined the data model, designed
+			the core journeys, and coordinated implementation and launch. Product decisions covered
+			candidate discovery, employer verification, job publishing, trust language, and the boundary
+			between helpful guidance and legal advice.
 		</p>
 		<h3>Delivery and collaboration</h3>
 		<ul>
