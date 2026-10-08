@@ -40,7 +40,7 @@ export const externalLinks = {
 	},
 	containerPrototype: {
 		label: 'Open the prototype',
-		href: 'https://vantera-container-utilisation.vercel.app/',
+		href: '/prototypes/container-loading/index.html',
 		event: 'product_visit'
 	},
 	visaJobsExtension: {

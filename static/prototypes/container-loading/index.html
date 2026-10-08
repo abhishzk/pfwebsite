@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Container Loading Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#052D41; --panel:#0A3A52; --panel2:#0E4562; --rule:#1A5573;
+  --accent:#22A0F3; --accent-dim:rgba(34,160,243,.16);
+  --green:#34D399; --green-dim:rgba(52,211,153,.12);
+  --amber:#FBBF24; --amber-dim:rgba(251,191,36,.12);
+  --red:#F87171; --red-dim:rgba(248,113,113,.12);
+  --purple:#A78BFA; --purple-dim:rgba(167,139,250,.14);
+  --ink:#fff; --muted:#9BC1D8; --dim:#6A97B3;
+  --mono:'JetBrains Mono',ui-monospace,monospace; --sans:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font:14px/1.5 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font-family:var(--sans);cursor:pointer;border:none}
+b{font-weight:600;color:var(--ink)}
+
+.app{display:grid;grid-template-rows:auto auto 1fr;height:100vh}
+.topbar{display:flex;align-items:center;gap:14px;padding:10px 20px;border-bottom:1px solid var(--rule);background:var(--panel);flex-wrap:wrap}
+.logo{font:600 13px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.sep{width:1px;height:18px;background:var(--rule)}
+.ctx{color:var(--muted);font-size:13px}
+.badge{font:500 9.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:var(--purple-dim);color:var(--purple)}
+.badge.done{background:var(--panel2);color:var(--muted)}
+.tr{margin-left:auto;display:flex;align-items:center;gap:10px}
+.clock{font:11px var(--mono);color:var(--dim)}
+.sim{font:500 8.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--purple);background:var(--purple-dim);padding:3px 7px;border-radius:2px}
+
+.main{display:grid;grid-template-columns:1fr 370px;overflow:hidden;min-height:0}
+.left{display:grid;grid-template-rows:auto 1fr auto auto auto;border-right:1px solid var(--rule);min-height:0}
+.vh{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid var(--rule);gap:12px;flex-wrap:wrap}
+.vt{font-weight:600;font-size:15px}
+.vs{color:var(--dim);font:11px var(--mono)}
+.cam{font:500 9.5px var(--mono);padding:2px 7px;border-radius:2px;background:var(--green-dim);color:var(--green);letter-spacing:.06em}
+
+.c3d{position:relative;background:linear-gradient(180deg,#031822 0%,#052D41 100%);min-height:280px;overflow:hidden}
+.c3d canvas{position:absolute;inset:0;width:100%;height:100%}
+.legend{position:absolute;left:16px;top:12px;display:flex;gap:14px;flex-wrap:wrap;font:10px var(--mono);color:var(--muted);z-index:2}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.seg{position:absolute;right:16px;top:10px;display:none;background:var(--panel);border:1px solid var(--rule);border-radius:5px;padding:3px;z-index:2}
+.seg.on{display:flex}
+.seg button{background:none;color:var(--muted);font-size:11.5px;padding:5px 10px;border-radius:3px}
+.seg button.act{background:var(--accent);color:#fff}
+
+.start{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;background:rgba(3,24,34,.9);z-index:5;padding:20px;transition:opacity .4s;text-align:center}
+.start.gone{opacity:0;visibility:hidden;transition:opacity .4s,visibility 0s .4s}
+.start h2{font-size:24px;font-weight:700;line-height:1.2}
+.start p{color:var(--muted);font-size:13.5px;max-width:470px;line-height:1.6}
+.start small{font-size:11px;color:var(--dim);max-width:470px}
+
+.stage{display:flex;gap:8px;align-items:stretch;padding:10px 20px;border-top:1px solid var(--rule);background:#07334A;overflow-x:auto;min-height:86px}
+.stage-lbl{font:500 9.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);min-width:92px;display:flex;flex-direction:column;justify-content:center;flex-shrink:0}
+.stage-lbl span{color:var(--muted);letter-spacing:0;text-transform:none;font-size:10px;margin-top:3px}
+.chip{flex-shrink:0;display:flex;gap:8px;align-items:flex-end;padding:7px 10px;border:1px solid var(--rule);border-radius:4px;background:var(--ground);min-width:86px}
+.chip .bar{width:9px;border-radius:2px}
+.cid{font:500 11px var(--mono)}
+.ch{font:10px var(--mono);color:var(--muted)}
+.tag{font:600 8.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+.chip.next{border-color:var(--accent)} .chip.next .tag{color:var(--accent)}
+.chip.bad{border-color:var(--red);background:var(--red-dim)} .chip.bad .tag{color:var(--red)}
+.chip.good{border-color:var(--green);background:var(--green-dim)} .chip.good .tag{color:var(--green)}
+.stage-empty{align-self:center;color:var(--dim);font:11px var(--mono)}
+
+.gauges{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule)}
+.g{padding:11px 16px;border-right:1px solid var(--rule)}
+.g:last-child{border-right:none}
+.gl{font:500 9.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.gv{font:600 20px/1.2 var(--mono)}
+.gn{font:10px var(--mono);color:var(--dim)}
+
+.ctrls{display:flex;align-items:center;gap:10px;padding:10px 20px;border-top:1px solid var(--rule);background:var(--panel)}
+.btn{padding:6px 14px;border-radius:4px;font-size:12px;font-weight:500}
+.btn:disabled{opacity:.35;cursor:default}
+.pri{background:var(--accent);color:#fff}
+.gho{background:transparent;color:var(--muted);border:1px solid var(--rule)}
+.grn{background:var(--green);color:#052D41;font-weight:600}
+.aut{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(167,139,250,.3)}
+.aut.on{background:var(--purple);color:#fff}
+.track{flex:1;height:3px;background:var(--rule);border-radius:2px;overflow:hidden}
+.fill{height:100%;background:var(--accent);transition:width .3s}
+.slbl{font:10px var(--mono);color:var(--dim);min-width:56px;text-align:right}
+
+.side{overflow-y:auto;background:var(--panel);min-height:0}
+.sec{padding:14px 16px;border-bottom:1px solid var(--rule)}
+.hd{font:500 9.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.hd::after{content:'';flex:1;height:1px;background:var(--rule)}
+.pred{background:var(--ground);border:1px solid var(--rule);border-radius:5px;padding:12px 14px}
+.pr{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:3px 0}
+.pl{font-size:11.5px;color:var(--muted)}
+.pv{font:600 13px var(--mono);text-align:right}
+.status{margin-top:8px;padding-top:8px;border-top:1px solid var(--rule);font-size:11.5px;line-height:1.5}
+
+.card{border-radius:5px;padding:13px 14px;display:none;margin-bottom:8px}
+.card.on{display:block}
+.c-amber{background:var(--amber-dim);border:1px solid rgba(251,191,36,.3)}
+.c-green{background:var(--green-dim);border:1px solid rgba(52,211,153,.3)}
+.c-red{background:var(--red-dim);border:1px solid rgba(248,113,113,.3)}
+.c-grey{background:var(--ground);border:1px solid var(--rule)}
+.ct{font-weight:600;font-size:12.5px;margin-bottom:5px}
+.cb{font-size:12px;color:var(--muted);line-height:1.55}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px}
+.opt{background:var(--ground);border:1px solid var(--rule);border-radius:4px;padding:8px}
+.opt.best{border-color:var(--green)}
+.ol{font:500 8.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:2px}
+.ov{font:600 18px var(--mono)}
+.on2{font-size:10.5px;color:var(--muted)}
+.btns{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap}
+
+.ev{display:none}.ev.on{display:block}
+.es{display:flex;gap:10px;padding:6px 0;position:relative}
+.es::before{content:'';position:absolute;left:9px;top:25px;bottom:-6px;width:1px;background:var(--rule)}
+.es:last-child::before{display:none}
+.ed{width:19px;height:19px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font:700 8.5px var(--mono)}
+.ed.d{background:var(--accent-dim);color:var(--accent)} .ed.c{background:var(--amber-dim);color:var(--amber)} .ed.i{background:var(--green-dim);color:var(--green)} .ed.o{background:var(--purple-dim);color:var(--purple)}
+.esrc{font:9.5px var(--mono);color:var(--dim);display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.etxt{font-size:11.5px;color:var(--muted);line-height:1.5}
+.t-real,.t-sim{font:600 8px var(--mono);letter-spacing:.08em;padding:1px 4px;border-radius:2px}
+.t-real{background:var(--green-dim);color:var(--green)} .t-sim{background:var(--purple-dim);color:var(--purple)}
+
+.feed{display:flex;flex-direction:column;gap:4px}
+.fi{display:grid;grid-template-columns:8px 46px 1fr auto auto;gap:8px;align-items:center;padding:5px 8px;background:var(--ground);border:1px solid var(--rule);border-radius:3px;font-size:11px}
+.fi.new{border-color:var(--accent)} .fi.warn{border-color:rgba(248,113,113,.5)} .fi.swap{border-color:var(--green);background:var(--green-dim)} .fi.left{border-color:var(--red);background:var(--red-dim)}
+.fd{width:8px;height:8px;border-radius:2px}
+.fid{font:10.5px var(--mono)}
+.fpl{color:var(--muted);font-size:10.5px}
+.fh{font:10px var(--mono);color:var(--dim)}
+.fc{font:9px var(--mono);padding:1px 4px;border-radius:2px}
+.fc.hi{background:var(--green-dim);color:var(--green)} .fc.lo{background:var(--red-dim);color:var(--red)}
+.empty{color:var(--dim);font-size:11.5px}
+
+.res{position:fixed;inset:0;background:rgba(5,45,65,.93);display:none;z-index:100;backdrop-filter:blur(6px);padding:20px;overflow-y:auto}
+.res.on{display:flex}
+.rc{background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:32px;max-width:600px;width:100%;margin:auto}
+.rc:focus{outline:none}
+.rk{font:500 9px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--purple);margin-bottom:10px}
+.rh{font-size:25px;font-weight:700;line-height:1.2;margin-bottom:8px}
+.rh em{font-style:normal;color:var(--green)}
+.rh.bad em{color:var(--red)}
+.rs{color:var(--muted);font-size:13.5px;line-height:1.55;margin-bottom:20px}
+.rg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.rb{background:var(--ground);border:1px solid var(--rule);border-radius:5px;padding:13px}
+.rb.best{border-color:var(--green)}
+.rv{font:600 22px var(--mono)}
+.rn{font-size:11.5px;color:var(--muted);margin-top:2px;line-height:1.5}
+.blk{background:var(--ground);border:1px solid var(--rule);border-radius:5px;padding:13px 14px;margin-bottom:10px;font-size:12.5px;color:var(--muted);line-height:1.6}
+.blk p+p{margin-top:6px}
+.blk ol{padding-left:18px}
+.blk li{margin-bottom:4px}
+.rf{margin-top:16px;padding-top:12px;border-top:1px solid var(--rule);font-size:10.5px;color:var(--dim);line-height:1.55}
+.link{color:var(--accent);background:none;font-size:12.5px;text-decoration:underline;text-underline-offset:3px;padding:0}
+
+@media(max-width:900px){
+  .app{height:auto;min-height:100vh}
+  .main{grid-template-columns:1fr;overflow:visible}
+  .left{border-right:none}
+  .c3d{min-height:340px}
+  .gauges{grid-template-columns:repeat(2,1fr)}
+  .g:nth-child(2){border-right:none}
+  .g:nth-child(-n+2){border-bottom:1px solid var(--rule)}
+  .rg{grid-template-columns:1fr}
+}
+.tn{width:100%;border-collapse:collapse;margin:6px 0 8px;font-size:12px}.tn td{padding:4px 6px;border-bottom:1px solid var(--rule);vertical-align:top}.tn td:nth-child(2){font-family:var(--mono);color:var(--ink);white-space:nowrap}
+.simbar{background:rgba(167,139,250,.16);color:#D9CFFF;font-size:12px;padding:6px 20px;border-bottom:1px solid rgba(167,139,250,.35)}.simbar b{color:#fff}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="topbar">
+  <div class="logo">Platform</div>
+  <div class="sep"></div>
+  <div class="ctx"><b>Kessler Automotive</b> · Kraków Plant 2 · Export door D09</div>
+  <div class="badge" id="badge">Simulated load</div>
+  <div class="tr"><a href="enterprise.html" style="font-size:11.5px;color:var(--accent);text-decoration:none">Full console ↗</a><div class="clock" id="clock">21:25</div><div class="sim">Simulated vision</div></div>
+</div>
+
+<div class="simbar"><b>Workflow simulation</b> using real the exporter shipment totals. Pallet measurements, loading sequence, recommendations and outcomes are simulated. No alerts or notifications are sent.</div>
+
+<div class="main">
+<div class="left">
+  <div class="vh">
+    <div>
+      <div class="vt">SHP-2026-4246 · Gdansk Port → SE-Gothenburg</div>
+      <div class="vs">40ft HC · HARNESS-ASSY · 38 pallets · 8,062 kg · €1,180 lane rate · 12 Aug 2026</div>
+    </div>
+    <div class="cam">● D09 · staging lane + door</div>
+  </div>
+
+  <div class="c3d" id="c3d">
+    <canvas id="cv"></canvas>
+    <div class="legend">
+      <span><i class="sw" style="background:#2DD4BF"></i>short ≤1.15 m</span>
+      <span><i class="sw" style="background:#3B82F6"></i>medium</span>
+      <span><i class="sw" style="background:#8B5CF6"></i>tall ≥1.40 m</span>
+      <span><i class="sw" style="background:rgba(248,113,113,.35);outline:1px dashed #F87171"></i>stack position lost</span>
+    </div>
+    <div class="seg" id="seg">
+      <button id="seg-b" onclick="setCompare('B')">Platform sequence</button>
+      <button id="seg-a" onclick="setCompare('A')">Planned sequence</button>
+    </div>
+    <div class="start" id="start">
+      <h2>Will all 38 pallets make it into this container?</h2>
+      <p>This simulation checks pallets in staging and shows the shift lead when changing the loading order could help more pallets fit.</p>
+      <p style="color:#C4B5FD;font-weight:600;font-size:13px">Real shipment totals. Simulated pallets, sequence and outcome.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+        <button class="btn pri" style="padding:10px 24px;font-size:14px" onclick="begin(true)">Watch the load ▸</button>
+        <button class="btn gho" style="padding:10px 24px;font-size:14px" onclick="begin(false)">Step through</button>
+      </div>
+      <small>Real shipment from the exporter's August export log. Pallet heights, the load-plan sequence and all camera output are simulated. We assume harness pallets can stack, and hand-picked their heights, to illustrate one sequencing decision; the exporter has confirmed double-stacking only for clips and trim, and has never measured pallet dimensions. The outcome is a hypothetical, not a reconstruction of the real load.</small>
+    </div>
+  </div>
+
+  <div class="stage" id="stage-wrap">
+    <div class="stage-lbl">Staging lane<span>38/38 measured 21:04–21:11 · simulated</span><span>next in load plan →</span></div>
+    <div style="display:flex;gap:8px" id="stage"></div>
+  </div>
+
+  <div class="gauges">
+    <div class="g"><div class="gl">Loaded</div><div class="gv" id="g-load">0 / 38</div><div class="gn">pallets</div></div>
+    <div class="g"><div class="gl">Simulated cube</div><div class="gv" id="g-cube">0%</div><div class="gn">declared 99% · keyed 100%</div></div>
+    <div class="g"><div class="gl">Payload</div><div class="gv" id="g-pay">0%</div><div class="gn">of 26,000 kg</div></div>
+    <div class="g"><div class="gl">Projected to ship · sim</div><div class="gv" id="g-proj">—</div><div class="gn" id="g-proj-n">&nbsp;</div></div>
+  </div>
+
+  <div class="ctrls">
+    <button class="btn gho" id="b-prev" onclick="back()" disabled>◂ Back</button>
+    <button class="btn pri" id="b-next" onclick="fwd()" disabled>Next pallet ▸</button>
+    <button class="btn aut" id="b-auto" onclick="toggleAuto()" disabled>Auto ▸▸</button>
+    <div class="track"><div class="fill" id="prog" style="width:0"></div></div>
+    <div class="slbl" id="slbl">0 / 38</div>
+  </div>
+</div>
+
+<div class="side">
+  <div class="sec">
+    <div class="hd">Intelligence · projection (simulated)</div>
+    <div class="pred">
+      <div class="pr"><span class="pl">Load plan ships (sim)</span><span class="pv" id="p-ship">—</span></div>
+      <div class="pr"><span class="pl">Pallet left at dock</span><span class="pv" id="p-left">—</span></div>
+      <div class="pr"><span class="pl">Stack positions lost</span><span class="pv" id="p-dead">—</span></div>
+      <div class="pr"><span class="pl">Best found (sim)</span><span class="pv" id="p-best" style="color:var(--green)">—</span></div>
+      <div class="status" id="p-status" style="color:var(--dim)">Waiting for load to start.</div>
+    </div>
+  </div>
+
+  <div class="sec" id="alerts" style="display:none">
+    <div class="hd">Alerts</div>
+    <div class="card c-grey" id="c-abstain"></div>
+    <div class="card c-amber" id="c-intervene"></div>
+    <div class="card" id="c-resolved"></div>
+  </div>
+
+  <div class="sec ev" id="ev">
+    <div class="hd">Why · evidence chain</div>
+    <div id="ev-chain"></div>
+  </div>
+
+  <div class="sec">
+    <div class="hd">Door crossings · simulated · heights from staging lane</div>
+    <div class="feed" id="feed"><div class="empty">No pallets through the door yet.</div></div>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="res" id="res" role="dialog" aria-modal="true" aria-labelledby="res-title"><div class="rc" id="rc" tabindex="-1"></div></div>
+
+<script>
+// ── Scenario ──
+// Real: SHP-2026-4246 (D09, SE-Gothenburg, HARNESS-ASSY, 38 pallets, 8,062 kg, declared 66.5 m³, 21:25–23:19).
+// Simulated: every pallet height, the load-plan sequence, camera confidence.
+const C = { L:12.03, W:2.35, H:2.69, vol:67, kg:26000, lim:2.62, rows:10, pl:1.2, pw:1.0 };
+const COLZ = [0.12, 1.23];
+const HT = [1.26,1.29,1.23,1.23,1.29,1.28,1.29,1.26,1.24,1.27,1.24,1.29,1.28,1.29,1.25,1.24,
+            1.47,1.47,1.26,1.02,1.29,1.25,1.28,1.25,1.12,1.25,1.26,1.25,1.27,1.23,1.26,1.44,
+            1.28,1.30,1.28,1.23,1.24,1.22];
+const N = HT.length;
+const K = 18, J = 19;      // decision due after K pallets: load seq[J] before seq[K]
+const ABSTAIN = 11;        // P-011 threshold reading occluded
+const DECLARED = 66.5, KG_TOTAL = 8062;
+const FT = { volBound3w:19, exports3w:83, rateLo:890, rateHi:1180, partials:5, harness:6, harnessNoted:3 };
+
+const pad = n => String(n).padStart(3,'0');
+const kg = HT.map((_,i) => 204 + (i*37) % 17);
+kg[N-1] += KG_TOTAL - kg.reduce((a,b)=>a+b,0);
+const P = HT.map((h,i) => ({ id:'P-'+pad(i+1), h, kg:kg[i], vol:C.pl*C.pw*h,
+  conf: i===ABSTAIN-1 ? 62 : 88 + (i*13)%11, cls: h>=1.40 ? 'tall' : h<=1.15 ? 'short' : 'med' }));
+
+// Assumed loading rule: fill floor, floor, then stack on each if it clears the assumed stack limit.
+// If the next pallet fits nowhere in the row, close the row and start the next one.
+function load(seq){
+  const rows=[], steps=[], dead=[]; let r=0;
+  seq.forEach((p,t)=>{
+    for(;;){
+      if(r>=C.rows){ steps.push({p,left:true}); return; }
+      const row = rows[r] || (rows[r]={});
+      const put = s => { row[s]=p; steps.push({p,row:r,slot:s}); };
+      if(row.fl==null){ put('fl'); return; }
+      if(row.fr==null){ put('fr'); return; }
+      if(row.tl==null && HT[row.fl]+HT[p]<=C.lim){ put('tl'); return; }
+      if(row.tr==null && HT[row.fr]+HT[p]<=C.lim){ put('tr'); return; }
+      if(row.tl==null) dead.push({row:r,slot:'tl',at:t});
+      if(row.tr==null) dead.push({row:r,slot:'tr',at:t});
+      r++;
+    }
+  });
+  const done = steps.filter(s=>!s.left);
+  return { seq, steps, dead, rows, loaded:done.length, left:steps.filter(s=>s.left).map(s=>s.p),
+           vol:done.reduce((a,s)=>a+P[s.p].vol,0), kg:done.reduce((a,s)=>a+P[s.p].kg,0) };
+}
+const planned = [...Array(N).keys()];
+const reseq = planned.slice(); [reseq[K],reseq[J]] = [reseq[J],reseq[K]];
+const LA = load(planned), LB = load(reseq);
+console.assert(LA.left.length===1 && LB.left.length===0, 'scenario: planned must leave 1, reseq 0');
+console.assert(LA.steps.slice(0,K).every((s,i)=>s.row===LB.steps[i].row && s.slot===LB.steps[i].slot), 'paths must match before decision');
+
+const DROW = LA.steps[K-1].row;                 // row where the decision happens
+const FL = LA.rows[DROW].fl, FR = LA.rows[DROW].fr;
+const NXT = planned[K], ALT = planned[J], LEFT = LA.left[0];
+
+// ── State ──
+let step=0, decision=null, compare=null, timer=null;
+const $ = id => document.getElementById(id);
+const pct = v => Math.round(v/C.vol*100);
+const hhmm = n => { const m=21*60+25+n*3; return `${Math.floor(m/60)}:${String(m%60).padStart(2,'0')}`; }; // 114 min / 38 pallets
+const layout = () => compare ? (compare==='B'?LB:LA) : (decision==='accept'?LB:LA);
+const atDecision = () => step===K && !decision && !compare;
+
+// ── 3D ──
+const cv=$('cv'), ctx=cv.getContext('2d'); let W,H,s,ox,oy;
+const COL = { short:['#5EEAD4','#2DD4BF','#0F9E8E'], med:['#93C5FD','#3B82F6','#1D4ED8'], tall:['#C4B5FD','#8B5CF6','#5B21B6'] };
+const RED = ['rgba(248,113,113,.28)','rgba(248,113,113,.16)','rgba(248,113,113,.12)'];
+const GRN = ['rgba(52,211,153,.40)','rgba(52,211,153,.22)','rgba(52,211,153,.16)'];
+const pr = (x,y,z) => [ox+(x*0.94-z*0.6)*s, oy-(x*0.22+z*0.45+y)*s];
+
+function resize(){
+  const r=cv.parentElement.getBoundingClientRect(), d=devicePixelRatio||1;
+  W=r.width; H=r.height; cv.width=W*d; cv.height=H*d; ctx.setTransform(d,0,0,d,0,0);
+  s=Math.min((W-48)/14.79,(H-120)/7.1); ox=(W-14.79*s)/2+3.48*s; oy=H/2+3.06*s+20; // bounds include the scan zone at x≈-2.2
+  draw();
+}
+function poly(pts,fill,stroke,dash){
+  ctx.beginPath(); pts.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p)); ctx.closePath();
+  if(fill){ctx.fillStyle=fill;ctx.fill();}
+  if(stroke){ctx.setLineDash(dash||[]);ctx.strokeStyle=stroke;ctx.lineWidth=1;ctx.stroke();ctx.setLineDash([]);}
+}
+function box(it){
+  const {x,y,z,h,c,stroke,dash}=it, l=C.pl, w=C.pw;
+  poly([pr(x,y,z),pr(x,y,z+w),pr(x,y+h,z+w),pr(x,y+h,z)],c[2],stroke,dash);
+  poly([pr(x,y,z),pr(x+l,y,z),pr(x+l,y+h,z),pr(x,y+h,z)],c[1],stroke,dash);
+  poly([pr(x,y+h,z),pr(x+l,y+h,z),pr(x+l,y+h,z+w),pr(x,y+h,z+w)],c[0],stroke,dash);
+  if(it.txt && s>34){
+    const [tx,ty]=pr(x+l/2,y+h/2,z);
+    ctx.fillStyle='rgba(255,255,255,.82)'; ctx.font=`500 ${Math.min(11,s*.16)}px "JetBrains Mono"`;
+    ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(it.txt,tx,ty);
+  }
+}
+function pill(ax,ay,lx,ly,text,col){
+  ctx.strokeStyle=col; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(ax,ay); ctx.lineTo(lx,ly); ctx.stroke();
+  ctx.font='600 11px "JetBrains Mono"'; const tw=ctx.measureText(text).width+16;
+  const bx=Math.max(6,Math.min(W-tw-6,lx-tw/2));
+  ctx.fillStyle='#052D41'; ctx.beginPath(); ctx.roundRect(bx,ly-11,tw,22,4); ctx.fill();
+  ctx.strokeStyle=col; ctx.stroke(); ctx.fillStyle=col; ctx.textAlign='left'; ctx.textBaseline='middle';
+  ctx.fillText(text,bx+8,ly);
+}
+const EDGES=[[0,0,0,1,0,0],[0,1,0,1,1,0],[0,0,1,1,0,1],[0,1,1,1,1,1],[0,0,0,0,0,1],[0,1,0,0,1,1],
+             [1,0,0,1,0,1],[1,1,0,1,1,1],[0,0,0,0,1,0],[0,0,1,0,1,1],[1,0,0,1,1,0],[1,0,1,1,1,1]];
+function edges(which,alpha){
+  ctx.strokeStyle=`rgba(34,160,243,${alpha})`; ctx.lineWidth=1;
+  which.forEach(i=>{ const e=EDGES[i], a=pr(e[0]*C.L,e[1]*C.H,e[2]*C.W), b=pr(e[3]*C.L,e[4]*C.H,e[5]*C.W);
+    ctx.beginPath(); ctx.moveTo(...a); ctx.lineTo(...b); ctx.stroke(); });
+}
+function draw(){
+  if(!W) return;
+  ctx.clearRect(0,0,W,H);
+  const L=layout(), n=Math.min(step,N);
+  poly([pr(0,0,0),pr(C.L,0,0),pr(C.L,0,C.W),pr(0,0,C.W)],'rgba(34,160,243,.06)');
+  poly([pr(0,0,C.W),pr(C.L,0,C.W),pr(C.L,C.H,C.W),pr(0,C.H,C.W)],'rgba(34,160,243,.035)');
+  poly([pr(C.L,0,0),pr(C.L,0,C.W),pr(C.L,C.H,C.W),pr(C.L,C.H,0)],'rgba(34,160,243,.07)');
+  edges([2,3,6,7,9,10,11],.28);
+  ctx.strokeStyle='rgba(34,160,243,.12)';
+  for(let r=1;r<C.rows;r++){ const x=C.L-r*C.pl; ctx.beginPath(); ctx.moveTo(...pr(x,0,0)); ctx.lineTo(...pr(x,0,C.W)); ctx.stroke(); }
+  ctx.fillStyle='rgba(155,193,216,.55)'; ctx.font='10px "JetBrains Mono"'; ctx.textAlign='center'; ctx.textBaseline='top';
+  for(let r=0;r<C.rows;r++){ const [tx,ty]=pr(C.L-(r+.5)*C.pl,0,0); ctx.fillText('R'+(r+1),tx,ty+6); }
+
+  const items=[];
+  L.steps.slice(0,n).forEach((st,k)=>{
+    if(st.left) return;
+    const col=st.slot[1]==='l'?0:1, top=st.slot[0]==='t';
+    items.push({x:C.L-(st.row+1)*C.pl, y: top?HT[L.rows[st.row][col?'fr':'fl']]:0, z:COLZ[col], h:HT[st.p],
+      c:COL[P[st.p].cls], stroke: k===n-1&&!compare?'#fff':'rgba(3,24,34,.55)', txt:HT[st.p].toFixed(2)});
+  });
+  L.dead.filter(d=>d.at<n).forEach(d=>{
+    const col=d.slot==='tl'?0:1, y=HT[L.rows[d.row][col?'fr':'fl']];
+    items.push({x:C.L-(d.row+1)*C.pl, y, z:COLZ[col], h:C.H-y, c:RED, stroke:'rgba(248,113,113,.75)', dash:[4,3]});
+  });
+  const gx=C.L-(DROW+1)*C.pl;
+  const gBad={x:gx, y:HT[FR], z:COLZ[1], h:HT[NXT], c:RED, stroke:'#F87171', dash:[5,3], txt:P[NXT].id};
+  const gGood={x:gx, y:HT[FL], z:COLZ[0], h:HT[ALT], c:GRN, stroke:'#34D399', dash:[5,3], txt:P[ALT].id};
+  if(atDecision()) items.push(gBad,gGood);
+  items.sort((a,b)=>b.x-a.x || b.z-a.z || a.y-b.y).forEach(box);
+  edges([0,1,4,5,8],.4);
+
+  ctx.fillStyle='rgba(34,160,243,.6)'; ctx.font='600 10px "JetBrains Mono"'; ctx.textAlign='center'; ctx.textBaseline='middle';
+  let [tx,ty]=pr(C.L,C.H+.25,C.W/2); ctx.fillText('NOSE',tx,ty-6);
+  [tx,ty]=pr(0,C.H+.25,C.W/2); ctx.fillText('DOOR',tx,ty-6);
+  drawScan(L,n);
+
+  if(atDecision()){
+    const a=pr(gx+C.pl/2,HT[FR]+HT[NXT],COLZ[1]+C.pw/2), b=pr(gx+C.pl/2,HT[FL]+HT[ALT],COLZ[0]+C.pw/2);
+    pill(a[0],a[1],a[0]-70,Math.max(52,a[1]-60),`Preview: ${P[NXT].id} on ${P[FR].id} = ${(HT[FR]+HT[NXT]).toFixed(2)} m > roof ${C.H} m`,'#F87171');
+    pill(b[0],b[1],b[0]+90,b[1]-18,`Preview: ${P[ALT].id} on ${P[FL].id} = ${(HT[FL]+HT[ALT]).toFixed(2)} m ✓`,'#34D399');
+  }
+}
+
+// Pre-load check: the next pallet stands in the scan zone outside the door until it passes.
+function drawScan(L,n){
+  const z0=.3, z1=C.W-.3, x0=-2.15, x1=-.35, x=-1.8;
+  poly([pr(x0,0,z0),pr(x1,0,z0),pr(x1,0,z1),pr(x0,0,z1)],'rgba(34,160,243,.08)','rgba(34,160,243,.7)',[5,4]);
+  ctx.fillStyle='rgba(34,160,243,.85)'; ctx.font='600 9.5px "JetBrains Mono"'; ctx.textAlign='center'; ctx.textBaseline='top';
+  const [lx,ly]=pr((x0+x1)/2,0,z0); { const t='SCAN ZONE · before the door'; ctx.fillText(t,Math.max(lx,ctx.measureText(t).width/2+6),ly+8); }
+  if(n>=N || compare) return;
+  const p=L.seq[n], st=L.steps[n], dead=L.dead.filter(d=>d.at===n);
+  let txt, col='#34D399';
+  if(atDecision()){ txt=`✕ Hold ${P[p].id}: stacks to ${(HT[FR]+HT[p]).toFixed(2)} m > ${C.lim} m`; col='#F87171'; }
+  else if(st.left){ txt=`✕ ${P[p].id}: no position left`; col='#F87171'; }
+  else if(dead.length){ txt=`⚠ ${P[p].id} closes R${dead[0].row+1}: ${dead.length} stack position${dead.length>1?'s':''} lost`; col='#FBBF24'; }
+  else if(st.slot[0]==='t'){ const fl=L.rows[st.row][st.slot==='tl'?'fl':'fr']; txt=`✓ ${P[p].id} stacks on ${P[fl].id}: ${(HT[fl]+HT[p]).toFixed(2)} m`; }
+  else txt=`✓ ${P[p].id} → floor R${st.row+1}`;
+  box({x, y:0, z:(C.W-C.pw)/2, h:HT[p], c:COL[P[p].cls], stroke:col, txt:HT[p].toFixed(2)});
+  const [ax,ay]=pr(x+C.pl/2,HT[p],C.W/2);
+  pill(ax,ay,ax+20,ay-42,txt,col);
+}
+
+// ── Panels ──
+function chip(p,cls,tag){
+  const q=P[p];
+  return `<div class="${cls}"><div class="bar" style="height:${Math.round(q.h/1.5*44)}px;background:${COL[q.cls][1]}"></div>
+    <div><div class="cid">${q.id}</div><div class="ch">${q.h.toFixed(2)} m</div>${tag?`<div class="tag">${tag}</div>`:''}</div></div>`;
+}
+function renderStage(){
+  const L=layout(), n=Math.min(step,N);
+  let html=L.steps.slice(0,n).filter(st=>st.left).map(st=>chip(st.p,'chip bad','left at dock')).join('');
+  L.seq.slice(n,n+8).forEach((p,i)=>{
+    if(atDecision() && p===NXT) html+=chip(p,'chip bad',"won't stack");
+    else if(atDecision() && p===ALT) html+=chip(p,'chip good','fits · load first');
+    else html+=chip(p, i===0?'chip next':'chip', i===0?'next':'');
+  });
+  $('stage').innerHTML = html || '<div class="stage-empty">Lane clear</div>';
+}
+function place(st){ return st.left ? 'LEFT AT DOCK' : `R${st.row+1} · ${st.slot[0]==='t'?'stacked':'floor'}`; }
+function renderFeed(){
+  const L=layout(), n=Math.min(step,N);
+  const rows=L.steps.slice(0,n).map((st,k)=>{
+    const q=P[st.p], occl=st.p===ABSTAIN-1;
+    const cls=st.left?'fi left':occl?'fi warn':k===n-1?'fi new':'fi';
+    return `<div class="${cls}"><div class="fd" style="background:${COL[q.cls][1]}"></div><div class="fid">${q.id}</div>
+      <div class="fpl">${place(st)}${occl?' · door read withheld':''}</div><div class="fh">${q.h.toFixed(2)} m</div>
+      <div class="fc ${q.conf>=85?'hi':'lo'}">${q.conf}%</div></div>`;
+  });
+  if(decision==='override' && !compare && n>K) rows.splice(K,0,`<div class="fi left"><div class="fd" style="background:var(--red)"></div><div class="fid">→ VP</div><div class="fpl">Simulated escalation: ${P[LEFT].id} projected to roll</div><div></div><div></div></div>`);
+  if(decision==='accept' && !compare && n>K) rows.splice(K,0,`<div class="fi swap"><div class="fd" style="background:var(--green)"></div><div class="fid">SWAP</div><div class="fpl">${P[ALT].id} loaded before ${P[NXT].id}</div><div></div><div></div></div>`);
+  $('feed').innerHTML = rows.length ? rows.reverse().slice(0,14).join('') : '<div class="empty">No pallets through the door yet.</div>';
+}
+function renderAlerts(){
+  const show = step>=ABSTAIN;
+  $('alerts').style.display = show?'block':'none';
+  const q=P[ABSTAIN-1];
+  $('c-abstain').className='card c-grey'+(step>=ABSTAIN && step<K?' on':'');
+  $('c-abstain').innerHTML=`<div class="ct" style="color:var(--muted)">Door height reading withheld · ${q.id}</div>
+    <div class="cb">Forklift mast blocked part of ${q.id} at the threshold. Door-camera confidence was <b>62%</b>, under the 85% bar, so that reading is not used.
+    The staging-lane measurement (<b>${q.h.toFixed(2)} m</b>, 94%) stands. The projection doesn't change.</div>`;
+  $('c-intervene').className='card c-amber'+(atDecision()?' on':'');
+  $('c-intervene').innerHTML=`<div class="ct" style="color:var(--amber)">Hold ${P[NXT].id}. Load ${P[ALT].id} first.</div>
+    <div class="cb" style="margin-bottom:4px;color:var(--purple)">Simulated recommendation · requires harness packaging approval</div>
+    <div class="cb" style="margin-bottom:6px"><b>${hhmm(K)}</b> · ${(N-K)*3} min before simulated load completion. Both pallets are still in the staging lane.</div>
+    <div class="cb">${P[NXT].id} would stack to <b>${(HT[FR]+HT[NXT]).toFixed(2)} m</b>, above the assumed ${C.lim} m limit. Following that sequence leaves <b>${P[LEFT].id}</b> behind in the simulation.<br>Load ${P[ALT].id} first: its ${(HT[FL]+HT[ALT]).toFixed(2)} m stack fits.</div>
+    <div class="opts">
+      <div class="opt"><div class="ol">Simulated: load plan</div><div class="ov" style="color:var(--amber)">${LA.loaded}/${N}</div><div class="on2">shipped · ${LA.dead.length} positions lost</div></div>
+      <div class="opt best"><div class="ol" style="color:var(--green)">Simulated: proposed swap</div><div class="ov" style="color:var(--green)">${LB.loaded}/${N}</div><div class="on2">shipped · ${LB.dead.length} positions lost</div></div>
+    </div>
+    <div class="cb" style="margin-top:8px;color:var(--purple)">Counterfactual simulation. the exporter's export records all ${N} pallets loaded; this demo does not show how that happened or establish that Platform improved the outcome.</div>
+    <div class="btns"><button class="btn grn" onclick="decide('accept')">Accept · load ${P[ALT].id} first</button>
+    <button class="btn gho" onclick="decide('override')">Keep load plan</button></div>`;
+  const rc=$('c-resolved');
+  if(decision && step>=K){
+    const ok=decision==='accept';
+    rc.className='card on '+(ok?'c-green':'c-red');
+    rc.innerHTML = ok
+      ? `<div class="ct" style="color:var(--green)">Swap accepted (simulated) · ${hhmm(K)}</div><div class="cb">${P[ALT].id} goes next, onto ${P[FL].id}; ${P[NXT].id} waits in the lane. The projection moves to <b>${LB.loaded}/${N}</b> in the simulation. In a live deployment, the decision and outcome would be logged against the load.</div><div class="cb" style="margin-top:6px;color:var(--purple)">Counterfactual simulation. the exporter's export records all ${N} pallets loaded; this demo does not show how that happened or establish that Platform improved the outcome.</div>`
+      : `<div class="ct" style="color:var(--red)">Override (simulated)</div><div class="cb">Load plan kept. ${P[LEFT].id} is projected to stay at the dock. <b>Simulated escalation to VP Operations at ${hhmm(K)} (no message sent): ${LA.loaded}/${N} projected, ${P[LEFT].id} would roll to the next sailing.</b> Nobody on the dock can fix it now, so a simulated VP escalation is recorded before the container leaves. The override also goes to Intelligence; if crews keep overriding this rule, the rule needs review.</div>`;
+  } else rc.className='card';
+}
+function renderEvidence(){
+  $('ev').className='sec ev'+(step>=K?' on':'');
+  if(step<K) return;
+  $('ev-chain').innerHTML=[
+    ['d','D','Detections · D09 staging lane · 21:12','t-sim',`Simulated: all ${N} pallets measured before loading started. ${P[FL].id} ${HT[FL]} m · ${P[FR].id} ${HT[FR]} m · ${P[NXT].id} ${HT[NXT]} m · ${P[ALT].id} ${HT[ALT]} m. Range ${Math.min(...HT)}–${Math.max(...HT)} m.`],
+    ['c','C','Customer answer · scoping Q1','t-real','Nobody at the exporter has measured actual cube; volume comes off the pallet master, one standing figure per part family. Clips and trim double-stack as standard; harness isn\'t mentioned, so stacking harness here is inferred from 36–38 pallets per container and needs the packaging engineer to confirm. For HARNESS-ASSY the pallet master says 1.75 m³ for every pallet.'],
+    ['c','C','Customer data · shipping log, Aug','t-real',`${FT.harnessNoted} of ${FT.harness} HARNESS-ASSY exports carry stacking notes: "reslotted mid-load" (4191, 4227) and "double-stack refused by driver" (4150).`],
+    ['c','C','Customer answer · scoping Q4','t-real','The shipping module builds a load plan the afternoon before. The shift lead overrides it at the dock and "pulls the next thing that fits". The plan is advisory; the shift lead decides, so the recommendation goes to the shift lead.'],
+    ['c','C','Load plan · sequence','t-sim',`${P[NXT].id} is next, then ${P[ALT].id}. The plan is real; this sequence is simulated. Needs a Data Connector to the shipping module.`],
+    ['c','C','Sales call · VP and Logistics Manager','t-real','The VP asked for a real-time under-fill alert. The Logistics Manager said the doors are sealed and the driver moving about four minutes after the last pallet, too late to act on an alert.'],
+    ['i','I','Alert timing and routing','t-sim',`Raised at ${hhmm(K)}, ${(N-K)*3} min before simulated load completion (${hhmm(N)}, the load_end in the log). Pallet-by-pallet timing is simulated; the log has no door-seal time. The Hold goes to the shift lead, who decides (Q4); a simulated VP escalation is recorded only if a pallet is still projected to roll.`],
+    ['i','I','Intelligence · constraint + replay','t-sim',`${HT[FR]} + ${HT[NXT]} = ${(HT[FR]+HT[NXT]).toFixed(2)} m, over the assumed ${C.lim} m stack limit (${C.H} m standard 40ft HC interior minus an assumed 7 cm forklift clearance). Replaying the assumed loading rule over the remaining ${N-K} pallets: ${LA.loaded}/${N} as planned, ${LB.loaded}/${N} with one swap. Smallest change that ships everything. Decision margins under this demo's assumptions: P-019 11 cm over the limit, P-020 13 cm under. Proposed pilot policy, not implemented in this prototype: when uncertainty in the combined stack height could change the fit decision, request a physical check before recommending placement. Validation must account for both pallets' measurement errors and the real clearance limit.`],
+    ['o','O','Operations · door D09 tablet','t-sim','Advisory shown to the shift lead early; blocking Hold shown before the affected pallet enters. Accept or override is logged with the load.'],
+  ].map(([c,l,src,t,txt])=>`<div class="es"><div class="ed ${c}">${l}</div><div><div class="esrc">${src}<span class="${t}">${t==='t-real'?'REAL':'SIM'}</span></div><div class="etxt">${txt}</div></div></div>`).join('');
+}
+function renderGauges(){
+  const L=layout(), n=Math.min(step,N), done=L.steps.slice(0,n).filter(st=>!st.left);
+  const vol=done.reduce((a,st)=>a+P[st.p].vol,0), w=done.reduce((a,st)=>a+P[st.p].kg,0);
+  $('g-load').textContent=`${done.length} / ${N}`;
+  $('g-cube').textContent=pct(vol)+'%';
+  $('g-pay').textContent=Math.round(w/C.kg*100)+'%';
+  const proj = compare ? L : decision==='accept' ? LB : LA;
+  const g=$('g-proj');
+  if(step===0 && !$('start').classList.contains('gone')){ g.textContent='—'; $('g-proj-n').innerHTML='&nbsp;'; }
+  else {
+    g.textContent=`${proj.loaded} / ${N}`;
+    g.style.color = proj.left.length ? (decision==='override'?'var(--red)':'var(--amber)') : 'var(--green)';
+    $('g-proj-n').textContent = proj.left.length ? `${P[proj.left[0]].id} at risk` : 'all pallets';
+  }
+  $('prog').style.width=(n/N*100)+'%'; $('slbl').textContent=`${n} / ${N}`;
+  $('clock').textContent=hhmm(n);
+  $('badge').textContent = n>=N ? 'Simulation closed' : 'Simulated load';
+  $('badge').className = 'badge'+(n>=N?' done':'');
+}
+function renderPrediction(){
+  if(!$('start').classList.contains('gone')) return;
+  $('p-ship').textContent=`${LA.loaded} / ${N}`; $('p-ship').style.color='var(--amber)';
+  $('p-left').textContent=`${P[LEFT].id} · ${HT[LEFT]} m`;
+  $('p-dead').textContent=`${LA.dead.length}`;
+  $('p-best').textContent=`${LB.loaded} / ${N} · 1 swap`;
+  const st=$('p-status');
+  if(decision==='accept'){ st.textContent=`Re-sequenced (simulated). All ${N} pallets projected to ship.`; st.style.color='var(--green)'; }
+  else if(decision==='override'){ st.textContent=`Override logged. ${P[LEFT].id} projected to stay at the dock. Simulated VP escalation at ${hhmm(K)}.`; st.style.color='var(--red)'; }
+  else if(step===K){ st.textContent=`Decision needed now. ${P[NXT].id} is still outside; once it's in, this can't be undone.`; st.style.color='var(--amber)'; }
+  else { st.innerHTML=`Risk found at staging. Fix already known: <b>load ${P[ALT].id} before ${P[NXT].id}</b>. Advisory for now; it becomes a Hold when ${P[NXT].id} reaches the scan zone.`; st.style.color='var(--muted)'; }
+}
+function render(){
+  renderGauges(); renderPrediction(); renderStage(); renderFeed(); renderAlerts(); renderEvidence(); draw();
+  $('b-prev').disabled = step<=0 || !!compare;
+  $('b-next').disabled = step>=N || atDecision() || !!compare;
+  $('b-auto').disabled = step>=N || atDecision() || !!compare;
+}
+
+// ── Flow ──
+let autoMode=false; // the viewer's chosen playback mode; internal pauses don't change it
+function begin(auto){
+  $('start').classList.add('gone');
+  render();
+  if(auto) toggleAuto();
+  else $('b-next').focus();
+}
+function fwd(){
+  if(step>=N || atDecision()) return;
+  step++;
+  if(atDecision()) stopAuto();
+  if(step===N){ stopAuto(); setTimeout(showResult,600); }
+  render();
+}
+function back(){
+  if(step<=0) return;
+  step--;
+  if(step<K) decision=null;
+  render();
+}
+function stopAuto(){ clearInterval(timer); timer=null; $('b-auto').classList.remove('on'); }
+function toggleAuto(){
+  if(timer){ autoMode=false; return stopAuto(); }
+  autoMode=true;
+  $('b-auto').classList.add('on');
+  timer=setInterval(fwd,450);
+}
+function decide(d){
+  decision=d; render();
+  if(autoMode) setTimeout(()=>{ if(!timer && step<N) toggleAuto(); },900);
+  else $('b-next').focus();
+}
+function setCompare(v){
+  compare=v; $('seg-a').className=v==='A'?'act':''; $('seg-b').className=v==='B'?'act':'';
+  render();
+}
+function showResult(){
+  const ok=decision==='accept', q=P[LEFT];
+  const perYear=Math.round(FT.volBound3w*52/3), ctrs=perYear/N;
+  const lo=Math.round(ctrs*FT.rateLo/1000), hi=Math.round(ctrs*FT.rateHi/1000);
+  const measured=(ok?LB:LA).vol;
+  $('rc').innerHTML=`
+    <div class="rk">Load closed · 23:19 · simulated</div>
+    <div class="rh${ok?'':' bad'}" id="res-title">${ok?`In the simulation, all ${N} ship. <em>One swap did it.</em>`:`In the simulation, <em>${LA.loaded} of ${N}</em> ship. ${q.id} stays at the dock.`}</div>
+    <div class="rs">${ok
+      ? `Following the load plan, ${q.id} (${q.h} m, ${q.kg} kg) would have stayed at the dock. That resembles the "partial – balance ships next day" outcome recorded on ${FT.partials} of ${FT.exports3w} exports in August, and sailings are booked weekly per lane, so the next one may be three days out (the exporter, Q5). The log doesn't record the cause; the pilot would establish how often sequencing contributed. No escalation to VP Operations was needed: it was fixed on the dock.`
+      : `The crew kept the load plan. ${q.id} (${q.h} m, ${q.kg} kg) waits for the next container on the lane. A simulated VP escalation was raised at ${hhmm(K)}, about an hour before simulated load completion, so the roll is a known decision rather than a surprise. Enough overrides on one rule is a signal that the rule is wrong.`}</div>
+    <div class="rg">
+      <div class="rb"><div class="gl">Simulated: load plan</div><div class="rv" style="color:var(--amber)">${LA.loaded}/${N}</div>
+        <div class="rn">${LA.dead.length} stack positions lost<br>${pct(LA.vol)}% simulated cube</div></div>
+      <div class="rb best"><div class="gl" style="color:var(--green)">Simulated: proposed swap</div><div class="rv" style="color:var(--green)">${LB.loaded}/${N}</div>
+        <div class="rn">${LB.dead.length} stack positions lost<br>${pct(LB.vol)}% simulated cube</div></div>
+    </div>
+    <div class="rs" style="margin:-8px 0 16px;font-size:12px;color:var(--purple)">Counterfactual simulation. the exporter's export records all ${N} pallets loaded; this demo does not show how that happened or establish that Platform improved the outcome.</div>
+    <div class="blk"><b>Across all 83 export containers (real shipping log):</b> declared goods volume averages 63.4% of the 67 m³ usable benchmark, leaving a <b>36.6% nominal gap</b>—not measured empty space. <b>64</b> loads used at least 90% of payload; <b>19</b> had lower payload and high nominal cube. The pilot must measure actual void and test whether any of it can avoid a container.</div>
+    <div class="blk"><p><b>Three numbers for the same container.</b></p>
+      <table class="tn">
+        <tr><td>Operator-keyed fill</td><td>100%</td><td>load_fill_pct, typed by the loader</td><td><span class="t-real">REAL</span></td></tr>
+        <tr><td>Declared cube</td><td>${DECLARED} m³ · ${pct(DECLARED)}%</td><td>38 × 1.75 m³ from the pallet master</td><td><span class="t-real">REAL</span></td></tr>
+        <tr><td>Simulated cargo cube</td><td>${measured.toFixed(1)} m³ · ${pct(measured)}%</td><td>assumed 1.2 × 1.0 m base × simulated heights</td><td><span class="t-sim">SIM</span></td></tr>
+      </table>
+      <p>The calculated cube percentages use the customer's 67 m³ usable-capacity benchmark; the operator's 100% is entered by hand. The assumed interior dimensions (12.03 × 2.35 × 2.69 m) describe about 76 m³. The sources don't explain the difference, which the pilot must reconcile.</p>
+      <p><b>Pallet-master volume can't establish loading geometry.</b> Under this demo's assumed 1.2 × 1.0 m base and two-high stacking, 1.75 m³ per pallet would mean 1.46 m tall, and two of those (2.92 m) wouldn't fit in 2.69 m. That says the nominal figure and our assumptions don't reconcile, not what the real pallets are. "Dunnage added" appears on 5 exports; dunnage notes indicate freight-securing requirements and don't establish avoidable wasted space.</p>
+      <p><b>The crew's last metre.</b> the exporter says the last metre at the door end is never usable (Q1). This demo's assumed layout uses all ten 1.2 m rows; without the door-end row it would hold at most 36 pallets, yet the log records 38 loaded. So the assumed footprint, row layout or stacking doesn't match the real load, and only site measurements can say which.</p>
+      <p>Harness pallets here range ${Math.min(...HT)}–${Math.max(...HT)} m, not one standing figure. <span class="t-sim">SIM</span> The real gap is what the pilot measures.</p></div>
+    <div class="blk"><p><b>Sizing, honestly (illustrative).</b> No paid container has been shown saved yet, and this is a scenario, not a ceiling. If every export that is volume-bound on declared cube (${FT.volBound3w} per 3 weeks in the August data, ~${perYear} a year) rolled one pallet that sequencing could have saved,
+      that would add up to ~${ctrs.toFixed(0)} containers, <b>€${lo}–${hi}k a year</b> at €${FT.rateLo}–${FT.rateHi.toLocaleString()} per lane.</p>
+      <p>Why build it anyway: it's the reason a shift lead looks at a Platform screen on every load. Every load then leaves behind measured heights for every pallet, which is data the exporter has never had.
+      On its own this doesn't reach the 8% target. Container-count decisions also depend on floor positions, stacking rules and rates; measured cube is one input they currently lack.</p></div>
+    <div class="blk"><b>Six-week pilot</b><ol style="margin-top:6px">
+      <li>D09 and D10 are the only export doors with cameras (6 cameras across 14 doors, installed 2025 for safety). They face the dock apron and the staging lane, where this check happens. Confirm the view; reposition for the container interior if needed. Measure camera height error against tape.</li>
+      <li>Connect the shipping module's load plan, and build the trailer_id → shipping-line container number mapping the exporter's IT says was never linked.</li>
+      <li>Run harness, clip and trim loads through D09/D10. Measure how often the load plan loses positions or rolls pallets. That number decides whether this ships.</li></ol></div>
+    <button class="link" onclick="closeResult()">Close and compare both layouts ↗</button>
+    <div class="rf"><b style="color:var(--muted)">Real:</b> shipment SHP-2026-4246 (door, lane, SKU, pallet count, weight, declared volume, load window), scoping answers, shipping-log notes, lane rates.
+      <b style="color:var(--muted)">Simulated:</b> pallet heights, load-plan sequence, camera output and confidence, the 1.2 × 1.0 m base, the 2.62 m stack limit, and harness stacking permission (unverified). We assume harness pallets can stack, and hand-picked their heights, to illustrate one sequencing decision; the exporter has confirmed double-stacking only for clips and trim, and has never measured pallet dimensions. The outcome is a hypothetical, not a reconstruction of the real load. The loading rule and both outcomes are computed live on this page, not scripted.</div>`;
+  $('res').classList.add('on');
+  $('rc').focus();
+}
+function closeResult(){
+  $('res').classList.remove('on');
+  $('seg').classList.add('on');
+  setCompare('B');
+  $('seg-b').focus();
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape' && $('res').classList.contains('on')) closeResult(); });
+
+window.addEventListener('resize',resize);
+resize(); render();
+</script>
+</body></html>
