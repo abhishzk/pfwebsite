@@ -69,9 +69,9 @@
 		</p>
 		<DecisionBlock title="The real question was when to alert, not whether.">
 			<p>
-				Revisiting it, I rebuilt the exercise around a different reading. An
-				alert at the end of loading has nothing behind it. The same alert an hour earlier, while the
-				pallet is still outside the door, gives the shift lead a decision to make.
+				Revisiting it, I rebuilt the exercise around a different reading. An alert at the end of
+				loading has nothing behind it. The same alert an hour earlier, while the pallet is still
+				outside the door, gives the shift lead a decision to make.
 			</p>
 		</DecisionBlock>
 	</CaseStudySection>
@@ -79,8 +79,8 @@
 	<CaseStudySection title="The data could not answer the question it was asked." tone="soft">
 		<p>
 			The brief's three-week shipping export covered 83 containers. Weights were recorded. The
-			declared volume was not measured: it was pallet count multiplied by one fixed figure per product
-			family, and the brief confirmed nobody had ever measured actual cube.
+			declared volume was not measured: it was pallet count multiplied by one fixed figure per
+			product family, and the brief confirmed nobody had ever measured actual cube.
 		</p>
 		<div class="finding-grid">
 			<article>
@@ -117,8 +117,8 @@
 		<p>
 			The site's existing safety cameras already faced the staging lane, not the container interior.
 			The brief also noted that the shipping system builds a load plan the day before, and the shift
-			lead overrides it by pulling the next thing that fits. So the product works with
-			that habit rather than against it.
+			lead overrides it by pulling the next thing that fits. So the product works with that habit
+			rather than against it.
 		</p>
 		<div class="pipeline" aria-label="Concept workflow">
 			<span>Measure in staging</span><b aria-hidden="true">→</b><span>Replay load plan</span><b
