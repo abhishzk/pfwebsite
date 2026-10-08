@@ -24,6 +24,7 @@
 				<article
 					class:featured={index === 0}
 					class:strategy={study.slug === 'digital-bau-operating-model'}
+					class:concept={study.slug === 'container-loading'}
 					class="work-item reveal"
 					use:reveal={index * 80}
 				>
@@ -120,6 +121,17 @@
 		padding-top: clamp(16px, 3vw, 32px);
 	}
 
+	.work-item.concept {
+		grid-column: 2 / 12;
+		grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.92fr);
+		align-items: center;
+		gap: clamp(36px, 6vw, 72px);
+	}
+
+	.work-item.concept .work-media {
+		order: 2;
+	}
+
 	.work-media {
 		display: block;
 		overflow: hidden;
@@ -213,10 +225,15 @@
 		.work-item,
 		.work-item:nth-child(3),
 		.work-item.featured,
-		.work-item.strategy {
+		.work-item.strategy,
+		.work-item.concept {
 			grid-column: auto;
 			grid-template-columns: 1fr;
 			gap: 34px;
+		}
+
+		.work-item.concept .work-media {
+			order: 0;
 		}
 	}
 </style>

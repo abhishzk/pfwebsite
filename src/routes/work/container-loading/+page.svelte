@@ -58,7 +58,7 @@
 
 	<CaseStudySection title="The customer asked for an alert nobody could act on.">
 		<p>
-			This started as a product-manager take-home for an industrial computer-vision company. The
+			This is a deliberate product study, built from an industrial computer-vision brief. The
 			customer, an automotive parts exporter, believed its containers left the plant 30% empty. The
 			VP of Operations wanted a real-time alert when a container was going out under-filled.
 		</p>
