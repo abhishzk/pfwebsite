@@ -38,6 +38,11 @@ export const externalLinks = {
 		href: 'https://employers.visajobs.ie/',
 		event: 'product_visit'
 	},
+	containerPrototype: {
+		label: 'Open the prototype',
+		href: 'https://vantera-container-utilisation.vercel.app/',
+		event: 'product_visit'
+	},
 	visaJobsExtension: {
 		label: 'Add Job Check to Chrome',
 		href: 'https://chromewebstore.google.com/detail/visajobsie-%E2%80%94-job-check/mjhcgjigopcgpfnoekggmfhhfngekmec',
@@ -181,6 +186,42 @@ export const caseStudies: CaseStudy[] = [
 		metrics: [
 			{ value: '84%', label: 'session growth' },
 			{ value: '100%', label: 'logo retention' }
+		]
+	},
+	{
+		slug: 'container-loading',
+		shortTitle: 'Container Loading Concept',
+		title: 'Moving an under-fill alert to where someone can still act',
+		description:
+			'Check pallets in the staging lane before they enter an export container, and alert the shift lead while the load can still change.',
+		role: 'Product Manager, self-initiated',
+		period: 'September 2026',
+		domains: ['Computer vision workflow', 'Industrial operations', 'Concept prototype'],
+		image: '/images/casestudies/container-loading-decision.jpg',
+		imageAlt:
+			'Prototype paused at a loading decision: one pallet held in the scan zone outside the container while a different pallet is recommended',
+		imageWidth: 1440,
+		imageHeight: 900,
+		decision:
+			'Measure pallets in the staging lane and hold a pallet at the door only when that decision changes what fits.',
+		result:
+			'Two working prototypes, a fleet baseline from 83 real shipments, and a pilot plan with every assumption labelled.',
+		resultLabel: 'Work produced',
+		metricsLabel: 'Case study scope',
+		imageCaption:
+			'Simulated decision moment. Shipment totals are real; pallet heights, sequence and outcome are simulated, and the prototype says so on every screen.',
+		context: {
+			team: 'Solo, with peer and AI review',
+			stage: 'Concept prototype',
+			customer: 'Shift leads and operations leaders',
+			ownership: 'Discovery, analysis, prototype, pilot plan',
+			constraint: 'Real totals, no pallet-level data'
+		},
+		metrics: [
+			{ value: '83', label: 'export shipments analysed' },
+			{ value: '64 / 83', label: 'near the payload ceiling' },
+			{ value: '19', label: 'loads prioritised for measurement' },
+			{ value: '2', label: 'interactive prototypes' }
 		]
 	},
 	{

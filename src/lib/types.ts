@@ -6,7 +6,12 @@ export interface CaseStudyMetric {
 }
 
 export interface CaseStudy {
-	slug: 'visajobs' | 'bill-reader' | 'platform-delivery' | 'digital-bau-operating-model';
+	slug:
+		| 'visajobs'
+		| 'bill-reader'
+		| 'platform-delivery'
+		| 'container-loading'
+		| 'digital-bau-operating-model';
 	title: string;
 	shortTitle: string;
 	description: string;

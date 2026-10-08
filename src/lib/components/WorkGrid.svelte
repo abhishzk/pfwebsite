@@ -14,7 +14,7 @@
 			<span class="eyebrow">Selected product work</span>
 			<h2>Decisions, trade-offs, and proof.</h2>
 			<p>
-				Four case studies showing how I find the real constraint, align teams, design operating
+				Five case studies showing how I find the real constraint, align teams, design operating
 				systems, and measure what changes after launch.
 			</p>
 		</div>
