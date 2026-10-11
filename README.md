@@ -30,9 +30,9 @@ npm run build
 
 ## Content maintenance
 
-Shared portfolio content and changing product figures live in `src/lib/data/portfolio.ts`.
-
-VisaJobs figures include a verification date and source note. Update those values in one place when public product numbers change.
+Shared portfolio content and canonical VisaJobs figures live in `src/lib/data/portfolio.ts`.
+Figures include a verification date and source note. When public product numbers change, also
+update matching narrative copy, social-card SVGs and generated PNGs, and the resume source and PDF.
 
 The public resume is generated from `scripts/build-resume.py` and published at
 `/abhishek-kumar-resume.pdf`. The script requires ReportLab.

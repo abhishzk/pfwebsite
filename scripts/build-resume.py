@@ -279,7 +279,7 @@ def build_resume():
     story.extend(section("Selected product impact"))
     impact = Table(
         [[
-            metric("3,500+", "VisaJobs candidates"),
+            metric("6,500+", "VisaJobs candidates"),
             metric("84%", "platform session growth"),
             metric("95%", "PDF bill accuracy"),
             metric("28+", "AI product integrations"),
@@ -309,7 +309,7 @@ def build_resume():
             "Dublin, Ireland",
             "Jan 2026 - Present",
             [
-                "Founded and lead a searchable sponsorship data product used by 3,500+ candidates across 142 nationalities, covering 204,612 permit records, 22,800+ employers, and 4,400+ live jobs.",
+                "Founded and lead a searchable sponsorship data product used by 6,500+ candidates across 142 nationalities, covering 204,612 permit records, 22,800+ employers, and 4,400+ live jobs.",
                 "Turned fragmented government permit data into sponsor verification, company comparison, live job search, permit tools, and application tracking with clear evidence and source boundaries.",
                 "Validated demand through 51,000+ launch-post views and 1,400+ click-throughs, then expanded the candidate product into a verified employer platform from inbound market feedback.",
             ],

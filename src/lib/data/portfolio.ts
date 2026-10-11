@@ -52,7 +52,7 @@ export const externalLinks = {
 
 export const visaJobsPublicMetrics: CaseStudyMetric[] = [
 	{
-		value: '4,500+',
+		value: '6,500+',
 		label: 'candidates',
 		verifiedAt: 'September 2026',
 		sourceNote: 'Public product figure confirmed by Abhishek'
@@ -113,7 +113,7 @@ export const caseStudies: CaseStudy[] = [
 			'/images/casestudies/visajobs-product-720.webp 720w, /images/casestudies/visajobs-product-1200.webp 1200w, /images/casestudies/visajobs-product.webp 1440w',
 		decision:
 			'Use official permit history as the trust layer, then connect it to live jobs and decision tools.',
-		result: '4,500+ candidates and a new verified employer product.',
+		result: '6,500+ candidates and a new verified employer product.',
 		imageCaption:
 			'Real VisaJobs product capture showing the search experience built around public permit evidence.',
 		context: {
@@ -272,7 +272,7 @@ export function getCaseStudy(slug: CaseStudy['slug']): CaseStudy {
 }
 
 export const homeMetrics: CaseStudyMetric[] = [
-	{ value: '4,500+', label: 'VisaJobs candidates' },
+	{ value: '6,500+', label: 'VisaJobs candidates' },
 	{ value: '84%', label: 'platform session growth' },
 	{ value: '95%', label: 'accurate document processing' },
 	{ value: '28+', label: 'AI product integrations' }
@@ -325,7 +325,7 @@ export const experience: Experience[] = [
 		summary:
 			'Building a data product that helps international candidates and Irish employers make visa-sponsorship decisions with evidence.',
 		outcomes: [
-			'Grew the candidate product to 4,500+ candidates.',
+			'Grew the candidate product to 6,500+ candidates.',
 			'Expanded into verified employer claiming and job posting.',
 			'Turned official permit data into search, comparison, scoring, and planning tools.'
 		]
