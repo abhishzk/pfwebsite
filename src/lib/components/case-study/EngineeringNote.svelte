@@ -5,10 +5,7 @@
 </script>
 
 <SlideOver bind:open kicker="Internal note to engineering" title="Engineering note">
-	<p class="lede">
-		What it would take to make this real, what we would need from the customer, what I faked, and
-		where it breaks. One page.
-	</p>
+	<p class="lede">What it would take to make this real, and where it breaks.</p>
 
 	<h3>The finding</h3>
 	<p>
@@ -40,7 +37,7 @@
 			a log of what was advised, what the crew did and how the container ended up.
 		</li>
 	</ul>
-	<p>Not an optimiser, and not vision alone. Rules decide; the camera supplies the inputs.</p>
+	<p>Rules decide; the camera only supplies the inputs.</p>
 
 	<h3>What we need from the customer</h3>
 	<ul>
@@ -57,7 +54,6 @@
 			far. Eight is my guess.
 		</li>
 		<li>Reason codes for the partial shipments, to separate stacking from every other cause.</li>
-		<li>The container's usable inside height and the clearance rule crews actually follow.</li>
 	</ul>
 
 	<h3>What I deliberately faked</h3>
@@ -109,11 +105,11 @@
 		</tbody>
 	</table>
 	<p>
-		The loads where advice helps swing from 3 to 31 on 10 cm of clearance, while the stuck count
-		never moves because it is set by the floor-only rule. So both the size of the opportunity and
-		the cost of bad advice, a pallet refused or damaged at the door, rest on measurements the
-		customer does not have. Mitigation is cheap and layered: tape-measure a sample in week one,
-		compare every camera reading against it, and withhold advice below the confidence bar.
+		The loads where advice helps swing from 3 to 31 on 10 cm of clearance; the stuck count never
+		moves because the floor-only rule sets it. Both the size of the opportunity and the cost of bad
+		advice rest on measurements the customer does not have. Mitigation is cheap and layered:
+		tape-measure a sample in week one, compare every camera reading against it, and withhold advice
+		below the confidence bar.
 	</p>
 
 	<h3>Does it generalise?</h3>
@@ -122,9 +118,8 @@
 		is a hard limit such as stack height or axle weight, and the order can still change before
 		loading. It does not apply when every unit is the same height, when the order is fixed by the
 		delivery route, or when machines load. That is testable from one flat export before anyone
-		visits a site: does it carry the planned sequence and per-unit dimensions, and do loads vary? So
-		it doubles as a sales qualification step. This is one customer's data and a prototype, so treat
-		the pattern as a hypothesis until a second site shows it.
+		visits a site: does it carry the planned sequence and per-unit dimensions, and do loads vary?
+		One customer and a prototype, so a hypothesis until a second site shows it.
 	</p>
 </SlideOver>
 
