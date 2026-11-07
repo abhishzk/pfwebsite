@@ -27,14 +27,13 @@
 			<h1>
 				<span>Product Manager</span>
 				<span
-					>in Ireland. Former Mastercard engineer who takes products from zero to real users.</span
+					>in Ireland. 8,000+ users, zero paid acquisition, 2 engineers.</span
 				>
 			</h1>
 			<p>
-				I'm Abhishek Kumar (abhishzk), based in Dublin. I grew VisaJobs Ireland from zero to
-				{homeMetrics[0].value} candidates with no paid acquisition, lifted sessions on an enterprise energy
-				platform by
-				{homeMetrics[1].value}, and shipped AI document processing at {homeMetrics[2].value} accuracy.
+				I'm Abhishek Kumar (abhishzk), based in Dublin. I own products end to end, from
+				discovery to adoption. At Watt Footprint I helped deliver EUR 800k to 1M+ in customer value
+				across 13 enterprise accounts. I ship AI into production, and I pull it when it doesn't work.
 			</p>
 			<div class="hero-actions">
 				<a

@@ -18,6 +18,11 @@ export const externalLinks = {
 		href: 'https://www.linkedin.com/in/abhishzk/',
 		event: 'linkedin_click'
 	},
+	github: {
+		label: 'GitHub',
+		href: 'https://github.com/abhishzk',
+		event: 'github_click'
+	},
 	resume: {
 		label: 'Resume',
 		href: '/Abhishek_Kumar_Resume.pdf',
@@ -270,7 +275,7 @@ export const homeMetrics: CaseStudyMetric[] = [
 	{ value: '8,000+', label: 'VisaJobs candidates' },
 	{ value: '84%', label: 'platform session growth' },
 	{ value: '95%', label: 'accurate document processing' },
-	{ value: '28+', label: 'AI product integrations' }
+	{ value: 'EUR 800k to 1M+', label: 'delivered customer value' }
 ];
 
 export const capabilities: Capability[] = [

@@ -13,7 +13,7 @@
 	import { homeMetrics } from '$lib/data/portfolio';
 
 	const title = 'Abhishek Kumar | Product Manager in Ireland (abhishzk)';
-	const description = `Abhishek Kumar (abhishzk) is a Product Manager in Dublin, Ireland. Former Mastercard engineer who grew VisaJobs to ${homeMetrics[0].value} candidates. See the case studies.`;
+	const description = `Abhishek Kumar (abhishzk) is a Product Manager in Dublin, Ireland. Grew VisaJobs to ${homeMetrics[0].value} users with zero paid acquisition. See the case studies.`;
 	const structuredData = {
 		'@context': 'https://schema.org',
 		'@graph': [
@@ -33,7 +33,7 @@
 				url: 'https://abhishzk.com',
 				image: 'https://abhishzk.com/images/headshot.webp',
 				jobTitle: 'Product Manager',
-				description: 'Product Manager in Dublin, Ireland. Former Mastercard software engineer.',
+				description: 'Product Manager in Dublin, Ireland. 0-to-1, enterprise SaaS and AI in production.',
 				address: {
 					'@type': 'PostalAddress',
 					addressLocality: 'Dublin',
