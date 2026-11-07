@@ -130,6 +130,11 @@ b{font-weight:600;color:var(--ink)}
 .sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
 .cvw{position:relative;background:linear-gradient(180deg,var(--canvas0) 0%,var(--ground) 100%);flex:1 1 0;min-height:300px;max-height:55vh;overflow:hidden}
 .cvw canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.seqnote{display:none;padding:8px 16px;border-bottom:1px solid var(--rule);background:var(--panel);font-size:13.5px;line-height:1.45;color:var(--muted)}
+.seqnote.on{display:block}
+.seqnote b{color:var(--ink)}
+.seqnote .ok{color:var(--green)} .seqnote .warn{color:var(--amber)}
+.seqnote button{background:none;border:none;padding:0;margin-left:6px;color:var(--accent);font:inherit;cursor:pointer;text-decoration:underline}
 .hint{position:absolute;left:14px;bottom:10px;font:12.5px var(--mono);color:var(--dim);pointer-events:none}
 .start{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;background:rgba(var(--ground-rgb),.9);z-index:5;padding:20px;text-align:center}
 .start.gone{display:none}
@@ -313,6 +318,10 @@ b{font-weight:600;color:var(--ink)}
           <button data-c="door" onclick="setCam('door')">Door camera</button>
           <button data-c="top" onclick="setCam('top')">Top-down</button>
         </div>
+        <div class="seg" id="seq-seg" title="Compare the finished layout under each sequence">
+          <button id="seq-a" onclick="setSeq('A')">Planned sequence</button>
+          <button id="seq-b" onclick="setSeq('B')">Platform sequence</button>
+        </div>
         <div class="legend">
           <span><i class="sw" style="background:#2DD4BF"></i>short ≤1.15 m</span>
           <span><i class="sw" style="background:#3B82F6"></i>medium</span>
@@ -321,6 +330,7 @@ b{font-weight:600;color:var(--ink)}
           <span style="color:var(--amber)">◆ CoG</span>
         </div>
       </div>
+      <div class="seqnote" id="seq-note"></div>
       <div class="cvw">
         <canvas id="cv-live"></canvas>
         <div class="hint">drag to rotate · click a pallet for its evidence</div>
@@ -531,7 +541,14 @@ function ifDeferred(st,q,excl){
 }
 
 // ── Session ──
-let S, hist=[], autoMode=false, timer=null, sel=null, cam='iso', camA={yaw:30,pitch:28}, overrideOpen=false, view='overview', replayK=N, replayCam='iso';
+let S, hist=[], autoMode=false, timer=null, sel=null, cam='iso', camA={yaw:30,pitch:28}, overrideOpen=false, view='overview', replayK=N, replayCam='iso', seqView=null, seqCache=null;
+// Finished layout under the load plan as given ('A') or with Intelligence's swaps applied from here ('B').
+function seqState(){
+  const key=seqView+'|'+curFleet+'|'+(seqView==='B'?S.executed.length+'|'+S.queue.join()+'|'+S.handled.join()+'|'+S.unavailable+'|'+S.unverified:'');
+  if(seqCache&&seqCache.key===key) return seqCache.st;
+  const st=seqView==='A'?project(emptyState(),[...Array(N).keys()]):simulate(S).final.st;
+  seqCache={key,st}; return st;
+}
 function log(s,type,text,step){ s.log.push({t:step==null?hhmm(s.step):step,type,text}); }
 function newSession(){
   const s={step:0,executed:[],queue:[...Array(N).keys()],unverified:[UNV],unavailable:[],handled:[],advised:[],log:[],pending:null,
@@ -804,7 +821,7 @@ function pickFleet(idx){
   UNV=Math.min(N-1,Math.floor(N*0.63));
   rebuildPallets();
   // reset session
-  stopAuto(); hist=[]; sel=null; overrideOpen=false; replayK=N;
+  stopAuto(); hist=[]; sel=null; overrideOpen=false; replayK=N; seqView=null; seqCache=null;
   S=newSession();
   // update UI
   const startEl=$('start');
@@ -817,7 +834,21 @@ function pickFleet(idx){
 
 let liveHits=[];
 function drawLive(){
-  liveHits=drawScene($('cv-live'),camA,{st:stateOf(S.executed),ghosts:ghostsFor(S),sel,newest:true,scan:scanInfo()});
+  liveHits=seqView?drawScene($('cv-live'),camA,{st:seqState(),ghosts:[],sel}):
+    drawScene($('cv-live'),camA,{st:stateOf(S.executed),ghosts:ghostsFor(S),sel,newest:true,scan:scanInfo()});
+}
+function renderSeq(){
+  $('seq-a').className=seqView==='A'?'act':''; $('seq-b').className=seqView==='B'?'act':'';
+  const n=$('seq-note'); n.classList.toggle('on',!!seqView); if(!seqView) return;
+  const sm=summ(seqState()), ok=sm.loaded===N, who=seqView==='A'?'Planned sequence':'Platform sequence';
+  const what=seqView==='A'?'Finished layout if the load plan is followed as given.':
+    S.step?'Finished layout if the shift lead follows Intelligence from here.':'Finished layout with the recommended swap applied.';
+  n.innerHTML=`<b>${who}</b> · <span class="${ok?'ok':'warn'}">${sm.loaded}/${N} ship${sm.left.length?` · ${sm.left.map(id).join(', ')} left at the dock`:''}</span> · ${sm.dead} stack position${sm.dead===1?'':'s'} lost (simulated)<br>${what}<button onclick="setSeq(null)">Back to live load</button>`;
+}
+function setSeq(v){
+  seqView=seqView===v?null:v; seqCache=null;
+  if(seqView){ stopAuto(); $('start').classList.add('gone'); } else if(!S.started) $('start').classList.remove('gone');
+  render();
 }
 function laneChip(p,cls,tag){
   const q=P[p];
@@ -839,18 +870,18 @@ function renderLane(){
     (reach?`<div class="reach">${reach}</div>`:'<div class="empty" style="align-self:center">Lane clear</div>')+(behind?`<div class="behind">${behind}</div>`:'');
 }
 function twin(){
-  const st=stateOf(S.executed), sm=summ(st);
+  const st=seqView?seqState():stateOf(S.executed), sm=summ(st);
   const floor=st.placed.filter(e=>!e.left && e.slot[0]==='f').length;
   let usable=0;
   for(let r=st.r;r<C.rows;r++){ const row=st.rows[r]||{};
     ['fl','fr'].forEach((f,c)=>{ const t=c?'tr':'tl'; if(row[f]==null) usable+=C.pl*C.pw*C.lim; else if(row[t]==null) usable+=C.pl*C.pw*(C.lim-HT[row[f]]); }); }
-  const fin=S.pending&&S.pending.kind==='rec'?S.pending.base.st:project(st,S.queue);
+  const fin=seqView?st:S.pending&&S.pending.kind==='rec'?S.pending.base.st:project(st,S.queue);
   let nose=0,door=0; fin.placed.filter(e=>!e.left).forEach(e=>{ (e.row<5?(nose+=P[e.p].kg):(door+=P[e.p].kg)); });
   return {sm,floor,usable,split:Math.round(nose/(nose+door)*100)};
 }
 function renderMets(){
   const t=twin(), sm=t.sm;
-  const m=[['Loaded',`${sm.loaded}/${N}`,`${S.step} processed`],['Simulated cube',pct(sm.vol)+'%','declared 99% · keyed 100%'],['Usable left',t.usable.toFixed(1)+' m³','within stack limit'],
+  const m=[['Loaded',`${sm.loaded}/${N}`,seqView?'finished layout · simulated':`${S.step} processed`],['Simulated cube',pct(sm.vol)+'%','declared 99% · keyed 100%'],['Usable left',t.usable.toFixed(1)+' m³','within stack limit'],
     ['Lost space',sm.lost.toFixed(1)+' m³',`${sm.dead} positions`],['Payload',Math.round(sm.kg/C.kg*100)+'%',`${sm.kg.toLocaleString()} kg`],
     ['Floor positions',`${t.floor}/20`,'2 per row'],['Nose / door',`${t.split}/${100-t.split}`,'proj. final · ≤60/40']];
   $('mets').innerHTML=m.map(([l,v,s])=>`<div class="mt"><div class="l">${l}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join('');
@@ -964,10 +995,11 @@ function renderEvent(){
 }
 function renderControls(){
   const n=S.step;
-  $('b-prev').disabled=!hist.length; $('b-next').disabled=n>=N||!!S.pending||!S.started; $('b-auto').disabled=n>=N||!!S.pending||!S.started;
+  $('b-prev').disabled=!hist.length||!!seqView; $('b-next').disabled=n>=N||!!S.pending||!S.started||!!seqView; $('b-auto').disabled=n>=N||!!S.pending||!S.started||!!seqView;
   $('prog').style.width=(n/N*100)+'%'; $('slbl').textContent=`${n} / ${N}`; $('clock').textContent=hhmm(n);
   const nd=$('n-dec'); nd.textContent='1'; nd.className='n'+(S.pending?' on':'');
   document.querySelectorAll('#cam-seg button').forEach(b=>b.className=b.dataset.c===cam?'act':'');
+  renderSeq();
 }
 
 // ── Overview ──
