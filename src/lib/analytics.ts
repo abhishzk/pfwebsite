@@ -7,7 +7,8 @@ export type AnalyticsEvent =
 	| 'case_study_open'
 	| 'linkedin_click'
 	| 'github_click'
-	| 'product_visit';
+	| 'product_visit'
+	| 'engineering_note_open';
 
 let initialized = false;
 

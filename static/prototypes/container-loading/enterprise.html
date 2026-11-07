@@ -122,7 +122,7 @@ b{font-weight:600;color:var(--ink)}
 .legend{display:flex;gap:12px;flex-wrap:wrap;font:12.5px var(--mono);color:var(--muted);margin-left:auto}
 .epick{display:flex;align-items:center;gap:8px;padding:7px 16px;border-bottom:1px solid var(--rule);background:var(--deep);flex-wrap:wrap}
 .epick label{font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
-.epick select{background:var(--panel);color:var(--ink);border:1px solid var(--rule);border-radius:4px;padding:5px 8px;font:14px var(--mono);max-width:330px}
+.epick select{background:var(--panel);color:var(--ink);border:1px solid var(--rule);border-radius:4px;padding:5px 8px;font:14px var(--mono);max-width:400px}
 .epick .fbtn{background:none;color:var(--muted);font:13px var(--mono);padding:4px 9px;border-radius:3px;border:1px solid var(--rule)}
 .epick .fbtn.act{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
 .epick .fbtn:hover:not(.act){color:var(--ink)}
@@ -486,7 +486,7 @@ const REACH=8;
 let OCC=10;
 let UNV=24;
 let SHIP={id:'SHP-2026-4246',ctr:'TRL-005033',dest:'Gdansk Port / SE-Gothenburg',sku:'HARNESS-ASSY',kg:8062,decl:66.5,rate:1180,loader:'OP-2281'};
-const FT={volBound3w:19,exports3w:83,camExports:33,rateLo:890,rateHi:1180,partials:5,harness:6,harnessNoted:3};
+const FT={sizingPallets:38,volBound3w:19,exports3w:83,camExports:33,rateLo:890,rateHi:1180,partials:5,harness:6,harnessNoted:3};
 
 const pad3=n=>String(n).padStart(3,'0');
 function sscc(i){ const sfx=SHIP.id.replace(/\D/g,'').slice(-6); const d='3'+'5901234'+sfx+pad3(i+1); let s=0; [...d].reverse().forEach((c,k)=>s+=(+c)*(k%2?1:3)); return d+((10-s%10)%10); }
@@ -1110,7 +1110,7 @@ function renderReport(){
   if(S.step<N){ R.innerHTML=`<div class="card"><div class="hd">Load report</div><div class="note">Builds when the D09 load closes. ${S.step}/${N} pallets processed.</div>
     <div style="margin-top:10px"><button class="btn pri" onclick="go('live')">Back to live load</button></div></div>`; return; }
   const fin=summ(stateOf(S.executed)), wms0=summ(project(emptyState(),[...Array(N).keys()])), c=S.counts;
-  const ok=!fin.left.length, perYear=Math.round(FT.volBound3w*52/3), ctrs=perYear/N, lo=Math.round(ctrs*FT.rateLo/1000), hi=Math.round(ctrs*FT.rateHi/1000);
+  const ok=!fin.left.length, perYear=Math.round(FT.volBound3w*52/3), ctrs=perYear/FT.sizingPallets, lo=Math.round(ctrs*FT.rateLo/1000), hi=Math.round(ctrs*FT.rateHi/1000);
   R.innerHTML=`
     <div class="chipt t-sim" style="display:inline-block;margin-bottom:10px">Load closed · ${hhmm(N)} · simulated</div>
     <div class="rh${ok?'':' bad'}">${ok?`In the simulation, all ${N} ship. <em>${c.accept} accepted recommendation${c.accept===1?'':'s'}.</em>`:`In the simulation, <em>${fin.loaded} of ${N}</em> ship. ${fin.left.map(id).join(', ')} stayed at the dock.`}</div>
@@ -1141,7 +1141,7 @@ function renderReport(){
       <p>The calculated cube percentages use the customer's 67 m³ usable-capacity benchmark; the operator's 100% is entered by hand. The assumed interior dimensions (12.03 × 2.35 × 2.69 m) describe about 76 m³. The sources don't explain the difference, which the pilot must reconcile.</p>
       <p><b>Pallet-master volume can't establish loading geometry.</b> Under this demo's assumed 1.2 × 1.0 m base and two-high stacking, 1.75 m³ per pallet would mean 1.46 m tall, and two of those (2.92 m) wouldn't fit in 2.69 m. That says the nominal figure and our assumptions don't reconcile, not what the real pallets are. "Dunnage added" appears on 5 exports; dunnage notes indicate freight-securing requirements and don't establish avoidable wasted space.</p>
       <p><b>The crew's last metre.</b> The exporter says the last metre at the door end is never usable (Q1). This demo's assumed layout uses all ten 1.2 m rows; without the door-end row it would hold at most 36 pallets, yet the log records 38 loaded. So the assumed footprint, row layout or stacking doesn't match the real load, and only site measurements can say which.</p>
-        <p><b>Sizing, honestly (illustrative).</b> No paid container has been shown saved yet, and this is a scenario, not a ceiling. If every export that is volume-bound on declared cube (${FT.volBound3w} per 3 weeks, ~${perYear} a year) rolled one pallet sequencing could have saved, that would be ~${ctrs.toFixed(0)} containers, <b>€${lo}–${hi}k a year</b> at €${FT.rateLo}–${FT.rateHi.toLocaleString()} per lane.</p>
+        <p><b>Sizing, honestly (illustrative).</b> No paid container has been shown saved yet, and this is a scenario, not a ceiling. If every export that is volume-bound on declared cube (${FT.volBound3w} per 3 weeks, ~${perYear} a year) rolled one pallet sequencing could have saved (each one worth 1/${FT.sizingPallets} of a container, the demo load), that would be ~${ctrs.toFixed(0)} containers, <b>€${lo}–${hi}k a year</b> at €${FT.rateLo}–${FT.rateHi.toLocaleString()} per lane.</p>
         <p>Why build it anyway: it's what puts a Platform screen in front of the shift lead on every load, and every load leaves measured heights for every pallet. On its own this doesn't reach the 8% target. Container-count decisions also depend on floor positions, stacking rules and rates; measured cube is one input they currently lack.</p>
         <p style="margin-top:10px"><b>Six-week pilot</b></p>
         <ol><li>Confirm the D09/D10 cameras see the staging lane, where this check happens. Reposition for the container interior if reconstruction needs it. Measure camera height error against tape.</li>

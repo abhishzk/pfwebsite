@@ -195,33 +195,33 @@ export const caseStudies: CaseStudy[] = [
 		description:
 			'Check pallets in the staging lane before they enter an export container, and alert the shift lead while the load can still change.',
 		role: 'Product Manager, self-initiated',
-		period: 'September 2026',
+		period: 'September – November 2026',
 		domains: ['Computer vision workflow', 'Industrial operations', 'Concept prototype'],
-		image: '/images/casestudies/container-loading-decision.jpg',
+		image: '/images/casestudies/container-loading-enterprise.webp',
 		imageAlt:
-			'Prototype paused at a loading decision: one pallet held in the scan zone outside the container while a different pallet is recommended',
+			'Enterprise live load paused at a decision: a pallet held outside the container, a different pallet recommended, and the projected outcome shown beside it',
 		imageWidth: 1440,
 		imageHeight: 900,
 		decision:
 			'Measure pallets in the staging lane and hold a pallet at the door only when that decision changes what fits.',
 		result:
-			'Two working prototypes, a fleet baseline from 83 real shipments, and a pilot plan with every assumption labelled.',
+			'Five linked prototype views, a fleet baseline from 83 real shipments, a simulation across all 83 containers, and a pilot plan with every assumption labelled.',
 		resultLabel: 'Work produced',
 		metricsLabel: 'Case study scope',
 		imageCaption:
-			'Simulated decision moment. Shipment totals are real; pallet heights, sequence and outcome are simulated, and the prototype says so on every screen.',
+			'Simulated decision moment in the Enterprise view. Shipment totals are real; pallet heights, sequence and outcome are simulated, and the prototype says so on every screen.',
 		context: {
 			team: 'Solo, with peer and AI review',
-			stage: 'Concept prototype',
+			stage: 'Concept prototype suite',
 			customer: 'Shift leads and operations leaders',
-			ownership: 'Discovery, analysis, prototype, pilot plan',
+			ownership: 'Discovery, analysis, prototypes, engineering, pilot plan',
 			constraint: 'Real totals, no pallet-level data'
 		},
 		metrics: [
 			{ value: '83', label: 'export shipments analysed' },
 			{ value: '64 / 83', label: 'near the payload ceiling' },
-			{ value: '19', label: 'loads prioritised for measurement' },
-			{ value: '2', label: 'interactive prototypes' }
+			{ value: '35 / 36', label: 'simulated stuck loads are single-high families' },
+			{ value: '5', label: 'linked prototype views' }
 		]
 	},
 	{

@@ -7,13 +7,47 @@
 	import DecisionBlock from '$lib/components/case-study/DecisionBlock.svelte';
 	import CaseStudyNav from '$lib/components/case-study/CaseStudyNav.svelte';
 	import MediaFigure from '$lib/components/case-study/MediaFigure.svelte';
+	import EngineeringNote from '$lib/components/case-study/EngineeringNote.svelte';
 	import { getCaseStudy, externalLinks } from '$lib/data/portfolio';
 	import { trackEvent } from '$lib/analytics';
 
 	const study = getCaseStudy('container-loading');
 	const prototype = externalLinks.containerPrototype;
+	const base = '/prototypes/container-loading/';
+	const views = [
+		{
+			name: 'Container demo',
+			href: `${base}index.html`,
+			text: 'One container, one decision. Watch 38 pallets load, then accept or override the recommendation.'
+		},
+		{
+			name: 'Enterprise',
+			href: `${base}enterprise.html`,
+			text: 'The site view: overview, live load for any of the 83 containers, decisions, evidence and report.'
+		},
+		{
+			name: 'Fleet table',
+			href: `${base}fleet-simulation.html`,
+			text: 'Every container sequenced under the same rule. Filter by product family or outcome.'
+		},
+		{
+			name: 'Fleet analysis',
+			href: `${base}fleet-analysis.html`,
+			text: 'Payload against declared volume for all 83 loads: why most visible space is weight.'
+		},
+		{
+			name: 'Fleet live',
+			href: `${base}fleet-live.html`,
+			text: 'Pick any container and watch the loading algorithm run pallet by pallet.'
+		}
+	];
+	let noteOpen = false;
+	function openNote() {
+		noteOpen = true;
+		trackEvent('engineering_note_open', { case_study: study.slug });
+	}
 	const description =
-		'A concept prototype that checks pallets before they enter an export container and alerts the shift lead while the load can still change.';
+		'A self-initiated product study: check pallets before they enter an export container and alert the shift lead while the load can still change. Five linked interactive views, real shipment totals, simulated pallet data.';
 	const structuredData = {
 		'@context': 'https://schema.org',
 		'@type': 'CreativeWork',
@@ -29,9 +63,9 @@
 			url: 'https://abhishzk.com'
 		},
 		dateCreated: '2026-09-30',
-		dateModified: '2026-10-08',
+		dateModified: '2026-11-07',
 		learningResourceType: 'Product management case study',
-		about: ['Product Management', 'Computer Vision', 'Logistics', 'Prototyping']
+		about: ['Product Management', 'Computer Vision', 'Logistics', 'Prototyping', 'Simulation']
 	};
 	const structuredDataHtml = `<script type="application/ld+json">${JSON.stringify(
 		structuredData
@@ -105,11 +139,11 @@
 			</article>
 		</div>
 		<MediaFigure
-			src="/images/casestudies/container-loading-fleet.jpg"
-			alt="Fleet overview separating nominal volume from recorded weight across 83 export containers"
+			src="/images/casestudies/container-loading-analysis.webp"
+			alt="Payload against declared volume for each of 83 export containers, coloured by product family. Most loads sit near the payload limit; a smaller group is light but nearly full by volume."
 			width={1440}
 			height={900}
-			caption="Fleet baseline calculated from the real shipping export, alongside door status. Only the D09 load activity is simulated."
+			caption="Fleet analysis, built from the real shipping export. Each dot is one container; above the dashed line, weight likely explains the visible headroom."
 		/>
 		<DecisionBlock title="Separate what the data shows from what only measurement can show.">
 			<p>
@@ -147,6 +181,69 @@
 		</DecisionBlock>
 	</CaseStudySection>
 
+	<CaseStudySection title="What I built." tone="soft">
+		<p>
+			The idea is one product. The prototype is five linked views of it, each answering a different
+			question. They run in the browser with no install, and they share the same data, rules and
+			wording.
+		</p>
+		<ul class="view-list">
+			{#each views as view}
+				<li>
+					<a href={view.href} target="_blank" rel="noopener">
+						<strong>{view.name}</strong>
+						<span>{view.text}</span>
+						<b class="mono" aria-hidden="true">Open ↗</b>
+					</a>
+				</li>
+			{/each}
+		</ul>
+		<p class="prototype-link">
+			<a
+				class="button button-primary"
+				href={prototype.href}
+				target="_blank"
+				rel="noopener"
+				on:click={() => trackEvent(prototype.event, { case_study: study.slug })}
+			>
+				{prototype.label} <span aria-hidden="true">↗</span>
+			</a>
+			<button class="button button-secondary" type="button" on:click={openNote}>
+				Read the engineering note <span aria-hidden="true">→</span>
+			</button>
+		</p>
+	</CaseStudySection>
+
+	<CaseStudySection title="Two sequences, side by side.">
+		<p>
+			A recommendation is easier to trust when you can see what it would change. Live load in the
+			Enterprise view has a switch for exactly that. <strong>Planned sequence</strong> shows the
+			finished container if the load plan is followed as given: 37 of 38 ship, with one pallet left
+			at the dock and three stack positions lost. <strong>Platform sequence</strong> shows it with the
+			one recommended swap applied: 38 of 38, two positions lost. Same loader, same pallets; only the
+			order differs.
+		</p>
+		<MediaFigure
+			src="/images/casestudies/container-loading-sequences.webp"
+			alt="The same container shown twice. Under the planned sequence 37 of 38 pallets ship; under the Platform sequence all 38 ship."
+			width={1040}
+			height={724}
+			caption="Planned sequence above, Platform sequence below. Both are simulated, and the screen says so."
+		/>
+		<p>
+			The stepping controls pause while a comparison is open, so a finished layout cannot be
+			mistaken for progress. If the shift lead has already overridden the swap and the window has
+			closed, the Platform view falls back to the plan instead of showing a fix nobody can make.
+		</p>
+		<DecisionBlock title="Show the alternative, not just the advice.">
+			<p>
+				A hold message asks the shift lead to take a claim on trust. Showing both finished
+				containers lets them judge the claim themselves, and it keeps the product honest when the
+				fix is no longer possible.
+			</p>
+		</DecisionBlock>
+	</CaseStudySection>
+
 	<CaseStudySection title="Designing for trust before accuracy." tone="soft">
 		<p>
 			A recommendation from a camera is only useful if the shift lead trusts it. The prototype
@@ -175,30 +272,67 @@
 			</article>
 		</div>
 		<MediaFigure
-			src="/images/casestudies/container-loading-decision.jpg"
-			alt="Decision moment showing a held pallet in the scan zone, previews inside the container, and simulated comparison cards"
+			src="/images/casestudies/container-loading-evidence.webp"
+			alt="Evidence view listing every pallet event with identity and status tags, beside an observation record that labels real, simulated and assumed values."
 			width={1440}
 			height={900}
-			caption="The decision moment. The held pallet is still outside the container; the comparison and outcome are explicitly simulated."
+			caption="The evidence view. Every pallet event and every claim carries its source: real shipment totals against simulated heights, readings and outcomes."
 		/>
-		<p class="prototype-link">
-			<a
-				class="button button-primary"
-				href={prototype.href}
-				target="_blank"
-				rel="noopener"
-				on:click={() => trackEvent(prototype.event, { case_study: study.slug })}
-			>
-				{prototype.label} <span aria-hidden="true">↗</span>
-			</a>
+	</CaseStudySection>
+
+	<CaseStudySection title="From one container to 83." tone="soft">
+		<p>
+			One container shows the idea works. It does not show whether it generalises. So I ran every
+			export container through the same loader and the same rule. Heights are generated per product
+			family, so these results show how the rule behaves, not what happened on the dock.
 		</p>
+		<div class="finding-grid">
+			<article>
+				<strong class="mono">44 / 83</strong>
+				<span>Fit outright under the assumed rules. No sequencing issue.</span>
+			</article>
+			<article>
+				<strong class="mono">3 / 83</strong>
+				<span>Rescued by a single pallet swap. All three are harness assemblies.</span>
+			</article>
+			<article>
+				<strong class="mono">36 / 83</strong>
+				<span>Leave pallets at the dock, and no single swap helps.</span>
+			</article>
+		</div>
+		<p>
+			The pattern is what mattered. <strong
+				>35 of the 36 stuck loads are brake rotors and cast housings</strong
+			>, the two families the brief's scoping answers say nothing should be stacked on. For them,
+			pallet order is not the lever; stacking permission is. The 36th is a single sensor-module load
+			of 43 pallets.
+		</p>
+		<MediaFigure
+			src="/images/casestudies/container-loading-fleet-sim.webp"
+			alt="Fleet table with one cast-housing container selected: 20 of 25 pallets planned, no improvement from any swap, and its generated pallet heights."
+			width={1440}
+			height={900}
+			caption="The fleet table. Every container, the same rule. Selecting one shows its generated pallet heights and why it is stuck."
+		/>
+		<p>
+			The real log shows only five of the 83 shipped partial. So either the packaging allows more
+			than I assumed, or the loads are laid out differently from my model. Either way, the
+			simulation turns a vague hunch about empty space into a specific question a pilot can test.
+		</p>
+		<DecisionBlock title="Let the simulation test my assumptions, not only my idea.">
+			<p>
+				The most useful result was the one that disagreed with the real log. It showed which
+				assumption to measure first, which is a better first question for a pilot than whether the
+				algorithm works.
+			</p>
+		</DecisionBlock>
 	</CaseStudySection>
 
 	<CaseStudySection title="Sizing it honestly.">
 		<p>
 			Sequencing alone is small. As an illustrative scenario, if every volume-bound export rolled
-			one pallet that sequencing could have saved, that would be about nine containers and €8–10k a
-			year. No paid container has been shown saved.
+			one pallet that sequencing could have saved (about 1/38 of a container each), that would be
+			about nine containers and €8–10k a year. No paid container has been shown saved.
 		</p>
 		<p>
 			The case for building it is different: a screen the shift lead uses on every load leaves
@@ -227,11 +361,22 @@
 			happened. Banners, labels on every result and a persistent counterfactual note fixed what
 			small disclaimers could not.
 		</p>
+		<h3>Run the idea at fleet scale</h3>
+		<p>
+			One polished container hid the most important finding. Running all 83 showed that the loads
+			that fail are almost all one kind of product, which moved the pilot's first question from
+			sequencing to stacking rules.
+		</p>
 		<h3>Next experiment</h3>
 		<p>
 			Measure a week of staged pallets against tape and the real load plan. That single dataset
-			would show whether the camera is accurate enough and whether the sequencing problem occurs
-			often enough to matter.
+			would show whether the camera is accurate enough, whether the sequencing problem occurs often
+			enough to matter, and whether rotors and housings really are single-high.
+		</p>
+		<p class="note-link">
+			<button class="text-link" type="button" on:click={openNote}>
+				How it is built: the engineering note <span aria-hidden="true">→</span>
+			</button>
 		</p>
 	</CaseStudySection>
 
@@ -239,6 +384,7 @@
 	<Contact />
 </main>
 <Footer />
+<EngineeringNote bind:open={noteOpen} />
 
 <style>
 	.finding-grid,
@@ -297,14 +443,81 @@
 		opacity: 0.35;
 	}
 
+	:global(.case-body) ul.view-list {
+		display: grid;
+		gap: 10px;
+		padding: 0;
+		margin: 30px 0;
+		list-style: none;
+	}
+
+	.view-list a {
+		display: grid;
+		grid-template-columns: minmax(120px, 0.34fr) 1fr auto;
+		align-items: baseline;
+		gap: 4px 20px;
+		padding: 18px 20px;
+		border: 1px solid var(--line);
+		border-radius: var(--radius);
+		background: var(--surface);
+		transition:
+			border-color 180ms ease,
+			transform 180ms ease;
+	}
+
+	.view-list a:hover {
+		border-color: var(--accent);
+		transform: translateY(-2px);
+	}
+
+	.view-list strong {
+		font-size: 0.95rem;
+	}
+
+	.view-list span {
+		color: var(--muted);
+		font-size: 0.84rem;
+		line-height: 1.55;
+	}
+
+	.view-list b {
+		color: var(--accent-strong);
+		font-size: 0.74rem;
+		font-weight: 500;
+		text-transform: uppercase;
+	}
+
 	.prototype-link {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
 		margin-top: 8px;
+	}
+
+	.note-link {
+		margin-top: 28px;
+	}
+
+	.note-link .text-link {
+		padding: 0;
+		border: 0;
+		background: none;
+		cursor: pointer;
 	}
 
 	@media (max-width: 650px) {
 		.finding-grid,
 		.trust-grid {
 			grid-template-columns: 1fr;
+		}
+
+		.view-list a {
+			grid-template-columns: 1fr auto;
+		}
+
+		.view-list span {
+			grid-column: 1 / -1;
+			order: 3;
 		}
 
 		.pipeline {
