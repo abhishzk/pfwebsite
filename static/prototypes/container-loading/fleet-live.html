@@ -135,10 +135,11 @@ button{font-family:var(--sans);cursor:pointer;border:none}
 .note{font-size:13px;color:var(--muted);line-height:1.6;background:var(--ground);border:1px solid var(--rule);border-radius:5px;padding:10px 12px;margin-top:8px}
 
 /* ── Start overlay ── */
-.start{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;background:rgba(var(--ground-rgb),.92);z-index:5;padding:20px;text-align:center;transition:opacity .4s}
+.start{position:absolute;inset:0;display:flex;align-items:center;justify-content:safe center;flex-direction:column;gap:12px;overflow-y:auto;background:rgba(var(--ground-rgb),.92);z-index:5;padding:20px;text-align:center;transition:opacity .4s}
 .start.gone{opacity:0;visibility:hidden;transition:opacity .4s,visibility 0s .4s}
 .start h2{font-size:22px;font-weight:700;line-height:1.2}
 .start p{color:var(--muted);font-size:15px;max-width:470px;line-height:1.6}
+@media(max-height:820px){.start{gap:9px;padding:14px 20px}.start h2{font-size:20px}.start p{font-size:14.5px;line-height:1.5}.start small{font-size:12px;line-height:1.45}}
 
 /* ── Result overlay ── */
 .res{position:fixed;inset:0;background:rgba(var(--ground-rgb),.93);display:none;z-index:100;backdrop-filter:blur(6px);padding:20px;overflow-y:auto}

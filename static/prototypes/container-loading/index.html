@@ -63,11 +63,12 @@ b{font-weight:600;color:var(--ink)}
 .seg button{background:none;color:var(--muted);font-size:13.5px;padding:5px 10px;border-radius:3px}
 .seg button.act{background:var(--accent);color:var(--on-accent)}
 
-.start{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;background:rgba(var(--ground-rgb),.9);z-index:5;padding:20px;transition:opacity .4s;text-align:center}
+.start{position:absolute;inset:0;display:flex;align-items:center;justify-content:safe center;flex-direction:column;gap:12px;overflow-y:auto;background:rgba(var(--ground-rgb),.9);z-index:5;padding:20px;transition:opacity .4s;text-align:center}
 .start.gone{opacity:0;visibility:hidden;transition:opacity .4s,visibility 0s .4s}
 .start h2{font-size:24px;font-weight:700;line-height:1.2}
 .start p{color:var(--muted);font-size:15.5px;max-width:470px;line-height:1.6}
 .start small{font-size:13px;color:var(--dim);max-width:470px}
+@media(max-height:820px){.start{gap:9px;padding:14px 20px}.start h2{font-size:20px}.start p{font-size:14.5px;line-height:1.5}.start small{font-size:12px;line-height:1.45}}
 
 .stage{display:flex;gap:8px;align-items:stretch;padding:10px 20px;border-top:1px solid var(--rule);background:var(--lane);overflow-x:auto;min-height:86px}
 .stage-lbl{font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);min-width:92px;display:flex;flex-direction:column;justify-content:center;flex-shrink:0}
