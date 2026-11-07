@@ -2,11 +2,7 @@ import { browser } from '$app/environment';
 import { init, track } from '@plausible-analytics/tracker';
 
 export type AnalyticsEvent =
-	| 'contact_click'
-	| 'resume_download'
-	| 'case_study_open'
-	| 'linkedin_click'
-	| 'product_visit';
+	'contact_click' | 'resume_download' | 'case_study_open' | 'linkedin_click' | 'product_visit';
 
 let initialized = false;
 
