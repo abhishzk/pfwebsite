@@ -1,662 +1,2049 @@
-<!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Fleet Live Simulation · 83 Export Containers</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --ground:#052D41;--panel:#0A3A52;--panel2:#0E4562;--rule:#1A5573;
-  --accent:#22A0F3;--accent-dim:rgba(34,160,243,.16);
-  --green:#34D399;--green-dim:rgba(52,211,153,.12);
-  --amber:#FBBF24;--amber-dim:rgba(251,191,36,.12);
-  --red:#F87171;--red-dim:rgba(248,113,113,.12);
-  --purple:#A78BFA;--purple-dim:rgba(167,139,250,.14);
-  --ink:#fff;--muted:#9BC1D8;--dim:#6A97B3;
-  --mono:'JetBrains Mono',ui-monospace,monospace;--sans:'Inter',system-ui,sans-serif;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--ground);color:var(--ink);font:14px/1.5 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-button{font-family:var(--sans);cursor:pointer;border:none}
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>Fleet Live Simulation · 83 Export Containers</title>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			:root {
+				--ground: #052d41;
+				--panel: #0a3a52;
+				--panel2: #0e4562;
+				--rule: #1a5573;
+				--accent: #22a0f3;
+				--accent-dim: rgba(34, 160, 243, 0.16);
+				--green: #34d399;
+				--green-dim: rgba(52, 211, 153, 0.12);
+				--amber: #fbbf24;
+				--amber-dim: rgba(251, 191, 36, 0.12);
+				--red: #f87171;
+				--red-dim: rgba(248, 113, 113, 0.12);
+				--purple: #a78bfa;
+				--purple-dim: rgba(167, 139, 250, 0.14);
+				--ink: #fff;
+				--muted: #9bc1d8;
+				--dim: #6a97b3;
+				--mono: 'JetBrains Mono', ui-monospace, monospace;
+				--sans: 'Inter', system-ui, sans-serif;
+			}
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				background: var(--ground);
+				color: var(--ink);
+				font: 14px/1.5 var(--sans);
+				-webkit-font-smoothing: antialiased;
+				overflow-x: hidden;
+			}
+			button {
+				font-family: var(--sans);
+				cursor: pointer;
+				border: none;
+			}
 
-.app{display:grid;grid-template-rows:auto auto auto auto 1fr;height:100vh}
-.topbar{display:flex;align-items:center;gap:14px;padding:10px 20px;border-bottom:1px solid var(--rule);background:var(--panel);flex-wrap:wrap}
-.logo{font:600 13px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
-.sep{width:1px;height:18px;background:var(--rule)}
-.ctx{color:var(--muted);font-size:13px}
-.ctx b{color:var(--ink);font-weight:600}
-.sim{font:500 8.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--purple);background:var(--purple-dim);padding:3px 7px;border-radius:2px;margin-left:auto}
-.nav{display:flex;gap:2px;padding:0 16px;background:var(--panel);border-bottom:1px solid var(--rule);overflow-x:auto}
-.nl{color:var(--muted);padding:9px 14px;font:13px var(--sans);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap}
-.nl:hover{color:var(--ink)}.nl.act{color:var(--ink);border-bottom-color:var(--accent)}
-.simbar{background:rgba(167,139,250,.16);color:#D9CFFF;font-size:12px;padding:6px 20px;border-bottom:1px solid rgba(167,139,250,.35)}
-.simbar b{color:#fff}
+			.app {
+				display: grid;
+				grid-template-rows: auto auto auto auto 1fr;
+				height: 100vh;
+			}
+			.topbar {
+				display: flex;
+				align-items: center;
+				gap: 14px;
+				padding: 10px 20px;
+				border-bottom: 1px solid var(--rule);
+				background: var(--panel);
+				flex-wrap: wrap;
+			}
+			.logo {
+				font: 600 13px var(--mono);
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--accent);
+			}
+			.sep {
+				width: 1px;
+				height: 18px;
+				background: var(--rule);
+			}
+			.ctx {
+				color: var(--muted);
+				font-size: 13px;
+			}
+			.ctx b {
+				color: var(--ink);
+				font-weight: 600;
+			}
+			.sim {
+				font: 500 8.5px var(--mono);
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--purple);
+				background: var(--purple-dim);
+				padding: 3px 7px;
+				border-radius: 2px;
+				margin-left: auto;
+			}
+			.nav {
+				display: flex;
+				gap: 2px;
+				padding: 0 16px;
+				background: var(--panel);
+				border-bottom: 1px solid var(--rule);
+				overflow-x: auto;
+			}
+			.nl {
+				color: var(--muted);
+				padding: 9px 14px;
+				font: 13px var(--sans);
+				text-decoration: none;
+				border-bottom: 2px solid transparent;
+				white-space: nowrap;
+			}
+			.nl:hover {
+				color: var(--ink);
+			}
+			.nl.act {
+				color: var(--ink);
+				border-bottom-color: var(--accent);
+			}
+			.simbar {
+				background: rgba(167, 139, 250, 0.16);
+				color: #d9cfff;
+				font-size: 12px;
+				padding: 6px 20px;
+				border-bottom: 1px solid rgba(167, 139, 250, 0.35);
+			}
+			.simbar b {
+				color: #fff;
+			}
 
-/* ── Picker bar ── */
-.picker{display:flex;align-items:center;gap:8px;padding:8px 20px;border-bottom:1px solid var(--rule);background:var(--panel);flex-wrap:wrap}
-.picker label{font:500 9px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
-.picker select{font:12px var(--mono);background:var(--ground);color:var(--ink);border:1px solid var(--rule);border-radius:3px;padding:4px 8px;outline:none}
-.picker select:focus{border-color:var(--accent)}
-.fbtn{font:11px var(--mono);padding:4px 10px;border-radius:3px;background:var(--panel2);color:var(--muted);border:1px solid var(--rule)}
-.fbtn.act{background:var(--accent);color:#fff;border-color:var(--accent)}
-.tag{font:600 8px var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:2px 5px;border-radius:2px;display:inline-block}
-.t-ok{background:var(--green-dim);color:var(--green)}
-.t-fix{background:var(--amber-dim);color:var(--amber)}
-.t-stuck{background:var(--red-dim);color:var(--red)}
-.kpi-row{display:flex;gap:16px;margin-left:auto;align-items:center}
-.kpi-row .ki{font:10px var(--mono);color:var(--dim)}
-.kpi-row .ki b{color:var(--ink);font-size:13px;margin-right:2px}
+			/* ── Picker bar ── */
+			.picker {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				padding: 8px 20px;
+				border-bottom: 1px solid var(--rule);
+				background: var(--panel);
+				flex-wrap: wrap;
+			}
+			.picker label {
+				font: 500 9px var(--mono);
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--dim);
+			}
+			.picker select {
+				font: 12px var(--mono);
+				background: var(--ground);
+				color: var(--ink);
+				border: 1px solid var(--rule);
+				border-radius: 3px;
+				padding: 4px 8px;
+				outline: none;
+			}
+			.picker select:focus {
+				border-color: var(--accent);
+			}
+			.fbtn {
+				font: 11px var(--mono);
+				padding: 4px 10px;
+				border-radius: 3px;
+				background: var(--panel2);
+				color: var(--muted);
+				border: 1px solid var(--rule);
+			}
+			.fbtn.act {
+				background: var(--accent);
+				color: #fff;
+				border-color: var(--accent);
+			}
+			.tag {
+				font: 600 8px var(--mono);
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				padding: 2px 5px;
+				border-radius: 2px;
+				display: inline-block;
+			}
+			.t-ok {
+				background: var(--green-dim);
+				color: var(--green);
+			}
+			.t-fix {
+				background: var(--amber-dim);
+				color: var(--amber);
+			}
+			.t-stuck {
+				background: var(--red-dim);
+				color: var(--red);
+			}
+			.kpi-row {
+				display: flex;
+				gap: 16px;
+				margin-left: auto;
+				align-items: center;
+			}
+			.kpi-row .ki {
+				font: 10px var(--mono);
+				color: var(--dim);
+			}
+			.kpi-row .ki b {
+				color: var(--ink);
+				font-size: 13px;
+				margin-right: 2px;
+			}
 
-/* ── Main layout ── */
-.main{display:grid;grid-template-columns:1fr 340px;overflow:hidden;min-height:0}
-.left{display:flex;flex-direction:column;border-right:1px solid var(--rule);min-height:0;min-width:0;overflow-y:auto}
+			/* ── Main layout ── */
+			.main {
+				display: grid;
+				grid-template-columns: 1fr 340px;
+				overflow: hidden;
+				min-height: 0;
+			}
+			.left {
+				display: flex;
+				flex-direction: column;
+				border-right: 1px solid var(--rule);
+				min-height: 0;
+				min-width: 0;
+				overflow-y: auto;
+			}
 
-/* ── Container header ── */
-.vh{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid var(--rule);gap:12px;flex-wrap:wrap}
-.vt{font-weight:600;font-size:15px}
-.vs{color:var(--dim);font:11px var(--mono)}
+			/* ── Container header ── */
+			.vh {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 12px 20px;
+				border-bottom: 1px solid var(--rule);
+				gap: 12px;
+				flex-wrap: wrap;
+			}
+			.vt {
+				font-weight: 600;
+				font-size: 15px;
+			}
+			.vs {
+				color: var(--dim);
+				font: 11px var(--mono);
+			}
 
-/* ── 3D canvas ── */
-.c3d{position:relative;background:linear-gradient(180deg,#031822 0%,#052D41 100%);height:clamp(240px,38vh,400px);flex-shrink:0;overflow:hidden}
-.c3d canvas{position:absolute;inset:0;width:100%;height:100%}
-.legend{position:absolute;left:16px;top:12px;display:flex;gap:14px;flex-wrap:wrap;font:10px var(--mono);color:var(--muted);z-index:2}
-.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
-.seg{position:absolute;right:16px;top:10px;display:none;background:var(--panel);border:1px solid var(--rule);border-radius:5px;padding:3px;z-index:2}
-.seg.on{display:flex}
-.seg button{background:none;color:var(--muted);font-size:11.5px;padding:5px 10px;border-radius:3px}
-.seg button.act{background:var(--accent);color:#fff}
+			/* ── 3D canvas ── */
+			.c3d {
+				position: relative;
+				background: linear-gradient(180deg, #031822 0%, #052d41 100%);
+				height: clamp(240px, 38vh, 400px);
+				flex-shrink: 0;
+				overflow: hidden;
+			}
+			.c3d canvas {
+				position: absolute;
+				inset: 0;
+				width: 100%;
+				height: 100%;
+			}
+			.legend {
+				position: absolute;
+				left: 16px;
+				top: 12px;
+				display: flex;
+				gap: 14px;
+				flex-wrap: wrap;
+				font: 10px var(--mono);
+				color: var(--muted);
+				z-index: 2;
+			}
+			.sw {
+				display: inline-block;
+				width: 10px;
+				height: 10px;
+				border-radius: 2px;
+				margin-right: 5px;
+				vertical-align: -1px;
+			}
+			.seg {
+				position: absolute;
+				right: 16px;
+				top: 10px;
+				display: none;
+				background: var(--panel);
+				border: 1px solid var(--rule);
+				border-radius: 5px;
+				padding: 3px;
+				z-index: 2;
+			}
+			.seg.on {
+				display: flex;
+			}
+			.seg button {
+				background: none;
+				color: var(--muted);
+				font-size: 11.5px;
+				padding: 5px 10px;
+				border-radius: 3px;
+			}
+			.seg button.act {
+				background: var(--accent);
+				color: #fff;
+			}
 
-/* ── Staging lane ── */
-.stage{display:flex;gap:8px;align-items:stretch;padding:10px 20px;border-top:1px solid var(--rule);background:#07334A;overflow-x:auto;min-height:76px}
-.stage-lbl{font:500 9.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);min-width:92px;display:flex;flex-direction:column;justify-content:center;flex-shrink:0}
-.stage-lbl span{color:var(--muted);letter-spacing:0;text-transform:none;font-size:10px;margin-top:3px}
-.chip{flex-shrink:0;display:flex;gap:8px;align-items:flex-end;padding:7px 10px;border:1px solid var(--rule);border-radius:4px;background:var(--ground);min-width:76px}
-.chip .bar{width:9px;border-radius:2px}
-.cid{font:500 11px var(--mono)}
-.ch{font:10px var(--mono);color:var(--muted)}
-.ctag{font:600 8.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
-.chip.next{border-color:var(--accent)} .chip.next .ctag{color:var(--accent)}
-.chip.bad{border-color:var(--red);background:var(--red-dim)} .chip.bad .ctag{color:var(--red)}
-.chip.good{border-color:var(--green);background:var(--green-dim)} .chip.good .ctag{color:var(--green)}
-.stage-empty{align-self:center;color:var(--dim);font:11px var(--mono)}
+			/* ── Staging lane ── */
+			.stage {
+				display: flex;
+				gap: 8px;
+				align-items: stretch;
+				padding: 10px 20px;
+				border-top: 1px solid var(--rule);
+				background: #07334a;
+				overflow-x: auto;
+				min-height: 76px;
+			}
+			.stage-lbl {
+				font: 500 9.5px var(--mono);
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--dim);
+				min-width: 92px;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				flex-shrink: 0;
+			}
+			.stage-lbl span {
+				color: var(--muted);
+				letter-spacing: 0;
+				text-transform: none;
+				font-size: 10px;
+				margin-top: 3px;
+			}
+			.chip {
+				flex-shrink: 0;
+				display: flex;
+				gap: 8px;
+				align-items: flex-end;
+				padding: 7px 10px;
+				border: 1px solid var(--rule);
+				border-radius: 4px;
+				background: var(--ground);
+				min-width: 76px;
+			}
+			.chip .bar {
+				width: 9px;
+				border-radius: 2px;
+			}
+			.cid {
+				font: 500 11px var(--mono);
+			}
+			.ch {
+				font: 10px var(--mono);
+				color: var(--muted);
+			}
+			.ctag {
+				font: 600 8.5px var(--mono);
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				margin-top: 2px;
+			}
+			.chip.next {
+				border-color: var(--accent);
+			}
+			.chip.next .ctag {
+				color: var(--accent);
+			}
+			.chip.bad {
+				border-color: var(--red);
+				background: var(--red-dim);
+			}
+			.chip.bad .ctag {
+				color: var(--red);
+			}
+			.chip.good {
+				border-color: var(--green);
+				background: var(--green-dim);
+			}
+			.chip.good .ctag {
+				color: var(--green);
+			}
+			.stage-empty {
+				align-self: center;
+				color: var(--dim);
+				font: 11px var(--mono);
+			}
 
-/* ── Gauges ── */
-.gauges{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule)}
-.g{padding:11px 16px;border-right:1px solid var(--rule)}
-.g:last-child{border-right:none}
-.gl{font:500 9.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
-.gv{font:600 20px/1.2 var(--mono)}
-.gn{font:10px var(--mono);color:var(--dim)}
+			/* ── Gauges ── */
+			.gauges {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				border-top: 1px solid var(--rule);
+			}
+			.g {
+				padding: 11px 16px;
+				border-right: 1px solid var(--rule);
+			}
+			.g:last-child {
+				border-right: none;
+			}
+			.gl {
+				font: 500 9.5px var(--mono);
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--dim);
+			}
+			.gv {
+				font: 600 20px/1.2 var(--mono);
+			}
+			.gn {
+				font: 10px var(--mono);
+				color: var(--dim);
+			}
 
-/* ── Controls ── */
-.ctrls{display:flex;align-items:center;gap:10px;padding:10px 20px;border-top:1px solid var(--rule);background:var(--panel)}
-.btn{padding:6px 14px;border-radius:4px;font-size:12px;font-weight:500}
-.btn:disabled{opacity:.35;cursor:default}
-.pri{background:var(--accent);color:#fff}
-.gho{background:transparent;color:var(--muted);border:1px solid var(--rule)}
-.aut{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(167,139,250,.3)}
-.aut.on{background:var(--purple);color:#fff}
-.track{flex:1;height:3px;background:var(--rule);border-radius:2px;overflow:hidden}
-.fill{height:100%;background:var(--accent);transition:width .3s}
-.slbl{font:10px var(--mono);color:var(--dim);min-width:56px;text-align:right}
+			/* ── Controls ── */
+			.ctrls {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				padding: 10px 20px;
+				border-top: 1px solid var(--rule);
+				background: var(--panel);
+			}
+			.btn {
+				padding: 6px 14px;
+				border-radius: 4px;
+				font-size: 12px;
+				font-weight: 500;
+			}
+			.btn:disabled {
+				opacity: 0.35;
+				cursor: default;
+			}
+			.pri {
+				background: var(--accent);
+				color: #fff;
+			}
+			.gho {
+				background: transparent;
+				color: var(--muted);
+				border: 1px solid var(--rule);
+			}
+			.aut {
+				background: var(--purple-dim);
+				color: var(--purple);
+				border: 1px solid rgba(167, 139, 250, 0.3);
+			}
+			.aut.on {
+				background: var(--purple);
+				color: #fff;
+			}
+			.track {
+				flex: 1;
+				height: 3px;
+				background: var(--rule);
+				border-radius: 2px;
+				overflow: hidden;
+			}
+			.fill {
+				height: 100%;
+				background: var(--accent);
+				transition: width 0.3s;
+			}
+			.slbl {
+				font: 10px var(--mono);
+				color: var(--dim);
+				min-width: 56px;
+				text-align: right;
+			}
 
-/* ── Side panel ── */
-.side{overflow-y:auto;background:var(--panel);min-height:0}
-.sec{padding:14px 16px;border-bottom:1px solid var(--rule)}
-.hd{font:500 9.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.hd::after{content:'';flex:1;height:1px;background:var(--rule)}
-.pred{background:var(--ground);border:1px solid var(--rule);border-radius:5px;padding:12px 14px}
-.pr{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:3px 0}
-.pl{font-size:11.5px;color:var(--muted)}
-.pv{font:600 13px var(--mono);text-align:right}
-.status{margin-top:8px;padding-top:8px;border-top:1px solid var(--rule);font-size:11.5px;line-height:1.5}
+			/* ── Side panel ── */
+			.side {
+				overflow-y: auto;
+				background: var(--panel);
+				min-height: 0;
+			}
+			.sec {
+				padding: 14px 16px;
+				border-bottom: 1px solid var(--rule);
+			}
+			.hd {
+				font: 500 9.5px var(--mono);
+				letter-spacing: 0.14em;
+				text-transform: uppercase;
+				color: var(--dim);
+				margin-bottom: 10px;
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+			.hd::after {
+				content: '';
+				flex: 1;
+				height: 1px;
+				background: var(--rule);
+			}
+			.pred {
+				background: var(--ground);
+				border: 1px solid var(--rule);
+				border-radius: 5px;
+				padding: 12px 14px;
+			}
+			.pr {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				gap: 10px;
+				padding: 3px 0;
+			}
+			.pl {
+				font-size: 11.5px;
+				color: var(--muted);
+			}
+			.pv {
+				font: 600 13px var(--mono);
+				text-align: right;
+			}
+			.status {
+				margin-top: 8px;
+				padding-top: 8px;
+				border-top: 1px solid var(--rule);
+				font-size: 11.5px;
+				line-height: 1.5;
+			}
 
-.feed{display:flex;flex-direction:column;gap:4px}
-.fi{display:grid;grid-template-columns:8px 46px 1fr auto;gap:8px;align-items:center;padding:5px 8px;background:var(--ground);border:1px solid var(--rule);border-radius:3px;font-size:11px}
-.fi.new{border-color:var(--accent)} .fi.left{border-color:var(--red);background:var(--red-dim)}
-.fd{width:8px;height:8px;border-radius:2px}
-.fid{font:10.5px var(--mono)}
-.fpl{color:var(--muted);font-size:10.5px}
-.fh{font:10px var(--mono);color:var(--dim)}
-.empty{color:var(--dim);font-size:11.5px}
+			.feed {
+				display: flex;
+				flex-direction: column;
+				gap: 4px;
+			}
+			.fi {
+				display: grid;
+				grid-template-columns: 8px 46px 1fr auto;
+				gap: 8px;
+				align-items: center;
+				padding: 5px 8px;
+				background: var(--ground);
+				border: 1px solid var(--rule);
+				border-radius: 3px;
+				font-size: 11px;
+			}
+			.fi.new {
+				border-color: var(--accent);
+			}
+			.fi.left {
+				border-color: var(--red);
+				background: var(--red-dim);
+			}
+			.fd {
+				width: 8px;
+				height: 8px;
+				border-radius: 2px;
+			}
+			.fid {
+				font: 10.5px var(--mono);
+			}
+			.fpl {
+				color: var(--muted);
+				font-size: 10.5px;
+			}
+			.fh {
+				font: 10px var(--mono);
+				color: var(--dim);
+			}
+			.empty {
+				color: var(--dim);
+				font-size: 11.5px;
+			}
 
-.note{font-size:11px;color:var(--muted);line-height:1.6;background:var(--ground);border:1px solid var(--rule);border-radius:5px;padding:10px 12px;margin-top:8px}
+			.note {
+				font-size: 11px;
+				color: var(--muted);
+				line-height: 1.6;
+				background: var(--ground);
+				border: 1px solid var(--rule);
+				border-radius: 5px;
+				padding: 10px 12px;
+				margin-top: 8px;
+			}
 
-/* ── Start overlay ── */
-.start{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;background:rgba(3,24,34,.92);z-index:5;padding:20px;text-align:center;transition:opacity .4s}
-.start.gone{opacity:0;visibility:hidden;transition:opacity .4s,visibility 0s .4s}
-.start h2{font-size:22px;font-weight:700;line-height:1.2}
-.start p{color:var(--muted);font-size:13px;max-width:470px;line-height:1.6}
+			/* ── Start overlay ── */
+			.start {
+				position: absolute;
+				inset: 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				gap: 14px;
+				background: rgba(3, 24, 34, 0.92);
+				z-index: 5;
+				padding: 20px;
+				text-align: center;
+				transition: opacity 0.4s;
+			}
+			.start.gone {
+				opacity: 0;
+				visibility: hidden;
+				transition:
+					opacity 0.4s,
+					visibility 0s 0.4s;
+			}
+			.start h2 {
+				font-size: 22px;
+				font-weight: 700;
+				line-height: 1.2;
+			}
+			.start p {
+				color: var(--muted);
+				font-size: 13px;
+				max-width: 470px;
+				line-height: 1.6;
+			}
 
-/* ── Result overlay ── */
-.res{position:fixed;inset:0;background:rgba(5,45,65,.93);display:none;z-index:100;backdrop-filter:blur(6px);padding:20px;overflow-y:auto}
-.res.on{display:flex}
-.rc{background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:32px;max-width:560px;width:100%;margin:auto}
-.rc:focus{outline:none}
-.rk{font:500 9px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--purple);margin-bottom:10px}
-.rh{font-size:22px;font-weight:700;line-height:1.2;margin-bottom:8px}
-.rh em{font-style:normal;color:var(--green)}
-.rh.bad em{color:var(--red)}
-.rs{color:var(--muted);font-size:13px;line-height:1.55;margin-bottom:16px}
-.rg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.rb{background:var(--ground);border:1px solid var(--rule);border-radius:5px;padding:13px}
-.rb.best{border-color:var(--green)}
-.rv{font:600 22px var(--mono)}
-.rn{font-size:11.5px;color:var(--muted);margin-top:2px;line-height:1.5}
-.link{color:var(--accent);background:none;font-size:12.5px;text-decoration:underline;text-underline-offset:3px;padding:0}
-.rf{margin-top:16px;padding-top:12px;border-top:1px solid var(--rule);font-size:10.5px;color:var(--dim);line-height:1.55}
+			/* ── Result overlay ── */
+			.res {
+				position: fixed;
+				inset: 0;
+				background: rgba(5, 45, 65, 0.93);
+				display: none;
+				z-index: 100;
+				backdrop-filter: blur(6px);
+				padding: 20px;
+				overflow-y: auto;
+			}
+			.res.on {
+				display: flex;
+			}
+			.rc {
+				background: var(--panel);
+				border: 1px solid var(--rule);
+				border-radius: 8px;
+				padding: 32px;
+				max-width: 560px;
+				width: 100%;
+				margin: auto;
+			}
+			.rc:focus {
+				outline: none;
+			}
+			.rk {
+				font: 500 9px var(--mono);
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--purple);
+				margin-bottom: 10px;
+			}
+			.rh {
+				font-size: 22px;
+				font-weight: 700;
+				line-height: 1.2;
+				margin-bottom: 8px;
+			}
+			.rh em {
+				font-style: normal;
+				color: var(--green);
+			}
+			.rh.bad em {
+				color: var(--red);
+			}
+			.rs {
+				color: var(--muted);
+				font-size: 13px;
+				line-height: 1.55;
+				margin-bottom: 16px;
+			}
+			.rg {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 10px;
+				margin-bottom: 14px;
+			}
+			.rb {
+				background: var(--ground);
+				border: 1px solid var(--rule);
+				border-radius: 5px;
+				padding: 13px;
+			}
+			.rb.best {
+				border-color: var(--green);
+			}
+			.rv {
+				font: 600 22px var(--mono);
+			}
+			.rn {
+				font-size: 11.5px;
+				color: var(--muted);
+				margin-top: 2px;
+				line-height: 1.5;
+			}
+			.link {
+				color: var(--accent);
+				background: none;
+				font-size: 12.5px;
+				text-decoration: underline;
+				text-underline-offset: 3px;
+				padding: 0;
+			}
+			.rf {
+				margin-top: 16px;
+				padding-top: 12px;
+				border-top: 1px solid var(--rule);
+				font-size: 10.5px;
+				color: var(--dim);
+				line-height: 1.55;
+			}
 
-@media(max-width:900px){
-  .main{grid-template-columns:1fr}
-  .left{border-right:none;overflow-y:visible}
-  .c3d{height:clamp(220px,45vw,340px)}
-  .gauges{grid-template-columns:repeat(2,1fr)}
-  .g:nth-child(2){border-right:none}
-  .g:nth-child(-n+2){border-bottom:1px solid var(--rule)}
-  .kpi-row{display:none}
-}
-</style>
-</head>
-<body>
-<div class="app">
+			@media (max-width: 900px) {
+				.main {
+					grid-template-columns: 1fr;
+				}
+				.left {
+					border-right: none;
+					overflow-y: visible;
+				}
+				.c3d {
+					height: clamp(220px, 45vw, 340px);
+				}
+				.gauges {
+					grid-template-columns: repeat(2, 1fr);
+				}
+				.g:nth-child(2) {
+					border-right: none;
+				}
+				.g:nth-child(-n + 2) {
+					border-bottom: 1px solid var(--rule);
+				}
+				.kpi-row {
+					display: none;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="app">
+			<div class="topbar">
+				<div class="logo">Protex</div>
+				<div class="sep"></div>
+				<div class="ctx"><b>Vantera Components</b> · Kraków Plant 2 · Fleet live simulation</div>
+				<div class="sim">Simulated · all heights generated</div>
+			</div>
+			<nav class="nav">
+				<a href="enterprise.html" class="nl">Enterprise</a>
+				<a href="fleet-simulation.html" class="nl">Fleet table</a>
+				<a href="fleet-analysis.html" class="nl">Fleet analysis</a>
+				<a href="fleet-live.html" class="nl act">Fleet live</a>
+			</nav>
+			<div class="simbar">
+				<b>Live fleet simulation.</b> Pick any of the 83 export containers and watch the loading
+				algorithm run pallet by pallet. Heights are generated per SKU family; outcomes are
+				simulated.
+			</div>
 
-<div class="topbar">
-  <div class="logo">Protex</div>
-  <div class="sep"></div>
-  <div class="ctx"><b>Vantera Components</b> · Kraków Plant 2 · Fleet live simulation</div>
-  <div class="sim">Simulated · all heights generated</div>
-</div>
-<nav class="nav">
-  <a href="enterprise.html" class="nl">Enterprise</a>
-  <a href="fleet-simulation.html" class="nl">Fleet table</a>
-  <a href="fleet-analysis.html" class="nl">Fleet analysis</a>
-  <a href="fleet-live.html" class="nl act">Fleet live</a>
-</nav>
-<div class="simbar"><b>Live fleet simulation.</b> Pick any of the 83 export containers and watch the loading algorithm run pallet by pallet. Heights are generated per SKU family; outcomes are simulated.</div>
+			<div class="picker" id="picker"></div>
 
-<div class="picker" id="picker"></div>
+			<div class="main">
+				<div class="left">
+					<div class="vh" id="vh">
+						<div>
+							<div class="vt" id="vt">Select a container above</div>
+							<div class="vs" id="vs"></div>
+						</div>
+					</div>
+					<div class="c3d" id="c3d">
+						<canvas id="cv"></canvas>
+						<div class="legend">
+							<span><i class="sw" style="background: #2dd4bf"></i>short ≤1.15 m</span>
+							<span><i class="sw" style="background: #3b82f6"></i>medium</span>
+							<span><i class="sw" style="background: #8b5cf6"></i>tall ≥1.40 m</span>
+							<span
+								><i
+									class="sw"
+									style="background: rgba(248, 113, 113, 0.35); outline: 1px dashed #f87171"
+								></i
+								>unused headroom (next pallet too tall to stack)</span
+							>
+						</div>
+						<div class="seg" id="seg">
+							<button id="seg-b" onclick="setCompare('B')">Best swap</button>
+							<button id="seg-a" onclick="setCompare('A')">Planned</button>
+						</div>
+						<div class="start" id="start">
+							<h2>Pick an export container to simulate</h2>
+							<p>
+								Select from the dropdown above, or use the arrow buttons to step through all 83
+								containers.
+							</p>
+						</div>
+					</div>
+					<div class="stage" id="stage-wrap">
+						<div class="stage-lbl">
+							Staging lane<span>simulated measurements</span><span>next in load plan →</span>
+						</div>
+						<div style="display: flex; gap: 8px" id="stage"></div>
+					</div>
+					<div class="gauges">
+						<div class="g">
+							<div class="gl">Loaded</div>
+							<div class="gv" id="g-load">— / —</div>
+							<div class="gn">pallets</div>
+						</div>
+						<div class="g">
+							<div class="gl">Simulated cube</div>
+							<div class="gv" id="g-cube">—</div>
+							<div class="gn" id="g-cube-n">of 67 m³</div>
+						</div>
+						<div class="g">
+							<div class="gl">Payload</div>
+							<div class="gv" id="g-pay">—</div>
+							<div class="gn">of 26,000 kg</div>
+						</div>
+						<div class="g">
+							<div class="gl">Projected · sim</div>
+							<div class="gv" id="g-proj">—</div>
+							<div class="gn" id="g-proj-n">&nbsp;</div>
+						</div>
+					</div>
+					<div class="ctrls">
+						<button class="btn gho" id="b-prev" onclick="back()" disabled>◂ Back</button>
+						<button class="btn pri" id="b-next" onclick="fwd()" disabled>Next pallet ▸</button>
+						<button class="btn aut" id="b-auto" onclick="toggleAuto()" disabled>Auto ▸▸</button>
+						<div class="track"><div class="fill" id="prog" style="width: 0"></div></div>
+						<div class="slbl" id="slbl">0 / 0</div>
+					</div>
+				</div>
 
-<div class="main">
-<div class="left">
-  <div class="vh" id="vh">
-    <div><div class="vt" id="vt">Select a container above</div><div class="vs" id="vs"></div></div>
-  </div>
-  <div class="c3d" id="c3d">
-    <canvas id="cv"></canvas>
-    <div class="legend">
-      <span><i class="sw" style="background:#2DD4BF"></i>short ≤1.15 m</span>
-      <span><i class="sw" style="background:#3B82F6"></i>medium</span>
-      <span><i class="sw" style="background:#8B5CF6"></i>tall ≥1.40 m</span>
-      <span><i class="sw" style="background:rgba(248,113,113,.35);outline:1px dashed #F87171"></i>unused headroom (next pallet too tall to stack)</span>
-    </div>
-    <div class="seg" id="seg">
-      <button id="seg-b" onclick="setCompare('B')">Best swap</button>
-      <button id="seg-a" onclick="setCompare('A')">Planned</button>
-    </div>
-    <div class="start" id="start">
-      <h2>Pick an export container to simulate</h2>
-      <p>Select from the dropdown above, or use the arrow buttons to step through all 83 containers.</p>
-    </div>
-  </div>
-  <div class="stage" id="stage-wrap">
-    <div class="stage-lbl">Staging lane<span>simulated measurements</span><span>next in load plan →</span></div>
-    <div style="display:flex;gap:8px" id="stage"></div>
-  </div>
-  <div class="gauges">
-    <div class="g"><div class="gl">Loaded</div><div class="gv" id="g-load">— / —</div><div class="gn">pallets</div></div>
-    <div class="g"><div class="gl">Simulated cube</div><div class="gv" id="g-cube">—</div><div class="gn" id="g-cube-n">of 67 m³</div></div>
-    <div class="g"><div class="gl">Payload</div><div class="gv" id="g-pay">—</div><div class="gn">of 26,000 kg</div></div>
-    <div class="g"><div class="gl">Projected · sim</div><div class="gv" id="g-proj">—</div><div class="gn" id="g-proj-n">&nbsp;</div></div>
-  </div>
-  <div class="ctrls">
-    <button class="btn gho" id="b-prev" onclick="back()" disabled>◂ Back</button>
-    <button class="btn pri" id="b-next" onclick="fwd()" disabled>Next pallet ▸</button>
-    <button class="btn aut" id="b-auto" onclick="toggleAuto()" disabled>Auto ▸▸</button>
-    <div class="track"><div class="fill" id="prog" style="width:0"></div></div>
-    <div class="slbl" id="slbl">0 / 0</div>
-  </div>
-</div>
+				<div class="side" id="side">
+					<div class="sec">
+						<div class="hd">Projection (simulated)</div>
+						<div class="pred">
+							<div class="pr">
+								<span class="pl">Planned ships (sim)</span><span class="pv" id="p-ship">—</span>
+							</div>
+							<div class="pr">
+								<span class="pl">Pallets left at dock</span><span class="pv" id="p-left">—</span>
+							</div>
+							<div class="pr">
+								<span class="pl">Stack positions lost</span><span class="pv" id="p-dead">—</span>
+							</div>
+							<div class="pr">
+								<span class="pl">Best swap (sim)</span
+								><span class="pv" id="p-best" style="color: var(--green)">—</span>
+							</div>
+							<div class="status" id="p-status" style="color: var(--dim)">
+								Select a container to begin.
+							</div>
+						</div>
+					</div>
+					<div class="sec">
+						<div class="hd">Door crossings · simulated</div>
+						<div class="feed" id="feed">
+							<div class="empty">No pallets through the door yet.</div>
+						</div>
+					</div>
+					<div class="sec">
+						<div class="hd">Container constraints</div>
+						<div class="pred" id="constraints">
+							<div class="pr">
+								<span class="pl">Can stack</span><span class="pv" id="c-stack">—</span>
+							</div>
+							<div class="pr">
+								<span class="pl">Stack limit</span><span class="pv" id="c-lim">—</span>
+							</div>
+							<div class="pr">
+								<span class="pl">Declared volume</span><span class="pv" id="c-vol">—</span>
+							</div>
+							<div class="pr">
+								<span class="pl">Keyed fill</span><span class="pv" id="c-fill">—</span>
+							</div>
+							<div class="pr">
+								<span class="pl">Notes</span
+								><span
+									class="pv"
+									id="c-notes"
+									style="font-size: 10px; max-width: 160px; text-align: right"
+									>—</span
+								>
+							</div>
+						</div>
+						<div class="note">
+							<b style="color: var(--purple)">All pallet heights are generated</b> from per-SKU
+							distributions. Vantera has never measured pallet dimensions. Loading sequence and
+							outcomes are simulated.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-<div class="side" id="side">
-  <div class="sec">
-    <div class="hd">Projection (simulated)</div>
-    <div class="pred">
-      <div class="pr"><span class="pl">Planned ships (sim)</span><span class="pv" id="p-ship">—</span></div>
-      <div class="pr"><span class="pl">Pallets left at dock</span><span class="pv" id="p-left">—</span></div>
-      <div class="pr"><span class="pl">Stack positions lost</span><span class="pv" id="p-dead">—</span></div>
-      <div class="pr"><span class="pl">Best swap (sim)</span><span class="pv" id="p-best" style="color:var(--green)">—</span></div>
-      <div class="status" id="p-status" style="color:var(--dim)">Select a container to begin.</div>
-    </div>
-  </div>
-  <div class="sec">
-    <div class="hd">Door crossings · simulated</div>
-    <div class="feed" id="feed"><div class="empty">No pallets through the door yet.</div></div>
-  </div>
-  <div class="sec">
-    <div class="hd">Container constraints</div>
-    <div class="pred" id="constraints">
-      <div class="pr"><span class="pl">Can stack</span><span class="pv" id="c-stack">—</span></div>
-      <div class="pr"><span class="pl">Stack limit</span><span class="pv" id="c-lim">—</span></div>
-      <div class="pr"><span class="pl">Declared volume</span><span class="pv" id="c-vol">—</span></div>
-      <div class="pr"><span class="pl">Keyed fill</span><span class="pv" id="c-fill">—</span></div>
-      <div class="pr"><span class="pl">Notes</span><span class="pv" id="c-notes" style="font-size:10px;max-width:160px;text-align:right">—</span></div>
-    </div>
-    <div class="note"><b style="color:var(--purple)">All pallet heights are generated</b> from per-SKU distributions. Vantera has never measured pallet dimensions. Loading sequence and outcomes are simulated.</div>
-  </div>
-</div>
-</div>
-</div>
+		<div class="res" id="res" role="dialog"><div class="rc" id="rc" tabindex="-1"></div></div>
 
-<div class="res" id="res" role="dialog"><div class="rc" id="rc" tabindex="-1"></div></div>
+		<script>
+			// ── Fleet data: [id, door, dest, sku, pallets, kg, vol_m3, fill%, notes] ──
+			const FLEET = [
+				[
+					'SHP-2026-4110',
+					'D09',
+					'UK-Felixstowe',
+					'ALT-STATOR',
+					30,
+					25890,
+					42.0,
+					80,
+					'dunnage added'
+				],
+				[
+					'SHP-2026-4107',
+					'D09',
+					'SE-Gothenburg',
+					'TRIM-PANEL',
+					29,
+					4122,
+					60.9,
+					0,
+					'reslotted mid-load'
+				],
+				['SHP-2026-4101', 'D12', 'NL-Rotterdam', 'CAST-HOUSING', 25, 24509, 33.75, 60, ''],
+				['SHP-2026-4116', 'D09', 'UK-Felixstowe', 'CAST-HOUSING', 26, 25416, 35.1, 50, ''],
+				[
+					'SHP-2026-4119',
+					'D10',
+					'SE-Gothenburg',
+					'BRAKE-ROTOR',
+					23,
+					25713,
+					29.9,
+					0,
+					'late trailer arrival'
+				],
+				['SHP-2026-4117', 'D13', 'DE-Bremerhaven', 'PLASTIC-CLIP', 34, 3262, 64.6, 100, ''],
+				['SHP-2026-4113', 'D12', 'NL-Rotterdam', 'CAST-HOUSING', 25, 24430, 33.75, 70, ''],
+				[
+					'SHP-2026-4120',
+					'D13',
+					'NL-Rotterdam',
+					'ALT-STATOR',
+					30,
+					25862,
+					42.0,
+					60,
+					'late trailer arrival'
+				],
+				[
+					'SHP-2026-4114',
+					'D10',
+					'SE-Gothenburg',
+					'TRIM-PANEL',
+					31,
+					4406,
+					65.1,
+					100,
+					'late trailer arrival'
+				],
+				[
+					'SHP-2026-4122',
+					'D10',
+					'DE-Bremerhaven',
+					'BRAKE-ROTOR',
+					23,
+					25823,
+					29.9,
+					60,
+					'partial - balance ships next day'
+				],
+				[
+					'SHP-2026-4127',
+					'D13',
+					'UK-Felixstowe',
+					'TRIM-PANEL',
+					31,
+					4515,
+					65.1,
+					100,
+					'partial - balance ships next day'
+				],
+				['SHP-2026-4130', 'D13', 'SE-Gothenburg', 'ALT-STATOR', 29, 24821, 40.6, 60, ''],
+				['SHP-2026-4129', 'D14', 'DE-Bremerhaven', 'ALT-STATOR', 28, 24130, 39.2, 60, ''],
+				['SHP-2026-4141', 'D11', 'UK-Felixstowe', 'ALT-STATOR', 28, 24132, 39.2, 0, ''],
+				['SHP-2026-4137', 'D13', 'DE-Bremerhaven', 'CAST-HOUSING', 25, 24434, 33.75, 50, ''],
+				['SHP-2026-4132', 'D13', 'SE-Gothenburg', 'ALT-STATOR', 29, 25055, 40.6, 60, ''],
+				['SHP-2026-4138', 'D11', 'NL-Rotterdam', 'PLASTIC-CLIP', 35, 3391, 66.5, 100, ''],
+				[
+					'SHP-2026-4134',
+					'D14',
+					'UK-Felixstowe',
+					'ALT-STATOR',
+					28,
+					24157,
+					39.2,
+					60,
+					'late trailer arrival'
+				],
+				[
+					'SHP-2026-4149',
+					'D09',
+					'DE-Bremerhaven',
+					'BRAKE-ROTOR',
+					23,
+					25880,
+					29.9,
+					0,
+					'reslotted mid-load'
+				],
+				['SHP-2026-4148', 'D13', 'NL-Rotterdam', 'ALT-STATOR', 28, 24067, 39.2, 70, ''],
+				['SHP-2026-4145', 'D09', 'SE-Gothenburg', 'CAST-HOUSING', 26, 25458, 35.1, 0, ''],
+				[
+					'SHP-2026-4150',
+					'D10',
+					'DE-Bremerhaven',
+					'HARNESS-ASSY',
+					37,
+					7847,
+					64.75,
+					100,
+					'double-stack refused by driver'
+				],
+				['SHP-2026-4144', 'D13', 'UK-Felixstowe', 'BRAKE-ROTOR', 23, 25690, 29.9, 40, ''],
+				['SHP-2026-4155', 'D11', 'NL-Rotterdam', 'ALT-STATOR', 30, 25717, 42.0, 70, ''],
+				['SHP-2026-4157', 'D13', 'DE-Bremerhaven', 'ALT-STATOR', 30, 25735, 42.0, 70, ''],
+				['SHP-2026-4164', 'D11', 'DE-Bremerhaven', 'SENSOR-MOD', 43, 11263, 66.65, 100, ''],
+				['SHP-2026-4169', 'D14', 'UK-Felixstowe', 'CAST-HOUSING', 25, 24560, 33.75, 0, ''],
+				['SHP-2026-4165', 'D09', 'DE-Bremerhaven', 'ALT-STATOR', 30, 25837, 42.0, 60, ''],
+				['SHP-2026-4171', 'D10', 'DE-Bremerhaven', 'CAST-HOUSING', 24, 23546, 32.4, 0, ''],
+				['SHP-2026-4172', 'D12', 'NL-Rotterdam', 'PLASTIC-CLIP', 33, 3123, 62.7, 100, ''],
+				['SHP-2026-4163', 'D11', 'DE-Bremerhaven', 'ALT-STATOR', 29, 24875, 40.6, 0, ''],
+				['SHP-2026-4168', 'D09', 'DE-Bremerhaven', 'TRIM-PANEL', 31, 4395, 65.1, 100, ''],
+				[
+					'SHP-2026-4174',
+					'D11',
+					'UK-Felixstowe',
+					'ALT-STATOR',
+					28,
+					24193,
+					39.2,
+					0,
+					'double-stack refused by driver'
+				],
+				[
+					'SHP-2026-4186',
+					'D14',
+					'DE-Bremerhaven',
+					'BRAKE-ROTOR',
+					21,
+					23624,
+					27.3,
+					60,
+					'double-stack refused by driver'
+				],
+				[
+					'SHP-2026-4185',
+					'D12',
+					'UK-Felixstowe',
+					'ALT-STATOR',
+					29,
+					24906,
+					40.6,
+					0,
+					'reslotted mid-load'
+				],
+				[
+					'SHP-2026-4184',
+					'D09',
+					'UK-Felixstowe',
+					'ALT-STATOR',
+					29,
+					25013,
+					40.6,
+					60,
+					'partial - balance ships next day'
+				],
+				[
+					'SHP-2026-4191',
+					'D14',
+					'UK-Felixstowe',
+					'HARNESS-ASSY',
+					37,
+					7819,
+					64.75,
+					100,
+					'reslotted mid-load'
+				],
+				[
+					'SHP-2026-4189',
+					'D13',
+					'NL-Rotterdam',
+					'PLASTIC-CLIP',
+					34,
+					3134,
+					64.6,
+					100,
+					'dunnage added'
+				],
+				[
+					'SHP-2026-4190',
+					'D11',
+					'DE-Bremerhaven',
+					'BRAKE-ROTOR',
+					22,
+					24732,
+					28.6,
+					50,
+					'waiting on QA hold release'
+				],
+				['SHP-2026-4192', 'D09', 'DE-Bremerhaven', 'CAST-HOUSING', 26, 25464, 35.1, 60, ''],
+				[
+					'SHP-2026-4194',
+					'D11',
+					'NL-Rotterdam',
+					'BRAKE-ROTOR',
+					23,
+					25855,
+					29.9,
+					50,
+					'dunnage added'
+				],
+				[
+					'SHP-2026-4187',
+					'D10',
+					'UK-Felixstowe',
+					'PLASTIC-CLIP',
+					34,
+					3231,
+					64.6,
+					100,
+					'waiting on QA hold release'
+				],
+				['SHP-2026-4195', 'D09', 'NL-Rotterdam', 'HARNESS-ASSY', 36, 7616, 63.0, 90, ''],
+				[
+					'SHP-2026-4197',
+					'D14',
+					'DE-Bremerhaven',
+					'ALT-STATOR',
+					30,
+					25837,
+					42.0,
+					60,
+					'double-stack refused by driver'
+				],
+				['SHP-2026-4199', 'D13', 'UK-Felixstowe', 'CAST-HOUSING', 26, 25444, 35.1, 50, ''],
+				['SHP-2026-4200', 'D10', 'UK-Felixstowe', 'CAST-HOUSING', 25, 24525, 33.75, 60, ''],
+				['SHP-2026-4209', 'D14', 'DE-Bremerhaven', 'ALT-STATOR', 30, 25705, 42.0, 70, ''],
+				[
+					'SHP-2026-4208',
+					'D13',
+					'DE-Bremerhaven',
+					'ALT-STATOR',
+					28,
+					24019,
+					39.2,
+					0,
+					'late trailer arrival'
+				],
+				[
+					'SHP-2026-4204',
+					'D10',
+					'SE-Gothenburg',
+					'CAST-HOUSING',
+					26,
+					25507,
+					35.1,
+					50,
+					'partial - balance ships next day'
+				],
+				[
+					'SHP-2026-4212',
+					'D09',
+					'DE-Bremerhaven',
+					'ALT-STATOR',
+					28,
+					24178,
+					39.2,
+					60,
+					'double-stack refused by driver'
+				],
+				['SHP-2026-4205', 'D10', 'UK-Felixstowe', 'BRAKE-ROTOR', 23, 25690, 29.9, 50, ''],
+				['SHP-2026-4213', 'D09', 'UK-Felixstowe', 'CAST-HOUSING', 24, 23577, 32.4, 40, ''],
+				['SHP-2026-4217', 'D14', 'UK-Felixstowe', 'ALT-STATOR', 29, 24845, 40.6, 80, ''],
+				['SHP-2026-4214', 'D10', 'SE-Gothenburg', 'CAST-HOUSING', 25, 24436, 33.75, 0, ''],
+				['SHP-2026-4225', 'D11', 'NL-Rotterdam', 'ALT-STATOR', 29, 24941, 40.6, 0, ''],
+				[
+					'SHP-2026-4227',
+					'D12',
+					'NL-Rotterdam',
+					'HARNESS-ASSY',
+					38,
+					8039,
+					66.5,
+					100,
+					'reslotted mid-load'
+				],
+				[
+					'SHP-2026-4231',
+					'D11',
+					'SE-Gothenburg',
+					'ALT-STATOR',
+					28,
+					24051,
+					39.2,
+					0,
+					'partial - balance ships next day'
+				],
+				[
+					'SHP-2026-4239',
+					'D10',
+					'NL-Rotterdam',
+					'BRAKE-ROTOR',
+					23,
+					25823,
+					29.9,
+					50,
+					'dunnage added'
+				],
+				['SHP-2026-4240', 'D11', 'UK-Felixstowe', 'ALT-STATOR', 28, 24085, 39.2, 0, ''],
+				['SHP-2026-4238', 'D10', 'NL-Rotterdam', 'PLASTIC-CLIP', 35, 3430, 66.5, 100, ''],
+				['SHP-2026-4241', 'D14', 'DE-Bremerhaven', 'TRIM-PANEL', 30, 4247, 63.0, 0, ''],
+				['SHP-2026-4252', 'D09', 'UK-Felixstowe', 'BRAKE-ROTOR', 21, 23498, 27.3, 60, ''],
+				['SHP-2026-4250', 'D14', 'DE-Bremerhaven', 'HARNESS-ASSY', 38, 8057, 66.5, 100, ''],
+				['SHP-2026-4245', 'D14', 'UK-Felixstowe', 'BRAKE-ROTOR', 23, 25855, 29.9, 60, ''],
+				['SHP-2026-4254', 'D12', 'UK-Felixstowe', 'CAST-HOUSING', 25, 24587, 33.75, 70, ''],
+				['SHP-2026-4249', 'D09', 'UK-Felixstowe', 'ALT-STATOR', 30, 25827, 42.0, 0, ''],
+				['SHP-2026-4243', 'D13', 'NL-Rotterdam', 'BRAKE-ROTOR', 22, 24605, 28.6, 40, ''],
+				['SHP-2026-4253', 'D13', 'UK-Felixstowe', 'CAST-HOUSING', 25, 24388, 33.75, 0, ''],
+				['SHP-2026-4246', 'D09', 'SE-Gothenburg', 'HARNESS-ASSY', 38, 8062, 66.5, 100, ''],
+				['SHP-2026-4259', 'D12', 'NL-Rotterdam', 'CAST-HOUSING', 26, 25407, 35.1, 70, ''],
+				['SHP-2026-4256', 'D12', 'NL-Rotterdam', 'BRAKE-ROTOR', 22, 24635, 28.6, 0, ''],
+				['SHP-2026-4263', 'D09', 'DE-Bremerhaven', 'BRAKE-ROTOR', 23, 25804, 29.9, 40, ''],
+				['SHP-2026-4255', 'D10', 'DE-Bremerhaven', 'CAST-HOUSING', 25, 24592, 33.75, 50, ''],
+				['SHP-2026-4257', 'D12', 'SE-Gothenburg', 'CAST-HOUSING', 26, 25592, 35.1, 60, ''],
+				['SHP-2026-4266', 'D10', 'UK-Felixstowe', 'ALT-STATOR', 30, 25705, 42.0, 0, ''],
+				[
+					'SHP-2026-4269',
+					'D14',
+					'SE-Gothenburg',
+					'CAST-HOUSING',
+					25,
+					24391,
+					33.75,
+					0,
+					'reslotted mid-load'
+				],
+				['SHP-2026-4270', 'D12', 'NL-Rotterdam', 'ALT-STATOR', 29, 24841, 40.6, 0, ''],
+				['SHP-2026-4267', 'D14', 'DE-Bremerhaven', 'ALT-STATOR', 28, 24011, 39.2, 60, ''],
+				['SHP-2026-4271', 'D13', 'NL-Rotterdam', 'TRIM-PANEL', 31, 4615, 65.1, 0, 'dunnage added'],
+				[
+					'SHP-2026-4282',
+					'D10',
+					'NL-Rotterdam',
+					'CAST-HOUSING',
+					25,
+					24574,
+					33.75,
+					0,
+					'double-stack refused by driver'
+				],
+				[
+					'SHP-2026-4278',
+					'D10',
+					'SE-Gothenburg',
+					'BRAKE-ROTOR',
+					22,
+					24638,
+					28.6,
+					40,
+					'reslotted mid-load'
+				],
+				['SHP-2026-4283', 'D12', 'SE-Gothenburg', 'ALT-STATOR', 30, 25722, 42.0, 80, ''],
+				[
+					'SHP-2026-4274',
+					'D09',
+					'SE-Gothenburg',
+					'ALT-STATOR',
+					28,
+					24026,
+					39.2,
+					60,
+					'waiting on QA hold release'
+				]
+			];
 
-<script>
-// ── Fleet data: [id, door, dest, sku, pallets, kg, vol_m3, fill%, notes] ──
-const FLEET=[["SHP-2026-4110","D09","UK-Felixstowe","ALT-STATOR",30,25890,42.0,80,"dunnage added"],["SHP-2026-4107","D09","SE-Gothenburg","TRIM-PANEL",29,4122,60.9,0,"reslotted mid-load"],["SHP-2026-4101","D12","NL-Rotterdam","CAST-HOUSING",25,24509,33.75,60,""],["SHP-2026-4116","D09","UK-Felixstowe","CAST-HOUSING",26,25416,35.1,50,""],["SHP-2026-4119","D10","SE-Gothenburg","BRAKE-ROTOR",23,25713,29.9,0,"late trailer arrival"],["SHP-2026-4117","D13","DE-Bremerhaven","PLASTIC-CLIP",34,3262,64.6,100,""],["SHP-2026-4113","D12","NL-Rotterdam","CAST-HOUSING",25,24430,33.75,70,""],["SHP-2026-4120","D13","NL-Rotterdam","ALT-STATOR",30,25862,42.0,60,"late trailer arrival"],["SHP-2026-4114","D10","SE-Gothenburg","TRIM-PANEL",31,4406,65.1,100,"late trailer arrival"],["SHP-2026-4122","D10","DE-Bremerhaven","BRAKE-ROTOR",23,25823,29.9,60,"partial - balance ships next day"],["SHP-2026-4127","D13","UK-Felixstowe","TRIM-PANEL",31,4515,65.1,100,"partial - balance ships next day"],["SHP-2026-4130","D13","SE-Gothenburg","ALT-STATOR",29,24821,40.6,60,""],["SHP-2026-4129","D14","DE-Bremerhaven","ALT-STATOR",28,24130,39.2,60,""],["SHP-2026-4141","D11","UK-Felixstowe","ALT-STATOR",28,24132,39.2,0,""],["SHP-2026-4137","D13","DE-Bremerhaven","CAST-HOUSING",25,24434,33.75,50,""],["SHP-2026-4132","D13","SE-Gothenburg","ALT-STATOR",29,25055,40.6,60,""],["SHP-2026-4138","D11","NL-Rotterdam","PLASTIC-CLIP",35,3391,66.5,100,""],["SHP-2026-4134","D14","UK-Felixstowe","ALT-STATOR",28,24157,39.2,60,"late trailer arrival"],["SHP-2026-4149","D09","DE-Bremerhaven","BRAKE-ROTOR",23,25880,29.9,0,"reslotted mid-load"],["SHP-2026-4148","D13","NL-Rotterdam","ALT-STATOR",28,24067,39.2,70,""],["SHP-2026-4145","D09","SE-Gothenburg","CAST-HOUSING",26,25458,35.1,0,""],["SHP-2026-4150","D10","DE-Bremerhaven","HARNESS-ASSY",37,7847,64.75,100,"double-stack refused by driver"],["SHP-2026-4144","D13","UK-Felixstowe","BRAKE-ROTOR",23,25690,29.9,40,""],["SHP-2026-4155","D11","NL-Rotterdam","ALT-STATOR",30,25717,42.0,70,""],["SHP-2026-4157","D13","DE-Bremerhaven","ALT-STATOR",30,25735,42.0,70,""],["SHP-2026-4164","D11","DE-Bremerhaven","SENSOR-MOD",43,11263,66.65,100,""],["SHP-2026-4169","D14","UK-Felixstowe","CAST-HOUSING",25,24560,33.75,0,""],["SHP-2026-4165","D09","DE-Bremerhaven","ALT-STATOR",30,25837,42.0,60,""],["SHP-2026-4171","D10","DE-Bremerhaven","CAST-HOUSING",24,23546,32.4,0,""],["SHP-2026-4172","D12","NL-Rotterdam","PLASTIC-CLIP",33,3123,62.7,100,""],["SHP-2026-4163","D11","DE-Bremerhaven","ALT-STATOR",29,24875,40.6,0,""],["SHP-2026-4168","D09","DE-Bremerhaven","TRIM-PANEL",31,4395,65.1,100,""],["SHP-2026-4174","D11","UK-Felixstowe","ALT-STATOR",28,24193,39.2,0,"double-stack refused by driver"],["SHP-2026-4186","D14","DE-Bremerhaven","BRAKE-ROTOR",21,23624,27.3,60,"double-stack refused by driver"],["SHP-2026-4185","D12","UK-Felixstowe","ALT-STATOR",29,24906,40.6,0,"reslotted mid-load"],["SHP-2026-4184","D09","UK-Felixstowe","ALT-STATOR",29,25013,40.6,60,"partial - balance ships next day"],["SHP-2026-4191","D14","UK-Felixstowe","HARNESS-ASSY",37,7819,64.75,100,"reslotted mid-load"],["SHP-2026-4189","D13","NL-Rotterdam","PLASTIC-CLIP",34,3134,64.6,100,"dunnage added"],["SHP-2026-4190","D11","DE-Bremerhaven","BRAKE-ROTOR",22,24732,28.6,50,"waiting on QA hold release"],["SHP-2026-4192","D09","DE-Bremerhaven","CAST-HOUSING",26,25464,35.1,60,""],["SHP-2026-4194","D11","NL-Rotterdam","BRAKE-ROTOR",23,25855,29.9,50,"dunnage added"],["SHP-2026-4187","D10","UK-Felixstowe","PLASTIC-CLIP",34,3231,64.6,100,"waiting on QA hold release"],["SHP-2026-4195","D09","NL-Rotterdam","HARNESS-ASSY",36,7616,63.0,90,""],["SHP-2026-4197","D14","DE-Bremerhaven","ALT-STATOR",30,25837,42.0,60,"double-stack refused by driver"],["SHP-2026-4199","D13","UK-Felixstowe","CAST-HOUSING",26,25444,35.1,50,""],["SHP-2026-4200","D10","UK-Felixstowe","CAST-HOUSING",25,24525,33.75,60,""],["SHP-2026-4209","D14","DE-Bremerhaven","ALT-STATOR",30,25705,42.0,70,""],["SHP-2026-4208","D13","DE-Bremerhaven","ALT-STATOR",28,24019,39.2,0,"late trailer arrival"],["SHP-2026-4204","D10","SE-Gothenburg","CAST-HOUSING",26,25507,35.1,50,"partial - balance ships next day"],["SHP-2026-4212","D09","DE-Bremerhaven","ALT-STATOR",28,24178,39.2,60,"double-stack refused by driver"],["SHP-2026-4205","D10","UK-Felixstowe","BRAKE-ROTOR",23,25690,29.9,50,""],["SHP-2026-4213","D09","UK-Felixstowe","CAST-HOUSING",24,23577,32.4,40,""],["SHP-2026-4217","D14","UK-Felixstowe","ALT-STATOR",29,24845,40.6,80,""],["SHP-2026-4214","D10","SE-Gothenburg","CAST-HOUSING",25,24436,33.75,0,""],["SHP-2026-4225","D11","NL-Rotterdam","ALT-STATOR",29,24941,40.6,0,""],["SHP-2026-4227","D12","NL-Rotterdam","HARNESS-ASSY",38,8039,66.5,100,"reslotted mid-load"],["SHP-2026-4231","D11","SE-Gothenburg","ALT-STATOR",28,24051,39.2,0,"partial - balance ships next day"],["SHP-2026-4239","D10","NL-Rotterdam","BRAKE-ROTOR",23,25823,29.9,50,"dunnage added"],["SHP-2026-4240","D11","UK-Felixstowe","ALT-STATOR",28,24085,39.2,0,""],["SHP-2026-4238","D10","NL-Rotterdam","PLASTIC-CLIP",35,3430,66.5,100,""],["SHP-2026-4241","D14","DE-Bremerhaven","TRIM-PANEL",30,4247,63.0,0,""],["SHP-2026-4252","D09","UK-Felixstowe","BRAKE-ROTOR",21,23498,27.3,60,""],["SHP-2026-4250","D14","DE-Bremerhaven","HARNESS-ASSY",38,8057,66.5,100,""],["SHP-2026-4245","D14","UK-Felixstowe","BRAKE-ROTOR",23,25855,29.9,60,""],["SHP-2026-4254","D12","UK-Felixstowe","CAST-HOUSING",25,24587,33.75,70,""],["SHP-2026-4249","D09","UK-Felixstowe","ALT-STATOR",30,25827,42.0,0,""],["SHP-2026-4243","D13","NL-Rotterdam","BRAKE-ROTOR",22,24605,28.6,40,""],["SHP-2026-4253","D13","UK-Felixstowe","CAST-HOUSING",25,24388,33.75,0,""],["SHP-2026-4246","D09","SE-Gothenburg","HARNESS-ASSY",38,8062,66.5,100,""],["SHP-2026-4259","D12","NL-Rotterdam","CAST-HOUSING",26,25407,35.1,70,""],["SHP-2026-4256","D12","NL-Rotterdam","BRAKE-ROTOR",22,24635,28.6,0,""],["SHP-2026-4263","D09","DE-Bremerhaven","BRAKE-ROTOR",23,25804,29.9,40,""],["SHP-2026-4255","D10","DE-Bremerhaven","CAST-HOUSING",25,24592,33.75,50,""],["SHP-2026-4257","D12","SE-Gothenburg","CAST-HOUSING",26,25592,35.1,60,""],["SHP-2026-4266","D10","UK-Felixstowe","ALT-STATOR",30,25705,42.0,0,""],["SHP-2026-4269","D14","SE-Gothenburg","CAST-HOUSING",25,24391,33.75,0,"reslotted mid-load"],["SHP-2026-4270","D12","NL-Rotterdam","ALT-STATOR",29,24841,40.6,0,""],["SHP-2026-4267","D14","DE-Bremerhaven","ALT-STATOR",28,24011,39.2,60,""],["SHP-2026-4271","D13","NL-Rotterdam","TRIM-PANEL",31,4615,65.1,0,"dunnage added"],["SHP-2026-4282","D10","NL-Rotterdam","CAST-HOUSING",25,24574,33.75,0,"double-stack refused by driver"],["SHP-2026-4278","D10","SE-Gothenburg","BRAKE-ROTOR",22,24638,28.6,40,"reslotted mid-load"],["SHP-2026-4283","D12","SE-Gothenburg","ALT-STATOR",30,25722,42.0,80,""],["SHP-2026-4274","D09","SE-Gothenburg","ALT-STATOR",28,24026,39.2,60,"waiting on QA hold release"]];
+			// ── Container spec ──
+			const C = {
+				L: 12.03,
+				W: 2.35,
+				H: 2.69,
+				vol: 67,
+				kg: 26000,
+				lim: 2.62,
+				rows: 10,
+				pl: 1.2,
+				pw: 1.0
+			};
+			const COLZ = [0.12, 1.23];
 
-// ── Container spec ──
-const C={L:12.03,W:2.35,H:2.69,vol:67,kg:26000,lim:2.62,rows:10,pl:1.2,pw:1.0};
-const COLZ=[0.12,1.23];
+			// ── SKU height profiles ──
+			const SKU_H = {
+				'ALT-STATOR': { mean: 1.28, std: 0.06, canStack: true },
+				'BRAKE-ROTOR': { mean: 1.35, std: 0.04, canStack: false },
+				'CAST-HOUSING': { mean: 1.32, std: 0.05, canStack: false },
+				'HARNESS-ASSY': { mean: 1.26, std: 0.08, canStack: true },
+				'PLASTIC-CLIP': { mean: 1.05, std: 0.07, canStack: true },
+				'SENSOR-MOD': { mean: 0.95, std: 0.06, canStack: true },
+				'TRIM-PANEL': { mean: 1.08, std: 0.09, canStack: true }
+			};
 
-// ── SKU height profiles ──
-const SKU_H={
-  'ALT-STATOR':{mean:1.28,std:0.06,canStack:true},
-  'BRAKE-ROTOR':{mean:1.35,std:0.04,canStack:false},
-  'CAST-HOUSING':{mean:1.32,std:0.05,canStack:false},
-  'HARNESS-ASSY':{mean:1.26,std:0.08,canStack:true},
-  'PLASTIC-CLIP':{mean:1.05,std:0.07,canStack:true},
-  'SENSOR-MOD':{mean:0.95,std:0.06,canStack:true},
-  'TRIM-PANEL':{mean:1.08,std:0.09,canStack:true}
-};
+			function mulberry32(a) {
+				return function () {
+					a |= 0;
+					a = (a + 0x6d2b79f5) | 0;
+					let t = Math.imul(a ^ (a >>> 15), 1 | a);
+					t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+					return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+				};
+			}
 
-function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+			function genHeights(n, sku, seed) {
+				const rng = mulberry32(seed),
+					prof = SKU_H[sku] || { mean: 1.2, std: 0.08 };
+				const h = [];
+				for (let i = 0; i < n; i++) {
+					const u1 = rng(),
+						u2 = rng();
+					const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+					h.push(Math.max(0.6, Math.min(1.55, prof.mean + z * prof.std)));
+				}
+				return h;
+			}
 
-function genHeights(n,sku,seed){
-  const rng=mulberry32(seed),prof=SKU_H[sku]||{mean:1.2,std:0.08};
-  const h=[];
-  for(let i=0;i<n;i++){const u1=rng(),u2=rng();const z=Math.sqrt(-2*Math.log(u1))*Math.cos(2*Math.PI*u2);h.push(Math.max(0.6,Math.min(1.55,prof.mean+z*prof.std)))}
-  return h;
-}
+			function loadSim(heights, canStack) {
+				const N = heights.length,
+					rows = [],
+					steps = [],
+					dead = [];
+				let r = 0;
+				const lim = canStack ? C.lim : 999;
+				for (let i = 0; i < N; i++) {
+					let placed = false;
+					for (;;) {
+						if (r >= C.rows) {
+							steps.push({ p: i, left: true });
+							placed = true;
+							break;
+						}
+						const row = rows[r] || (rows[r] = {});
+						const put = (s) => {
+							row[s] = i;
+							steps.push({ p: i, row: r, slot: s });
+							placed = true;
+						};
+						if (row.fl == null) {
+							put('fl');
+							break;
+						}
+						if (row.fr == null) {
+							put('fr');
+							break;
+						}
+						if (canStack) {
+							if (row.tl == null && heights[row.fl] + heights[i] <= lim) {
+								put('tl');
+								break;
+							}
+							if (row.tr == null && heights[row.fr] + heights[i] <= lim) {
+								put('tr');
+								break;
+							}
+						}
+						if (row.tl == null) dead.push({ row: r, slot: 'tl', at: i });
+						if (row.tr == null) dead.push({ row: r, slot: 'tr', at: i });
+						r++;
+					}
+				}
+				const done = steps.filter((s) => !s.left);
+				return {
+					steps,
+					dead,
+					rows,
+					loaded: done.length,
+					left: steps.filter((s) => s.left).length,
+					vol: done.reduce((a, s) => a + C.pl * C.pw * heights[s.p], 0)
+				};
+			}
 
-function loadSim(heights,canStack){
-  const N=heights.length,rows=[],steps=[],dead=[];let r=0;
-  const lim=canStack?C.lim:999;
-  for(let i=0;i<N;i++){
-    let placed=false;
-    for(;;){
-      if(r>=C.rows){steps.push({p:i,left:true});placed=true;break}
-      const row=rows[r]||(rows[r]={});
-      const put=s=>{row[s]=i;steps.push({p:i,row:r,slot:s});placed=true};
-      if(row.fl==null){put('fl');break}
-      if(row.fr==null){put('fr');break}
-      if(canStack){
-        if(row.tl==null&&heights[row.fl]+heights[i]<=lim){put('tl');break}
-        if(row.tr==null&&heights[row.fr]+heights[i]<=lim){put('tr');break}
-      }
-      if(row.tl==null)dead.push({row:r,slot:'tl',at:i});
-      if(row.tr==null)dead.push({row:r,slot:'tr',at:i});
-      r++;
-    }
-  }
-  const done=steps.filter(s=>!s.left);
-  return{steps,dead,rows,loaded:done.length,left:steps.filter(s=>s.left).length,
-    vol:done.reduce((a,s)=>a+C.pl*C.pw*heights[s.p],0)};
-}
+			function findBestSwap(heights, canStack) {
+				const base = loadSim(heights, canStack);
+				if (base.left === 0) return { base, best: base, swapFrom: -1, swapTo: -1, improved: false };
+				let best = base,
+					sf = -1,
+					st = -1;
+				const N = heights.length;
+				for (let i = 0; i < N && i < 30; i++)
+					for (let j = i + 1; j < N && j < i + 20; j++) {
+						const h2 = [...heights];
+						[h2[i], h2[j]] = [h2[j], h2[i]];
+						const r = loadSim(h2, canStack);
+						if (
+							r.loaded > best.loaded ||
+							(r.loaded === best.loaded && r.dead.length < best.dead.length)
+						) {
+							best = r;
+							sf = i;
+							st = j;
+						}
+					}
+				return { base, best, swapFrom: sf, swapTo: st, improved: best.loaded > base.loaded };
+			}
 
-function findBestSwap(heights,canStack){
-  const base=loadSim(heights,canStack);
-  if(base.left===0)return{base,best:base,swapFrom:-1,swapTo:-1,improved:false};
-  let best=base,sf=-1,st=-1;const N=heights.length;
-  for(let i=0;i<N&&i<30;i++)for(let j=i+1;j<N&&j<i+20;j++){
-    const h2=[...heights];[h2[i],h2[j]]=[h2[j],h2[i]];
-    const r=loadSim(h2,canStack);
-    if(r.loaded>best.loaded||(r.loaded===best.loaded&&r.dead.length<best.dead.length)){best=r;sf=i;st=j}
-  }
-  return{base,best,swapFrom:sf,swapTo:st,improved:best.loaded>base.loaded};
-}
+			// ── Pre-compute all 83 ──
+			const fleet = FLEET.map((f) => {
+				const [id, door, dest, sku, pallets, kg, vol, fill, notes] = f;
+				const seed = parseInt(id.replace(/\D/g, '')) % 100000;
+				const prof = SKU_H[sku] || { canStack: true };
+				const heights = genHeights(pallets, sku, seed);
+				const sim = findBestSwap(heights, prof.canStack);
+				const status = sim.base.left === 0 ? 'ok' : sim.improved ? 'fixable' : 'stuck';
+				return {
+					id,
+					door,
+					dest,
+					sku,
+					pallets,
+					kg,
+					vol,
+					fill,
+					notes,
+					heights,
+					canStack: prof.canStack,
+					planned: sim.base,
+					best: sim.best,
+					swapFrom: sim.swapFrom,
+					swapTo: sim.swapTo,
+					improved: sim.improved,
+					status
+				};
+			});
 
-// ── Pre-compute all 83 ──
-const fleet=FLEET.map(f=>{
-  const [id,door,dest,sku,pallets,kg,vol,fill,notes]=f;
-  const seed=parseInt(id.replace(/\D/g,''))%100000;
-  const prof=SKU_H[sku]||{canStack:true};
-  const heights=genHeights(pallets,sku,seed);
-  const sim=findBestSwap(heights,prof.canStack);
-  const status=sim.base.left===0?'ok':sim.improved?'fixable':'stuck';
-  return{id,door,dest,sku,pallets,kg,vol,fill,notes,heights,canStack:prof.canStack,
-    planned:sim.base,best:sim.best,swapFrom:sim.swapFrom,swapTo:sim.swapTo,improved:sim.improved,status};
-});
+			const ok = fleet.filter((r) => r.status === 'ok').length;
+			const fixable = fleet.filter((r) => r.status === 'fixable').length;
+			const stuck = fleet.filter((r) => r.status === 'stuck').length;
 
-const ok=fleet.filter(r=>r.status==='ok').length;
-const fixable=fleet.filter(r=>r.status==='fixable').length;
-const stuck=fleet.filter(r=>r.status==='stuck').length;
+			// ── Picker ──
+			const $ = (id) => document.getElementById(id);
+			let cur = -1;
 
-// ── Picker ──
-const $=id=>document.getElementById(id);
-let cur=-1;
-
-function renderPicker(){
-  const p=$('picker');
-  const skus=[...new Set(fleet.map(f=>f.sku))].sort();
-  const statuses=['ok','fixable','stuck'];
-  const groupBy=filterGroup;
-  let opts='<option value="-1">— select —</option>';
-  if(groupBy==='sku'){
-    for(const s of skus){
-      const items=fleet.map((f,i)=>({f,i})).filter(({f})=>f.sku===s&&(filterStatus==='ALL'||f.status===filterStatus));
-      if(!items.length)continue;
-      opts+=`<optgroup label="${s} (${items.length})">`;
-      items.forEach(({f,i})=>opts+=`<option value="${i}">${f.id} · ${f.dest} · ${f.status.toUpperCase()}</option>`);
-      opts+=`</optgroup>`;
-    }
-  } else if(groupBy==='status'){
-    for(const st of statuses){
-      const items=fleet.map((f,i)=>({f,i})).filter(({f})=>f.status===st&&(filterSku==='ALL'||f.sku===filterSku));
-      if(!items.length)continue;
-      const lbl=st==='ok'?'OK — all pallets fit':st==='fixable'?'Fixable — 1 swap helps':'Stuck — no single swap';
-      opts+=`<optgroup label="${lbl} (${items.length})">`;
-      items.forEach(({f,i})=>opts+=`<option value="${i}">${f.id} · ${f.sku} · ${f.dest}</option>`);
-      opts+=`</optgroup>`;
-    }
-  } else if(groupBy==='dest'){
-    for(const d of [...new Set(fleet.map(f=>f.dest))].sort()){
-      const items=fleet.map((f,i)=>({f,i})).filter(({f})=>f.dest===d&&(filterSku==='ALL'||f.sku===filterSku)&&(filterStatus==='ALL'||f.status===filterStatus));
-      if(!items.length)continue;
-      opts+=`<optgroup label="${d} (${items.length})">`;
-      items.forEach(({f,i})=>opts+=`<option value="${i}">${f.id} · ${f.sku} · ${f.status.toUpperCase()}</option>`);
-      opts+=`</optgroup>`;
-    }
-  }
-  p.innerHTML=`<label>Container</label>
+			function renderPicker() {
+				const p = $('picker');
+				const skus = [...new Set(fleet.map((f) => f.sku))].sort();
+				const statuses = ['ok', 'fixable', 'stuck'];
+				const groupBy = filterGroup;
+				let opts = '<option value="-1">— select —</option>';
+				if (groupBy === 'sku') {
+					for (const s of skus) {
+						const items = fleet
+							.map((f, i) => ({ f, i }))
+							.filter(
+								({ f }) => f.sku === s && (filterStatus === 'ALL' || f.status === filterStatus)
+							);
+						if (!items.length) continue;
+						opts += `<optgroup label="${s} (${items.length})">`;
+						items.forEach(
+							({ f, i }) =>
+								(opts += `<option value="${i}">${f.id} · ${f.dest} · ${f.status.toUpperCase()}</option>`)
+						);
+						opts += `</optgroup>`;
+					}
+				} else if (groupBy === 'status') {
+					for (const st of statuses) {
+						const items = fleet
+							.map((f, i) => ({ f, i }))
+							.filter(({ f }) => f.status === st && (filterSku === 'ALL' || f.sku === filterSku));
+						if (!items.length) continue;
+						const lbl =
+							st === 'ok'
+								? 'OK — all pallets fit'
+								: st === 'fixable'
+									? 'Fixable — 1 swap helps'
+									: 'Stuck — no single swap';
+						opts += `<optgroup label="${lbl} (${items.length})">`;
+						items.forEach(
+							({ f, i }) => (opts += `<option value="${i}">${f.id} · ${f.sku} · ${f.dest}</option>`)
+						);
+						opts += `</optgroup>`;
+					}
+				} else if (groupBy === 'dest') {
+					for (const d of [...new Set(fleet.map((f) => f.dest))].sort()) {
+						const items = fleet
+							.map((f, i) => ({ f, i }))
+							.filter(
+								({ f }) =>
+									f.dest === d &&
+									(filterSku === 'ALL' || f.sku === filterSku) &&
+									(filterStatus === 'ALL' || f.status === filterStatus)
+							);
+						if (!items.length) continue;
+						opts += `<optgroup label="${d} (${items.length})">`;
+						items.forEach(
+							({ f, i }) =>
+								(opts += `<option value="${i}">${f.id} · ${f.sku} · ${f.status.toUpperCase()}</option>`)
+						);
+						opts += `</optgroup>`;
+					}
+				}
+				p.innerHTML = `<label>Container</label>
     <button class="fbtn" onclick="prevContainer()" title="Previous">◂</button>
     <select id="sel" onchange="pickContainer(+this.value)">${opts}</select>
     <button class="fbtn" onclick="nextContainer()" title="Next">▸</button>
     <div style="width:1px;height:18px;background:var(--rule);margin:0 4px"></div>
     <label>Group</label>
-    <button class="fbtn${groupBy==='sku'?' act':''}" onclick="setGroup('sku')">SKU</button>
-    <button class="fbtn${groupBy==='status'?' act':''}" onclick="setGroup('status')">Status</button>
-    <button class="fbtn${groupBy==='dest'?' act':''}" onclick="setGroup('dest')">Dest</button>
+    <button class="fbtn${groupBy === 'sku' ? ' act' : ''}" onclick="setGroup('sku')">SKU</button>
+    <button class="fbtn${groupBy === 'status' ? ' act' : ''}" onclick="setGroup('status')">Status</button>
+    <button class="fbtn${groupBy === 'dest' ? ' act' : ''}" onclick="setGroup('dest')">Dest</button>
     <div style="width:1px;height:18px;background:var(--rule);margin:0 4px"></div>
     <label>Filter</label>
-    <button class="fbtn${filterStatus==='ALL'?' act':''}" onclick="setFilterStatus('ALL')">All</button>
-    <button class="fbtn${filterStatus==='ok'?' act':''}" onclick="setFilterStatus('ok')" style="color:var(--green)">OK</button>
-    <button class="fbtn${filterStatus==='fixable'?' act':''}" onclick="setFilterStatus('fixable')" style="color:var(--amber)">Fix</button>
-    <button class="fbtn${filterStatus==='stuck'?' act':''}" onclick="setFilterStatus('stuck')" style="color:var(--red)">Stuck</button>
+    <button class="fbtn${filterStatus === 'ALL' ? ' act' : ''}" onclick="setFilterStatus('ALL')">All</button>
+    <button class="fbtn${filterStatus === 'ok' ? ' act' : ''}" onclick="setFilterStatus('ok')" style="color:var(--green)">OK</button>
+    <button class="fbtn${filterStatus === 'fixable' ? ' act' : ''}" onclick="setFilterStatus('fixable')" style="color:var(--amber)">Fix</button>
+    <button class="fbtn${filterStatus === 'stuck' ? ' act' : ''}" onclick="setFilterStatus('stuck')" style="color:var(--red)">Stuck</button>
     <div class="kpi-row">
       <div class="ki"><b style="color:var(--green)">${ok}</b> OK</div>
       <div class="ki"><b style="color:var(--amber)">${fixable}</b> Fixable</div>
       <div class="ki"><b style="color:var(--red)">${stuck}</b> Stuck</div>
     </div>`;
-  if(cur>=0)$('sel').value=cur;
-}
-let filterSku='ALL',filterStatus='ALL',filterGroup='sku';
-function setGroup(g){filterGroup=g;renderPicker()}
-function setFilterStatus(s){filterStatus=s;renderPicker()}
-function setFilterSku(s){filterSku=s;renderPicker()}
-function prevContainer(){const vis=getVisible();const i=vis.indexOf(cur);if(i>0)pickContainer(vis[i-1]);else if(vis.length)pickContainer(vis[vis.length-1])}
-function nextContainer(){const vis=getVisible();const i=vis.indexOf(cur);if(i<vis.length-1)pickContainer(vis[i+1]);else if(vis.length)pickContainer(vis[0])}
-function getVisible(){return fleet.map((_,i)=>i).filter(i=>(filterSku==='ALL'||fleet[i].sku===filterSku)&&(filterStatus==='ALL'||fleet[i].status===filterStatus))}
+				if (cur >= 0) $('sel').value = cur;
+			}
+			let filterSku = 'ALL',
+				filterStatus = 'ALL',
+				filterGroup = 'sku';
+			function setGroup(g) {
+				filterGroup = g;
+				renderPicker();
+			}
+			function setFilterStatus(s) {
+				filterStatus = s;
+				renderPicker();
+			}
+			function setFilterSku(s) {
+				filterSku = s;
+				renderPicker();
+			}
+			function prevContainer() {
+				const vis = getVisible();
+				const i = vis.indexOf(cur);
+				if (i > 0) pickContainer(vis[i - 1]);
+				else if (vis.length) pickContainer(vis[vis.length - 1]);
+			}
+			function nextContainer() {
+				const vis = getVisible();
+				const i = vis.indexOf(cur);
+				if (i < vis.length - 1) pickContainer(vis[i + 1]);
+				else if (vis.length) pickContainer(vis[0]);
+			}
+			function getVisible() {
+				return fleet
+					.map((_, i) => i)
+					.filter(
+						(i) =>
+							(filterSku === 'ALL' || fleet[i].sku === filterSku) &&
+							(filterStatus === 'ALL' || fleet[i].status === filterStatus)
+					);
+			}
 
-// ── Simulation state ──
-let step=0,compare=null,timer=null,autoMode=false;
-let HT=[],N=0,LA=null,LB=null,canStack=false;
+			// ── Simulation state ──
+			let step = 0,
+				compare = null,
+				timer = null,
+				autoMode = false;
+			let HT = [],
+				N = 0,
+				LA = null,
+				LB = null,
+				canStack = false;
 
-function pickContainer(idx){
-  if(idx<0)return;
-  stopAuto();
-  cur=idx; step=0; compare=null;
-  $('sel').value=idx;
-  $('start').classList.add('gone');
-  $('seg').classList.remove('on');
+			function pickContainer(idx) {
+				if (idx < 0) return;
+				stopAuto();
+				cur = idx;
+				step = 0;
+				compare = null;
+				$('sel').value = idx;
+				$('start').classList.add('gone');
+				$('seg').classList.remove('on');
 
-  const f=fleet[idx];
-  HT=f.heights; N=f.pallets; canStack=f.canStack;
-  LA=f.planned; LB=f.best;
+				const f = fleet[idx];
+				HT = f.heights;
+				N = f.pallets;
+				canStack = f.canStack;
+				LA = f.planned;
+				LB = f.best;
 
-  $('vt').textContent=`${f.id} · ${f.dest}`;
-  $('vs').textContent=`40ft HC · ${f.sku} · ${f.pallets} pallets · ${(f.kg/1000).toFixed(1)}t · ${f.vol} m³ declared`;
+				$('vt').textContent = `${f.id} · ${f.dest}`;
+				$('vs').textContent =
+					`40ft HC · ${f.sku} · ${f.pallets} pallets · ${(f.kg / 1000).toFixed(1)}t · ${f.vol} m³ declared`;
 
-  $('c-stack').textContent=canStack?'Yes (assumed)':'No';
-  $('c-stack').style.color=canStack?'var(--green)':'var(--red)';
-  $('c-lim').textContent=canStack?C.lim+' m':'single-high';
-  $('c-vol').textContent=f.vol+' m³ ('+Math.round(f.vol/C.vol*100)+'%)';
-  $('c-fill').textContent=f.fill?f.fill+'%':'—';
-  $('c-notes').textContent=f.notes||'—';
+				$('c-stack').textContent = canStack ? 'Yes (assumed)' : 'No';
+				$('c-stack').style.color = canStack ? 'var(--green)' : 'var(--red)';
+				$('c-lim').textContent = canStack ? C.lim + ' m' : 'single-high';
+				$('c-vol').textContent = f.vol + ' m³ (' + Math.round((f.vol / C.vol) * 100) + '%)';
+				$('c-fill').textContent = f.fill ? f.fill + '%' : '—';
+				$('c-notes').textContent = f.notes || '—';
 
-  renderPrediction();
-  render();
-}
+				renderPrediction();
+				render();
+			}
 
-// ── 3D rendering (from index.html) ──
-const cv=$('cv'),ctx2=cv.getContext('2d');let W,H,sc,ox,oy;
-const COL={short:['#5EEAD4','#2DD4BF','#0F9E8E'],med:['#93C5FD','#3B82F6','#1D4ED8'],tall:['#C4B5FD','#8B5CF6','#5B21B6']};
-const RED=['rgba(248,113,113,.28)','rgba(248,113,113,.16)','rgba(248,113,113,.12)'];
-const pr=(x,y,z)=>[ox+(x*0.94-z*0.6)*sc,oy-(x*0.22+z*0.45+y)*sc];
-const pclass=h=>h>=1.40?'tall':h<=1.15?'short':'med';
+			// ── 3D rendering (from index.html) ──
+			const cv = $('cv'),
+				ctx2 = cv.getContext('2d');
+			let W, H, sc, ox, oy;
+			const COL = {
+				short: ['#5EEAD4', '#2DD4BF', '#0F9E8E'],
+				med: ['#93C5FD', '#3B82F6', '#1D4ED8'],
+				tall: ['#C4B5FD', '#8B5CF6', '#5B21B6']
+			};
+			const RED = ['rgba(248,113,113,.28)', 'rgba(248,113,113,.16)', 'rgba(248,113,113,.12)'];
+			const pr = (x, y, z) => [ox + (x * 0.94 - z * 0.6) * sc, oy - (x * 0.22 + z * 0.45 + y) * sc];
+			const pclass = (h) => (h >= 1.4 ? 'tall' : h <= 1.15 ? 'short' : 'med');
 
-function resize(){
-  const r=cv.parentElement.getBoundingClientRect(),d=devicePixelRatio||1;
-  W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;ctx2.setTransform(d,0,0,d,0,0);
-  sc=Math.min((W-48)/14.79,(H-100)/7.1);ox=(W-14.79*sc)/2+3.48*sc;oy=H/2+3.06*sc+20;
-  draw();
-}
-function poly(pts,fill,stroke,dash){
-  ctx2.beginPath();pts.forEach((p,i)=>i?ctx2.lineTo(...p):ctx2.moveTo(...p));ctx2.closePath();
-  if(fill){ctx2.fillStyle=fill;ctx2.fill()}
-  if(stroke){ctx2.setLineDash(dash||[]);ctx2.strokeStyle=stroke;ctx2.lineWidth=1;ctx2.stroke();ctx2.setLineDash([])}
-}
-function box3d(it){
-  const{x,y,z,h,c,stroke,dash}=it,l=C.pl,w=C.pw;
-  poly([pr(x,y,z),pr(x,y,z+w),pr(x,y+h,z+w),pr(x,y+h,z)],c[2],stroke,dash);
-  poly([pr(x,y,z),pr(x+l,y,z),pr(x+l,y+h,z),pr(x,y+h,z)],c[1],stroke,dash);
-  poly([pr(x,y+h,z),pr(x+l,y+h,z),pr(x+l,y+h,z+w),pr(x,y+h,z+w)],c[0],stroke,dash);
-  if(it.txt&&sc>34){
-    const[tx,ty]=pr(x+l/2,y+h/2,z);
-    ctx2.fillStyle='rgba(255,255,255,.82)';ctx2.font=`500 ${Math.min(11,sc*.16)}px "JetBrains Mono"`;
-    ctx2.textAlign='center';ctx2.textBaseline='middle';ctx2.fillText(it.txt,tx,ty);
-  }
-}
-function pill(ax,ay,lx,ly,text,col){
-  ctx2.strokeStyle=col;ctx2.lineWidth=1;ctx2.beginPath();ctx2.moveTo(ax,ay);ctx2.lineTo(lx,ly);ctx2.stroke();
-  ctx2.font='600 11px "JetBrains Mono"';const tw=ctx2.measureText(text).width+16;
-  const bx=Math.max(6,Math.min(W-tw-6,lx-tw/2));
-  ctx2.fillStyle='#052D41';ctx2.beginPath();ctx2.roundRect(bx,ly-11,tw,22,4);ctx2.fill();
-  ctx2.strokeStyle=col;ctx2.stroke();ctx2.fillStyle=col;ctx2.textAlign='left';ctx2.textBaseline='middle';
-  ctx2.fillText(text,bx+8,ly);
-}
-const EDGES=[[0,0,0,1,0,0],[0,1,0,1,1,0],[0,0,1,1,0,1],[0,1,1,1,1,1],[0,0,0,0,0,1],[0,1,0,0,1,1],
-             [1,0,0,1,0,1],[1,1,0,1,1,1],[0,0,0,0,1,0],[0,0,1,0,1,1],[1,0,0,1,1,0],[1,0,1,1,1,1]];
-function edges(which,alpha){
-  ctx2.strokeStyle=`rgba(34,160,243,${alpha})`;ctx2.lineWidth=1;
-  which.forEach(i=>{const e=EDGES[i],a=pr(e[0]*C.L,e[1]*C.H,e[2]*C.W),b=pr(e[3]*C.L,e[4]*C.H,e[5]*C.W);
-    ctx2.beginPath();ctx2.moveTo(...a);ctx2.lineTo(...b);ctx2.stroke()});
-}
+			function resize() {
+				const r = cv.parentElement.getBoundingClientRect(),
+					d = devicePixelRatio || 1;
+				W = r.width;
+				H = r.height;
+				cv.width = W * d;
+				cv.height = H * d;
+				ctx2.setTransform(d, 0, 0, d, 0, 0);
+				sc = Math.min((W - 48) / 14.79, (H - 100) / 7.1);
+				ox = (W - 14.79 * sc) / 2 + 3.48 * sc;
+				oy = H / 2 + 3.06 * sc + 20;
+				draw();
+			}
+			function poly(pts, fill, stroke, dash) {
+				ctx2.beginPath();
+				pts.forEach((p, i) => (i ? ctx2.lineTo(...p) : ctx2.moveTo(...p)));
+				ctx2.closePath();
+				if (fill) {
+					ctx2.fillStyle = fill;
+					ctx2.fill();
+				}
+				if (stroke) {
+					ctx2.setLineDash(dash || []);
+					ctx2.strokeStyle = stroke;
+					ctx2.lineWidth = 1;
+					ctx2.stroke();
+					ctx2.setLineDash([]);
+				}
+			}
+			function box3d(it) {
+				const { x, y, z, h, c, stroke, dash } = it,
+					l = C.pl,
+					w = C.pw;
+				poly(
+					[pr(x, y, z), pr(x, y, z + w), pr(x, y + h, z + w), pr(x, y + h, z)],
+					c[2],
+					stroke,
+					dash
+				);
+				poly(
+					[pr(x, y, z), pr(x + l, y, z), pr(x + l, y + h, z), pr(x, y + h, z)],
+					c[1],
+					stroke,
+					dash
+				);
+				poly(
+					[pr(x, y + h, z), pr(x + l, y + h, z), pr(x + l, y + h, z + w), pr(x, y + h, z + w)],
+					c[0],
+					stroke,
+					dash
+				);
+				if (it.txt && sc > 34) {
+					const [tx, ty] = pr(x + l / 2, y + h / 2, z);
+					ctx2.fillStyle = 'rgba(255,255,255,.82)';
+					ctx2.font = `500 ${Math.min(11, sc * 0.16)}px "JetBrains Mono"`;
+					ctx2.textAlign = 'center';
+					ctx2.textBaseline = 'middle';
+					ctx2.fillText(it.txt, tx, ty);
+				}
+			}
+			function pill(ax, ay, lx, ly, text, col) {
+				ctx2.strokeStyle = col;
+				ctx2.lineWidth = 1;
+				ctx2.beginPath();
+				ctx2.moveTo(ax, ay);
+				ctx2.lineTo(lx, ly);
+				ctx2.stroke();
+				ctx2.font = '600 11px "JetBrains Mono"';
+				const tw = ctx2.measureText(text).width + 16;
+				const bx = Math.max(6, Math.min(W - tw - 6, lx - tw / 2));
+				ctx2.fillStyle = '#052D41';
+				ctx2.beginPath();
+				ctx2.roundRect(bx, ly - 11, tw, 22, 4);
+				ctx2.fill();
+				ctx2.strokeStyle = col;
+				ctx2.stroke();
+				ctx2.fillStyle = col;
+				ctx2.textAlign = 'left';
+				ctx2.textBaseline = 'middle';
+				ctx2.fillText(text, bx + 8, ly);
+			}
+			const EDGES = [
+				[0, 0, 0, 1, 0, 0],
+				[0, 1, 0, 1, 1, 0],
+				[0, 0, 1, 1, 0, 1],
+				[0, 1, 1, 1, 1, 1],
+				[0, 0, 0, 0, 0, 1],
+				[0, 1, 0, 0, 1, 1],
+				[1, 0, 0, 1, 0, 1],
+				[1, 1, 0, 1, 1, 1],
+				[0, 0, 0, 0, 1, 0],
+				[0, 0, 1, 0, 1, 1],
+				[1, 0, 0, 1, 1, 0],
+				[1, 0, 1, 1, 1, 1]
+			];
+			function edges(which, alpha) {
+				ctx2.strokeStyle = `rgba(34,160,243,${alpha})`;
+				ctx2.lineWidth = 1;
+				which.forEach((i) => {
+					const e = EDGES[i],
+						a = pr(e[0] * C.L, e[1] * C.H, e[2] * C.W),
+						b = pr(e[3] * C.L, e[4] * C.H, e[5] * C.W);
+					ctx2.beginPath();
+					ctx2.moveTo(...a);
+					ctx2.lineTo(...b);
+					ctx2.stroke();
+				});
+			}
 
-function layout(){return compare==='B'?LB:LA}
+			function layout() {
+				return compare === 'B' ? LB : LA;
+			}
 
-function draw(){
-  if(!W||!LA)return;
-  ctx2.clearRect(0,0,W,H);
-  const L=layout(),n=Math.min(step,N);
-  // Container shell
-  poly([pr(0,0,0),pr(C.L,0,0),pr(C.L,0,C.W),pr(0,0,C.W)],'rgba(34,160,243,.06)');
-  poly([pr(0,0,C.W),pr(C.L,0,C.W),pr(C.L,C.H,C.W),pr(0,C.H,C.W)],'rgba(34,160,243,.035)');
-  poly([pr(C.L,0,0),pr(C.L,0,C.W),pr(C.L,C.H,C.W),pr(C.L,C.H,0)],'rgba(34,160,243,.07)');
-  edges([2,3,6,7,9,10,11],.28);
-  // Row lines
-  ctx2.strokeStyle='rgba(34,160,243,.12)';
-  for(let r=1;r<C.rows;r++){const x=C.L-r*C.pl;ctx2.beginPath();ctx2.moveTo(...pr(x,0,0));ctx2.lineTo(...pr(x,0,C.W));ctx2.stroke()}
-  // Row labels
-  ctx2.fillStyle='rgba(155,193,216,.55)';ctx2.font='10px "JetBrains Mono"';ctx2.textAlign='center';ctx2.textBaseline='top';
-  for(let r=0;r<C.rows;r++){const[tx,ty]=pr(C.L-(r+.5)*C.pl,0,0);ctx2.fillText('R'+(r+1),tx,ty+6)}
+			function draw() {
+				if (!W || !LA) return;
+				ctx2.clearRect(0, 0, W, H);
+				const L = layout(),
+					n = Math.min(step, N);
+				// Container shell
+				poly([pr(0, 0, 0), pr(C.L, 0, 0), pr(C.L, 0, C.W), pr(0, 0, C.W)], 'rgba(34,160,243,.06)');
+				poly(
+					[pr(0, 0, C.W), pr(C.L, 0, C.W), pr(C.L, C.H, C.W), pr(0, C.H, C.W)],
+					'rgba(34,160,243,.035)'
+				);
+				poly(
+					[pr(C.L, 0, 0), pr(C.L, 0, C.W), pr(C.L, C.H, C.W), pr(C.L, C.H, 0)],
+					'rgba(34,160,243,.07)'
+				);
+				edges([2, 3, 6, 7, 9, 10, 11], 0.28);
+				// Row lines
+				ctx2.strokeStyle = 'rgba(34,160,243,.12)';
+				for (let r = 1; r < C.rows; r++) {
+					const x = C.L - r * C.pl;
+					ctx2.beginPath();
+					ctx2.moveTo(...pr(x, 0, 0));
+					ctx2.lineTo(...pr(x, 0, C.W));
+					ctx2.stroke();
+				}
+				// Row labels
+				ctx2.fillStyle = 'rgba(155,193,216,.55)';
+				ctx2.font = '10px "JetBrains Mono"';
+				ctx2.textAlign = 'center';
+				ctx2.textBaseline = 'top';
+				for (let r = 0; r < C.rows; r++) {
+					const [tx, ty] = pr(C.L - (r + 0.5) * C.pl, 0, 0);
+					ctx2.fillText('R' + (r + 1), tx, ty + 6);
+				}
 
-  // Pallets
-  const items=[];
-  L.steps.slice(0,n).forEach((st,k)=>{
-    if(st.left)return;
-    const col=st.slot[1]==='l'?0:1,top=st.slot[0]==='t';
-    items.push({x:C.L-(st.row+1)*C.pl,y:top?HT[L.rows[st.row][col?'fr':'fl']]:0,z:COLZ[col],h:HT[st.p],
-      c:COL[pclass(HT[st.p])],stroke:k===n-1&&!compare?'#fff':'rgba(3,24,34,.55)',txt:HT[st.p].toFixed(2)});
-  });
-  // Dead zones
-  L.dead.filter(d=>d.at<n).forEach(d=>{
-    const col=d.slot==='tl'?0:1,y=HT[L.rows[d.row][col?'fr':'fl']];
-    items.push({x:C.L-(d.row+1)*C.pl,y,z:COLZ[col],h:C.H-y,c:RED,stroke:'rgba(248,113,113,.75)',dash:[4,3]});
-  });
-  items.sort((a,b)=>b.x-a.x||b.z-a.z||a.y-b.y).forEach(box3d);
-  edges([0,1,4,5,8],.4);
-  // Labels
-  ctx2.fillStyle='rgba(34,160,243,.6)';ctx2.font='600 10px "JetBrains Mono"';ctx2.textAlign='center';ctx2.textBaseline='middle';
-  let[tx,ty]=pr(C.L,C.H+.25,C.W/2);ctx2.fillText('NOSE',tx,ty-6);
-  [tx,ty]=pr(0,C.H+.25,C.W/2);ctx2.fillText('DOOR',tx,ty-6);
-  drawScan(L,n);
-}
+				// Pallets
+				const items = [];
+				L.steps.slice(0, n).forEach((st, k) => {
+					if (st.left) return;
+					const col = st.slot[1] === 'l' ? 0 : 1,
+						top = st.slot[0] === 't';
+					items.push({
+						x: C.L - (st.row + 1) * C.pl,
+						y: top ? HT[L.rows[st.row][col ? 'fr' : 'fl']] : 0,
+						z: COLZ[col],
+						h: HT[st.p],
+						c: COL[pclass(HT[st.p])],
+						stroke: k === n - 1 && !compare ? '#fff' : 'rgba(3,24,34,.55)',
+						txt: HT[st.p].toFixed(2)
+					});
+				});
+				// Dead zones
+				L.dead
+					.filter((d) => d.at < n)
+					.forEach((d) => {
+						const col = d.slot === 'tl' ? 0 : 1,
+							y = HT[L.rows[d.row][col ? 'fr' : 'fl']];
+						items.push({
+							x: C.L - (d.row + 1) * C.pl,
+							y,
+							z: COLZ[col],
+							h: C.H - y,
+							c: RED,
+							stroke: 'rgba(248,113,113,.75)',
+							dash: [4, 3]
+						});
+					});
+				items.sort((a, b) => b.x - a.x || b.z - a.z || a.y - b.y).forEach(box3d);
+				edges([0, 1, 4, 5, 8], 0.4);
+				// Labels
+				ctx2.fillStyle = 'rgba(34,160,243,.6)';
+				ctx2.font = '600 10px "JetBrains Mono"';
+				ctx2.textAlign = 'center';
+				ctx2.textBaseline = 'middle';
+				let [tx, ty] = pr(C.L, C.H + 0.25, C.W / 2);
+				ctx2.fillText('NOSE', tx, ty - 6);
+				[tx, ty] = pr(0, C.H + 0.25, C.W / 2);
+				ctx2.fillText('DOOR', tx, ty - 6);
+				drawScan(L, n);
+			}
 
-function drawScan(L,n){
-  const z0=.3,z1=C.W-.3,x0=-2.15,x1=-.35,x=-1.8;
-  poly([pr(x0,0,z0),pr(x1,0,z0),pr(x1,0,z1),pr(x0,0,z1)],'rgba(34,160,243,.08)','rgba(34,160,243,.7)',[5,4]);
-  ctx2.fillStyle='rgba(34,160,243,.85)';ctx2.font='600 9.5px "JetBrains Mono"';ctx2.textAlign='center';ctx2.textBaseline='top';
-  const[lx,ly]=pr((x0+x1)/2,0,z0);
-  const t='SCAN ZONE · before the door';
-  ctx2.fillText(t,Math.max(lx,ctx2.measureText(t).width/2+6),ly+8);
-  if(n>=N||compare)return;
-  const st=L.steps[n];
-  let txt,col='#34D399';
-  if(st.left){txt=`No position left for P-${String(st.p+1).padStart(3,'0')}`;col='#F87171'}
-  else{
-    const dead=L.dead.filter(d=>d.at===n);
-    if(dead.length){txt=`P-${String(st.p+1).padStart(3,'0')} closes R${dead[0].row+1}: ${dead.length} stack lost`;col='#FBBF24'}
-    else if(st.slot[0]==='t'){const fl=L.rows[st.row][st.slot==='tl'?'fl':'fr'];txt=`P-${String(st.p+1).padStart(3,'0')} stacks: ${(HT[fl]+HT[st.p]).toFixed(2)} m`;col='#34D399'}
-    else txt=`P-${String(st.p+1).padStart(3,'0')} → floor R${st.row+1}`
-  }
-  box3d({x,y:0,z:(C.W-C.pw)/2,h:HT[st.p],c:COL[pclass(HT[st.p])],stroke:col,txt:HT[st.p].toFixed(2)});
-  const[ax,ay]=pr(x+C.pl/2,HT[st.p],C.W/2);
-  pill(ax,ay,ax+20,ay-42,txt,col);
-}
+			function drawScan(L, n) {
+				const z0 = 0.3,
+					z1 = C.W - 0.3,
+					x0 = -2.15,
+					x1 = -0.35,
+					x = -1.8;
+				poly(
+					[pr(x0, 0, z0), pr(x1, 0, z0), pr(x1, 0, z1), pr(x0, 0, z1)],
+					'rgba(34,160,243,.08)',
+					'rgba(34,160,243,.7)',
+					[5, 4]
+				);
+				ctx2.fillStyle = 'rgba(34,160,243,.85)';
+				ctx2.font = '600 9.5px "JetBrains Mono"';
+				ctx2.textAlign = 'center';
+				ctx2.textBaseline = 'top';
+				const [lx, ly] = pr((x0 + x1) / 2, 0, z0);
+				const t = 'SCAN ZONE · before the door';
+				ctx2.fillText(t, Math.max(lx, ctx2.measureText(t).width / 2 + 6), ly + 8);
+				if (n >= N || compare) return;
+				const st = L.steps[n];
+				let txt,
+					col = '#34D399';
+				if (st.left) {
+					txt = `No position left for P-${String(st.p + 1).padStart(3, '0')}`;
+					col = '#F87171';
+				} else {
+					const dead = L.dead.filter((d) => d.at === n);
+					if (dead.length) {
+						txt = `P-${String(st.p + 1).padStart(3, '0')} closes R${dead[0].row + 1}: ${dead.length} stack lost`;
+						col = '#FBBF24';
+					} else if (st.slot[0] === 't') {
+						const fl = L.rows[st.row][st.slot === 'tl' ? 'fl' : 'fr'];
+						txt = `P-${String(st.p + 1).padStart(3, '0')} stacks: ${(HT[fl] + HT[st.p]).toFixed(2)} m`;
+						col = '#34D399';
+					} else txt = `P-${String(st.p + 1).padStart(3, '0')} → floor R${st.row + 1}`;
+				}
+				box3d({
+					x,
+					y: 0,
+					z: (C.W - C.pw) / 2,
+					h: HT[st.p],
+					c: COL[pclass(HT[st.p])],
+					stroke: col,
+					txt: HT[st.p].toFixed(2)
+				});
+				const [ax, ay] = pr(x + C.pl / 2, HT[st.p], C.W / 2);
+				pill(ax, ay, ax + 20, ay - 42, txt, col);
+			}
 
-// ── Panels ──
-function chipHTML(p,cls,tag){
-  const h=HT[p],c=COL[pclass(h)][1];
-  return `<div class="${cls}"><div class="bar" style="height:${Math.round(h/1.5*44)}px;background:${c}"></div>
-    <div><div class="cid">P-${String(p+1).padStart(3,'0')}</div><div class="ch">${h.toFixed(2)} m</div>${tag?`<div class="ctag">${tag}</div>`:''}</div></div>`;
-}
-function renderStage(){
-  if(!LA){$('stage').innerHTML='';return}
-  const L=layout(),n=Math.min(step,N);
-  let html=L.steps.slice(0,n).filter(st=>st.left).map(st=>chipHTML(st.p,'chip bad','left')).join('');
-  for(let i=n;i<Math.min(n+8,N);i++){
-    const p=i;
-    html+=chipHTML(p,i===n?'chip next':'chip',i===n?'next':'');
-  }
-  $('stage').innerHTML=html||'<div class="stage-empty">Lane clear — all pallets loaded</div>';
-}
-function placeStr(st){return st.left?'LEFT AT DOCK':`R${st.row+1} · ${st.slot[0]==='t'?'stacked':'floor'}`}
-function renderFeed(){
-  if(!LA){$('feed').innerHTML='<div class="empty">No pallets through the door yet.</div>';return}
-  const L=layout(),n=Math.min(step,N);
-  const rows=L.steps.slice(0,n).map((st,k)=>{
-    const h=HT[st.p],c=COL[pclass(h)][1];
-    const cls=st.left?'fi left':k===n-1?'fi new':'fi';
-    return `<div class="${cls}"><div class="fd" style="background:${c}"></div><div class="fid">P-${String(st.p+1).padStart(3,'0')}</div>
+			// ── Panels ──
+			function chipHTML(p, cls, tag) {
+				const h = HT[p],
+					c = COL[pclass(h)][1];
+				return `<div class="${cls}"><div class="bar" style="height:${Math.round((h / 1.5) * 44)}px;background:${c}"></div>
+    <div><div class="cid">P-${String(p + 1).padStart(3, '0')}</div><div class="ch">${h.toFixed(2)} m</div>${tag ? `<div class="ctag">${tag}</div>` : ''}</div></div>`;
+			}
+			function renderStage() {
+				if (!LA) {
+					$('stage').innerHTML = '';
+					return;
+				}
+				const L = layout(),
+					n = Math.min(step, N);
+				let html = L.steps
+					.slice(0, n)
+					.filter((st) => st.left)
+					.map((st) => chipHTML(st.p, 'chip bad', 'left'))
+					.join('');
+				for (let i = n; i < Math.min(n + 8, N); i++) {
+					const p = i;
+					html += chipHTML(p, i === n ? 'chip next' : 'chip', i === n ? 'next' : '');
+				}
+				$('stage').innerHTML =
+					html || '<div class="stage-empty">Lane clear — all pallets loaded</div>';
+			}
+			function placeStr(st) {
+				return st.left
+					? 'LEFT AT DOCK'
+					: `R${st.row + 1} · ${st.slot[0] === 't' ? 'stacked' : 'floor'}`;
+			}
+			function renderFeed() {
+				if (!LA) {
+					$('feed').innerHTML = '<div class="empty">No pallets through the door yet.</div>';
+					return;
+				}
+				const L = layout(),
+					n = Math.min(step, N);
+				const rows = L.steps.slice(0, n).map((st, k) => {
+					const h = HT[st.p],
+						c = COL[pclass(h)][1];
+					const cls = st.left ? 'fi left' : k === n - 1 ? 'fi new' : 'fi';
+					return `<div class="${cls}"><div class="fd" style="background:${c}"></div><div class="fid">P-${String(st.p + 1).padStart(3, '0')}</div>
       <div class="fpl">${placeStr(st)}</div><div class="fh">${h.toFixed(2)} m</div></div>`;
-  });
-  $('feed').innerHTML=rows.length?rows.reverse().slice(0,16).join(''):'<div class="empty">No pallets through the door yet.</div>';
-}
-function renderGauges(){
-  if(!LA){$('g-load').textContent='— / —';$('g-cube').textContent='—';$('g-pay').textContent='—';$('g-proj').textContent='—';return}
-  const L=layout(),n=Math.min(step,N),done=L.steps.slice(0,n).filter(st=>!st.left);
-  const vol=done.reduce((a,st)=>a+C.pl*C.pw*HT[st.p],0);
-  const f=fleet[cur],perPallet=f.kg/f.pallets,w=done.length*perPallet;
-  $('g-load').textContent=`${done.length} / ${N}`;
-  $('g-cube').textContent=Math.round(vol/C.vol*100)+'%';
-  $('g-pay').textContent=Math.round(w/C.kg*100)+'%';
-  const proj=compare?L:LA;
-  $('g-proj').textContent=`${proj.loaded} / ${N}`;
-  $('g-proj').style.color=proj.left?'var(--amber)':'var(--green)';
-  $('g-proj-n').textContent=proj.left?`${proj.left} at risk`:'all pallets';
-  $('prog').style.width=(n/N*100)+'%';
-  $('slbl').textContent=`${n} / ${N}`;
-}
-function renderPrediction(){
-  if(!LA)return;
-  const f=fleet[cur];
-  $('p-ship').textContent=`${LA.loaded} / ${N}`;
-  $('p-ship').style.color=LA.left?'var(--amber)':'var(--green)';
-  $('p-left').textContent=LA.left?`${LA.left} pallets`:'0';
-  $('p-left').style.color=LA.left?'var(--red)':'var(--green)';
-  $('p-dead').textContent=`${LA.dead.length}`;
-  if(f.improved){
-    $('p-best').textContent=`${LB.loaded} / ${N} · 1 swap`;
-    $('p-best').style.color='var(--green)';
-    $('p-status').textContent=`Swap P-${String(f.swapFrom+1).padStart(3,'0')} ↔ P-${String(f.swapTo+1).padStart(3,'0')} saves ${LA.left-LB.left} pallet(s).`;
-    $('p-status').style.color='var(--amber)';
-  } else {
-    $('p-best').textContent=LA.left?'no improvement':'—';
-    $('p-best').style.color=LA.left?'var(--red)':'var(--dim)';
-    $('p-status').textContent=LA.left?'No single swap improves this load.':'All pallets fit in the planned sequence.';
-    $('p-status').style.color=LA.left?'var(--red)':'var(--green)';
-  }
-}
-function render(){
-  renderGauges();renderStage();renderFeed();draw();
-  $('b-prev').disabled=step<=0||!!compare;
-  $('b-next').disabled=step>=N||!!compare||cur<0;
-  $('b-auto').disabled=step>=N||!!compare||cur<0;
-}
+				});
+				$('feed').innerHTML = rows.length
+					? rows.reverse().slice(0, 16).join('')
+					: '<div class="empty">No pallets through the door yet.</div>';
+			}
+			function renderGauges() {
+				if (!LA) {
+					$('g-load').textContent = '— / —';
+					$('g-cube').textContent = '—';
+					$('g-pay').textContent = '—';
+					$('g-proj').textContent = '—';
+					return;
+				}
+				const L = layout(),
+					n = Math.min(step, N),
+					done = L.steps.slice(0, n).filter((st) => !st.left);
+				const vol = done.reduce((a, st) => a + C.pl * C.pw * HT[st.p], 0);
+				const f = fleet[cur],
+					perPallet = f.kg / f.pallets,
+					w = done.length * perPallet;
+				$('g-load').textContent = `${done.length} / ${N}`;
+				$('g-cube').textContent = Math.round((vol / C.vol) * 100) + '%';
+				$('g-pay').textContent = Math.round((w / C.kg) * 100) + '%';
+				const proj = compare ? L : LA;
+				$('g-proj').textContent = `${proj.loaded} / ${N}`;
+				$('g-proj').style.color = proj.left ? 'var(--amber)' : 'var(--green)';
+				$('g-proj-n').textContent = proj.left ? `${proj.left} at risk` : 'all pallets';
+				$('prog').style.width = (n / N) * 100 + '%';
+				$('slbl').textContent = `${n} / ${N}`;
+			}
+			function renderPrediction() {
+				if (!LA) return;
+				const f = fleet[cur];
+				$('p-ship').textContent = `${LA.loaded} / ${N}`;
+				$('p-ship').style.color = LA.left ? 'var(--amber)' : 'var(--green)';
+				$('p-left').textContent = LA.left ? `${LA.left} pallets` : '0';
+				$('p-left').style.color = LA.left ? 'var(--red)' : 'var(--green)';
+				$('p-dead').textContent = `${LA.dead.length}`;
+				if (f.improved) {
+					$('p-best').textContent = `${LB.loaded} / ${N} · 1 swap`;
+					$('p-best').style.color = 'var(--green)';
+					$('p-status').textContent =
+						`Swap P-${String(f.swapFrom + 1).padStart(3, '0')} ↔ P-${String(f.swapTo + 1).padStart(3, '0')} saves ${LA.left - LB.left} pallet(s).`;
+					$('p-status').style.color = 'var(--amber)';
+				} else {
+					$('p-best').textContent = LA.left ? 'no improvement' : '—';
+					$('p-best').style.color = LA.left ? 'var(--red)' : 'var(--dim)';
+					$('p-status').textContent = LA.left
+						? 'No single swap improves this load.'
+						: 'All pallets fit in the planned sequence.';
+					$('p-status').style.color = LA.left ? 'var(--red)' : 'var(--green)';
+				}
+			}
+			function render() {
+				renderGauges();
+				renderStage();
+				renderFeed();
+				draw();
+				$('b-prev').disabled = step <= 0 || !!compare;
+				$('b-next').disabled = step >= N || !!compare || cur < 0;
+				$('b-auto').disabled = step >= N || !!compare || cur < 0;
+			}
 
-// ── Controls ──
-function fwd(){
-  if(step>=N||cur<0)return;
-  step++;
-  if(step>=N){stopAuto();setTimeout(showResult,500)}
-  render();
-}
-function back(){if(step<=0)return;step--;render()}
-function stopAuto(){clearInterval(timer);timer=null;$('b-auto').classList.remove('on')}
-function toggleAuto(){
-  if(timer){autoMode=false;return stopAuto()}
-  autoMode=true;$('b-auto').classList.add('on');
-  timer=setInterval(fwd,350);
-}
-function setCompare(v){
-  compare=v;$('seg-a').className=v==='A'?'act':'';$('seg-b').className=v==='B'?'act':'';
-  render();
-}
+			// ── Controls ──
+			function fwd() {
+				if (step >= N || cur < 0) return;
+				step++;
+				if (step >= N) {
+					stopAuto();
+					setTimeout(showResult, 500);
+				}
+				render();
+			}
+			function back() {
+				if (step <= 0) return;
+				step--;
+				render();
+			}
+			function stopAuto() {
+				clearInterval(timer);
+				timer = null;
+				$('b-auto').classList.remove('on');
+			}
+			function toggleAuto() {
+				if (timer) {
+					autoMode = false;
+					return stopAuto();
+				}
+				autoMode = true;
+				$('b-auto').classList.add('on');
+				timer = setInterval(fwd, 350);
+			}
+			function setCompare(v) {
+				compare = v;
+				$('seg-a').className = v === 'A' ? 'act' : '';
+				$('seg-b').className = v === 'B' ? 'act' : '';
+				render();
+			}
 
-function showResult(){
-  if(!LA)return;
-  const f=fleet[cur];
-  $('rc').innerHTML=`
+			function showResult() {
+				if (!LA) return;
+				const f = fleet[cur];
+				$('rc').innerHTML = `
     <div class="rk">Load closed · simulated</div>
-    <div class="rh${LA.left?' bad':''}">${LA.left?`<em>${LA.loaded} of ${N}</em> ship. ${LA.left} pallet(s) left at dock.`:`All ${N} ship. <em>No sequencing issue.</em>`}</div>
-    <div class="rs">${f.id} · ${f.sku} · ${f.dest} · ${(f.kg/1000).toFixed(1)}t · ${f.vol} m³ declared.${f.notes?' Note: '+f.notes:''}</div>
+    <div class="rh${LA.left ? ' bad' : ''}">${LA.left ? `<em>${LA.loaded} of ${N}</em> ship. ${LA.left} pallet(s) left at dock.` : `All ${N} ship. <em>No sequencing issue.</em>`}</div>
+    <div class="rs">${f.id} · ${f.sku} · ${f.dest} · ${(f.kg / 1000).toFixed(1)}t · ${f.vol} m³ declared.${f.notes ? ' Note: ' + f.notes : ''}</div>
     <div class="rg">
-      <div class="rb"><div class="gl">Planned sequence</div><div class="rv" style="color:${LA.left?'var(--amber)':'var(--green)'}">${LA.loaded}/${N}</div>
-        <div class="rn">${LA.dead.length} stack positions lost<br>${Math.round(LA.vol/C.vol*100)}% simulated cube</div></div>
-      <div class="rb${f.improved?' best':''}"><div class="gl"${f.improved?' style="color:var(--green)"':''}>Best swap found</div><div class="rv" style="color:${f.improved?'var(--green)':'var(--muted)'}">${f.improved?LB.loaded+'/'+N:'—'}</div>
-        <div class="rn">${f.improved?LB.dead.length+' stack positions lost<br>'+Math.round(LB.vol/C.vol*100)+'% simulated cube':'no improvement found'}</div></div>
+      <div class="rb"><div class="gl">Planned sequence</div><div class="rv" style="color:${LA.left ? 'var(--amber)' : 'var(--green)'}">${LA.loaded}/${N}</div>
+        <div class="rn">${LA.dead.length} stack positions lost<br>${Math.round((LA.vol / C.vol) * 100)}% simulated cube</div></div>
+      <div class="rb${f.improved ? ' best' : ''}"><div class="gl"${f.improved ? ' style="color:var(--green)"' : ''}>Best swap found</div><div class="rv" style="color:${f.improved ? 'var(--green)' : 'var(--muted)'}">${f.improved ? LB.loaded + '/' + N : '—'}</div>
+        <div class="rn">${f.improved ? LB.dead.length + ' stack positions lost<br>' + Math.round((LB.vol / C.vol) * 100) + '% simulated cube' : 'no improvement found'}</div></div>
     </div>
-    ${f.improved?`<button class="btn pri" style="margin-bottom:12px" onclick="closeResult()">Compare both layouts ↗</button>`:''}
+    ${f.improved ? `<button class="btn pri" style="margin-bottom:12px" onclick="closeResult()">Compare both layouts ↗</button>` : ''}
     <button class="link" onclick="closeResultOnly()">Close</button>
     <div class="rf"><b style="color:var(--muted)">Real:</b> shipment ID, door, destination, SKU, pallet count, weight, declared volume, operator fill, notes.
-      <b style="color:var(--muted)">Simulated:</b> pallet heights (${SKU_H[f.sku]?.mean.toFixed(2)||'?'} m ± ${SKU_H[f.sku]?.std.toFixed(2)||'?'} m), loading sequence, stacking permission${canStack?'':' (denied for '+f.sku+')'}, swap search. This is a hypothetical, not a reconstruction.</div>`;
-  $('res').classList.add('on');$('rc').focus();
-}
-function closeResult(){
-  $('res').classList.remove('on');
-  $('seg').classList.add('on');
-  setCompare('B');
-}
-function closeResultOnly(){$('res').classList.remove('on')}
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'&&$('res').classList.contains('on'))closeResultOnly();
-  if(cur<0)return;
-  if(e.key==='ArrowRight'&&!e.metaKey&&!e.ctrlKey){e.preventDefault();fwd()}
-  if(e.key==='ArrowLeft'&&!e.metaKey&&!e.ctrlKey){e.preventDefault();back()}
-  if(e.key===' '){e.preventDefault();toggleAuto()}
-});
+      <b style="color:var(--muted)">Simulated:</b> pallet heights (${SKU_H[f.sku]?.mean.toFixed(2) || '?'} m ± ${SKU_H[f.sku]?.std.toFixed(2) || '?'} m), loading sequence, stacking permission${canStack ? '' : ' (denied for ' + f.sku + ')'}, swap search. This is a hypothetical, not a reconstruction.</div>`;
+				$('res').classList.add('on');
+				$('rc').focus();
+			}
+			function closeResult() {
+				$('res').classList.remove('on');
+				$('seg').classList.add('on');
+				setCompare('B');
+			}
+			function closeResultOnly() {
+				$('res').classList.remove('on');
+			}
+			document.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape' && $('res').classList.contains('on')) closeResultOnly();
+				if (cur < 0) return;
+				if (e.key === 'ArrowRight' && !e.metaKey && !e.ctrlKey) {
+					e.preventDefault();
+					fwd();
+				}
+				if (e.key === 'ArrowLeft' && !e.metaKey && !e.ctrlKey) {
+					e.preventDefault();
+					back();
+				}
+				if (e.key === ' ') {
+					e.preventDefault();
+					toggleAuto();
+				}
+			});
 
-window.addEventListener('resize',resize);
-renderPicker();
-resize();
-render();
-</script>
-</body></html>
+			window.addEventListener('resize', resize);
+			renderPicker();
+			resize();
+			render();
+		</script>
+	</body>
+</html>
