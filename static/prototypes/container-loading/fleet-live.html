@@ -3,16 +3,28 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Fleet Live Simulation · 83 Export Containers</title>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>(function(){var d=false;try{d=localStorage.getItem('theme')==='dark'}catch(e){}var r=document.documentElement;r.dataset.theme=d?'dark':'light';r.style.colorScheme=d?'dark':'light';addEventListener('storage',function(e){if(e.key==='theme')location.reload()});var cs=null,c={};window.TK=function(k){if(!cs)cs=getComputedStyle(r);return c[k]||(c[k]=cs.getPropertyValue(k).trim())};window.TRGBA=function(k,a){return'rgba('+TK(k)+','+a+')'}})();</script>
 <style>
 :root{
-  --ground:#111419;--panel:#191D23;--panel2:#22272F;--rule:#303741;
-  --accent:#7FA2FF;--accent-dim:rgba(127,162,255,.16);
-  --green:#34D399;--green-dim:rgba(52,211,153,.12);
-  --amber:#FBBF24;--amber-dim:rgba(251,191,36,.12);
-  --red:#F87171;--red-dim:rgba(248,113,113,.12);
-  --purple:#A78BFA;--purple-dim:rgba(167,139,250,.14);
+  --ground:#F3F5F7;--panel:#FFFFFF;--panel2:#E9EDF1;--rule:#D5DBE2;--deep:#E6EBF0;--canvas0:#E3E8EE;--lane:#EEF1F4;
+  --accent:#2456D8;--accent-rgb:36,86,216;--accent-dim:rgba(36,86,216,.12);--on-accent:#FFFFFF;
+  --green:#0E8F61;--green-rgb:14,143,97;--green-dim:rgba(14,143,97,.12);
+  --amber:#B45309;--amber-rgb:180,83,9;--amber-dim:rgba(180,83,9,.12);
+  --red:#D13C3C;--red-rgb:209,60,60;--red-dim:rgba(209,60,60,.1);
+  --purple:#6A4BD1;--purple-rgb:106,75,209;--purple-dim:rgba(106,75,209,.12);--purple-text:#4B32A8;
+  --ink:#15191F;--muted:#5D6672;--dim:#6C7683;
+  --line-rgb:213,219,226;--muted-rgb:93,102,114;--ground-rgb:243,245,247;--edge-rgb:21,25,31;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;--sans:'Manrope',system-ui,sans-serif;color-scheme:light;
+}
+:root[data-theme='dark']{
+  --ground:#111419;--panel:#191D23;--panel2:#22272F;--rule:#303741;--deep:#0D1014;--canvas0:#0D1014;--lane:#151A20;
+  --accent:#7FA2FF;--accent-rgb:127,162,255;--accent-dim:rgba(127,162,255,.16);--on-accent:#0C1220;
+  --green:#34D399;--green-rgb:52,211,153;--green-dim:rgba(52,211,153,.12);
+  --amber:#FBBF24;--amber-rgb:251,191,36;--amber-dim:rgba(251,191,36,.12);
+  --red:#F87171;--red-rgb:248,113,113;--red-dim:rgba(248,113,113,.12);
+  --purple:#A78BFA;--purple-rgb:167,139,250;--purple-dim:rgba(167,139,250,.14);--purple-text:#D9CFFF;
   --ink:#F0F3F6;--muted:#A7B0BB;--dim:#8B95A2;
-  --mono:'IBM Plex Mono',ui-monospace,monospace;--sans:'Manrope',system-ui,sans-serif;
+  --line-rgb:48,55,65;--muted-rgb:167,176,187;--ground-rgb:17,20,25;--edge-rgb:13,16,20;color-scheme:dark;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--ground);color:var(--ink);font:16px/1.5 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -29,8 +41,8 @@ button{font-family:var(--sans);cursor:pointer;border:none}
 .nav{display:flex;gap:2px;padding:0 16px;background:var(--panel);border-bottom:1px solid var(--rule);overflow-x:auto}
 .nl{color:var(--muted);padding:9px 14px;font:15px var(--sans);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap}
 .nl:hover{color:var(--ink)}.nl.act{color:var(--ink);border-bottom-color:var(--accent)}
-.simbar{background:rgba(167,139,250,.16);color:#D9CFFF;font-size:14px;padding:6px 20px;border-bottom:1px solid rgba(167,139,250,.35)}
-.simbar b{color:#fff}
+.simbar{background:rgba(var(--purple-rgb),.16);color:var(--purple-text);font-size:14px;padding:6px 20px;border-bottom:1px solid rgba(var(--purple-rgb),.35)}
+.simbar b{color:var(--ink)}
 
 /* ── Picker bar ── */
 .picker{display:flex;align-items:center;gap:8px;padding:8px 20px;border-bottom:1px solid var(--rule);background:var(--panel);flex-wrap:wrap}
@@ -38,7 +50,7 @@ button{font-family:var(--sans);cursor:pointer;border:none}
 .picker select{min-width:0;max-width:100%;font:14px var(--mono);background:var(--ground);color:var(--ink);border:1px solid var(--rule);border-radius:3px;padding:4px 8px;outline:none}
 .picker select:focus{border-color:var(--accent)}
 .fbtn{font:13px var(--mono);padding:4px 10px;border-radius:3px;background:var(--panel2);color:var(--muted);border:1px solid var(--rule)}
-.fbtn.act{background:var(--accent);color:#0C1220;border-color:var(--accent)}
+.fbtn.act{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
 .tag{font:600 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:2px 5px;border-radius:2px;display:inline-block}
 .t-ok{background:var(--green-dim);color:var(--green)}
 .t-fix{background:var(--amber-dim);color:var(--amber)}
@@ -57,17 +69,17 @@ button{font-family:var(--sans);cursor:pointer;border:none}
 .vs{color:var(--dim);font:13px var(--mono)}
 
 /* ── 3D canvas ── */
-.c3d{position:relative;background:linear-gradient(180deg,#0D1014 0%,#111419 100%);flex:1 1 0;min-height:300px;max-height:55vh;overflow:hidden}
+.c3d{position:relative;background:linear-gradient(180deg,var(--canvas0) 0%,var(--ground) 100%);flex:1 1 0;min-height:300px;max-height:55vh;overflow:hidden}
 .c3d canvas{position:absolute;inset:0;width:100%;height:100%}
 .legend{position:absolute;left:16px;top:12px;display:flex;gap:14px;flex-wrap:wrap;font:12.5px var(--mono);color:var(--muted);z-index:2}
 .sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
 .seg{position:absolute;right:16px;top:10px;display:none;background:var(--panel);border:1px solid var(--rule);border-radius:5px;padding:3px;z-index:2}
 .seg.on{display:flex}
 .seg button{background:none;color:var(--muted);font-size:13.5px;padding:5px 10px;border-radius:3px}
-.seg button.act{background:var(--accent);color:#0C1220}
+.seg button.act{background:var(--accent);color:var(--on-accent)}
 
 /* ── Staging lane ── */
-.stage{display:flex;gap:8px;align-items:stretch;padding:10px 20px;border-top:1px solid var(--rule);background:#151A20;overflow-x:auto;min-height:76px}
+.stage{display:flex;gap:8px;align-items:stretch;padding:10px 20px;border-top:1px solid var(--rule);background:var(--lane);overflow-x:auto;min-height:76px}
 .stage-lbl{font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);min-width:92px;display:flex;flex-direction:column;justify-content:center;flex-shrink:0}
 .stage-lbl span{color:var(--muted);letter-spacing:0;text-transform:none;font-size:12.5px;margin-top:3px}
 .chip{flex-shrink:0;display:flex;gap:8px;align-items:flex-end;padding:7px 10px;border:1px solid var(--rule);border-radius:4px;background:var(--ground);min-width:76px}
@@ -92,9 +104,9 @@ button{font-family:var(--sans);cursor:pointer;border:none}
 .ctrls{display:flex;align-items:center;gap:10px;padding:10px 20px;border-top:1px solid var(--rule);background:var(--panel)}
 .btn{padding:6px 14px;border-radius:4px;font-size:14px;font-weight:500}
 .btn:disabled{opacity:.35;cursor:default}
-.pri{background:var(--accent);color:#0C1220}
+.pri{background:var(--accent);color:var(--on-accent)}
 .gho{background:transparent;color:var(--muted);border:1px solid var(--rule)}
-.aut{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(167,139,250,.3)}
+.aut{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(var(--purple-rgb),.3)}
 .aut.on{background:var(--purple);color:#fff}
 .track{flex:1;height:3px;background:var(--rule);border-radius:2px;overflow:hidden}
 .fill{height:100%;background:var(--accent);transition:width .3s}
@@ -123,13 +135,13 @@ button{font-family:var(--sans);cursor:pointer;border:none}
 .note{font-size:13px;color:var(--muted);line-height:1.6;background:var(--ground);border:1px solid var(--rule);border-radius:5px;padding:10px 12px;margin-top:8px}
 
 /* ── Start overlay ── */
-.start{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;background:rgba(13,16,20,.92);z-index:5;padding:20px;text-align:center;transition:opacity .4s}
+.start{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;background:rgba(var(--ground-rgb),.92);z-index:5;padding:20px;text-align:center;transition:opacity .4s}
 .start.gone{opacity:0;visibility:hidden;transition:opacity .4s,visibility 0s .4s}
 .start h2{font-size:22px;font-weight:700;line-height:1.2}
 .start p{color:var(--muted);font-size:15px;max-width:470px;line-height:1.6}
 
 /* ── Result overlay ── */
-.res{position:fixed;inset:0;background:rgba(17,20,25,.93);display:none;z-index:100;backdrop-filter:blur(6px);padding:20px;overflow-y:auto}
+.res{position:fixed;inset:0;background:rgba(var(--ground-rgb),.93);display:none;z-index:100;backdrop-filter:blur(6px);padding:20px;overflow-y:auto}
 .res.on{display:flex}
 .rc{background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:32px;max-width:560px;width:100%;margin:auto}
 .rc:focus{outline:none}
@@ -155,7 +167,7 @@ button{font-family:var(--sans);cursor:pointer;border:none}
   .g:nth-child(-n+2){border-bottom:1px solid var(--rule)}
   .kpi-row{display:none}
 }
-*{scrollbar-width:thin;scrollbar-color:#303741 transparent}
+*{scrollbar-width:thin;scrollbar-color:var(--rule) transparent}
 .ctrls{position:sticky;bottom:0;z-index:3;border-top:1px solid var(--rule)}
 .left>:not(.c3d){flex-shrink:0}
 </style>
@@ -190,7 +202,7 @@ button{font-family:var(--sans);cursor:pointer;border:none}
       <span><i class="sw" style="background:#2DD4BF"></i>short ≤1.15 m</span>
       <span><i class="sw" style="background:#3B82F6"></i>medium</span>
       <span><i class="sw" style="background:#8B5CF6"></i>tall ≥1.40 m</span>
-      <span><i class="sw" style="background:rgba(248,113,113,.35);outline:1px dashed #F87171"></i>unused headroom (next pallet too tall to stack)</span>
+      <span><i class="sw" style="background:rgba(var(--red-rgb),.35);outline:1px dashed var(--red)"></i>unused headroom (next pallet too tall to stack)</span>
     </div>
     <div class="seg" id="seg">
       <button id="seg-b" onclick="setCompare('B')">Best swap</button>
@@ -432,7 +444,7 @@ function pickContainer(idx){
 // ── 3D rendering (from index.html) ──
 const cv=$('cv'),ctx2=cv.getContext('2d');let W,H,sc,ox,oy;
 const COL={short:['#5EEAD4','#2DD4BF','#0F9E8E'],med:['#93C5FD','#3B82F6','#1D4ED8'],tall:['#C4B5FD','#8B5CF6','#5B21B6']};
-const RED=['rgba(248,113,113,.28)','rgba(248,113,113,.16)','rgba(248,113,113,.12)'];
+const RED=[TRGBA('--red-rgb',.28),TRGBA('--red-rgb',.16),TRGBA('--red-rgb',.12)];
 const pr=(x,y,z)=>[ox+(x*0.94-z*0.6)*sc,oy-(x*0.22+z*0.45+y)*sc];
 const pclass=h=>h>=1.40?'tall':h<=1.15?'short':'med';
 
@@ -462,14 +474,14 @@ function pill(ax,ay,lx,ly,text,col){
   ctx2.strokeStyle=col;ctx2.lineWidth=1;ctx2.beginPath();ctx2.moveTo(ax,ay);ctx2.lineTo(lx,ly);ctx2.stroke();
   ctx2.font='600 13px "IBM Plex Mono"';const tw=ctx2.measureText(text).width+16;
   const bx=Math.max(6,Math.min(W-tw-6,lx-tw/2));
-  ctx2.fillStyle='#111419';ctx2.beginPath();ctx2.roundRect(bx,ly-11,tw,22,4);ctx2.fill();
+  ctx2.fillStyle=TK('--ground');ctx2.beginPath();ctx2.roundRect(bx,ly-11,tw,22,4);ctx2.fill();
   ctx2.strokeStyle=col;ctx2.stroke();ctx2.fillStyle=col;ctx2.textAlign='left';ctx2.textBaseline='middle';
   ctx2.fillText(text,bx+8,ly);
 }
 const EDGES=[[0,0,0,1,0,0],[0,1,0,1,1,0],[0,0,1,1,0,1],[0,1,1,1,1,1],[0,0,0,0,0,1],[0,1,0,0,1,1],
              [1,0,0,1,0,1],[1,1,0,1,1,1],[0,0,0,0,1,0],[0,0,1,0,1,1],[1,0,0,1,1,0],[1,0,1,1,1,1]];
 function edges(which,alpha){
-  ctx2.strokeStyle=`rgba(127,162,255,${alpha})`;ctx2.lineWidth=1;
+  ctx2.strokeStyle=`rgba(34,160,243,${alpha})`;ctx2.lineWidth=1;
   which.forEach(i=>{const e=EDGES[i],a=pr(e[0]*C.L,e[1]*C.H,e[2]*C.W),b=pr(e[3]*C.L,e[4]*C.H,e[5]*C.W);
     ctx2.beginPath();ctx2.moveTo(...a);ctx2.lineTo(...b);ctx2.stroke()});
 }
@@ -481,15 +493,15 @@ function draw(){
   ctx2.clearRect(0,0,W,H);
   const L=layout(),n=Math.min(step,N);
   // Container shell
-  poly([pr(0,0,0),pr(C.L,0,0),pr(C.L,0,C.W),pr(0,0,C.W)],'rgba(127,162,255,.06)');
-  poly([pr(0,0,C.W),pr(C.L,0,C.W),pr(C.L,C.H,C.W),pr(0,C.H,C.W)],'rgba(127,162,255,.035)');
-  poly([pr(C.L,0,0),pr(C.L,0,C.W),pr(C.L,C.H,C.W),pr(C.L,C.H,0)],'rgba(127,162,255,.07)');
+  poly([pr(0,0,0),pr(C.L,0,0),pr(C.L,0,C.W),pr(0,0,C.W)],TRGBA('--accent-rgb',.06));
+  poly([pr(0,0,C.W),pr(C.L,0,C.W),pr(C.L,C.H,C.W),pr(0,C.H,C.W)],TRGBA('--accent-rgb',.035));
+  poly([pr(C.L,0,0),pr(C.L,0,C.W),pr(C.L,C.H,C.W),pr(C.L,C.H,0)],TRGBA('--accent-rgb',.07));
   edges([2,3,6,7,9,10,11],.28);
   // Row lines
-  ctx2.strokeStyle='rgba(127,162,255,.12)';
+  ctx2.strokeStyle=TRGBA('--accent-rgb',.12);
   for(let r=1;r<C.rows;r++){const x=C.L-r*C.pl;ctx2.beginPath();ctx2.moveTo(...pr(x,0,0));ctx2.lineTo(...pr(x,0,C.W));ctx2.stroke()}
   // Row labels
-  ctx2.fillStyle='rgba(167,176,187,.55)';ctx2.font='12.5px "IBM Plex Mono"';ctx2.textAlign='center';ctx2.textBaseline='top';
+  ctx2.fillStyle=TRGBA('--muted-rgb',.55);ctx2.font='12.5px "IBM Plex Mono"';ctx2.textAlign='center';ctx2.textBaseline='top';
   for(let r=0;r<C.rows;r++){const[tx,ty]=pr(C.L-(r+.5)*C.pl,0,0);ctx2.fillText('R'+(r+1),tx,ty+6)}
 
   // Pallets
@@ -498,17 +510,17 @@ function draw(){
     if(st.left)return;
     const col=st.slot[1]==='l'?0:1,top=st.slot[0]==='t';
     items.push({x:C.L-(st.row+1)*C.pl,y:top?HT[L.rows[st.row][col?'fr':'fl']]:0,z:COLZ[col],h:HT[st.p],
-      c:COL[pclass(HT[st.p])],stroke:k===n-1&&!compare?'#fff':'rgba(13,16,20,.55)',txt:HT[st.p].toFixed(2)});
+      c:COL[pclass(HT[st.p])],stroke:k===n-1&&!compare?TK('--ink'):TRGBA('--edge-rgb',.55),txt:HT[st.p].toFixed(2)});
   });
   // Dead zones
   L.dead.filter(d=>d.at<n).forEach(d=>{
     const col=d.slot==='tl'?0:1,y=HT[L.rows[d.row][col?'fr':'fl']];
-    items.push({x:C.L-(d.row+1)*C.pl,y,z:COLZ[col],h:C.H-y,c:RED,stroke:'rgba(248,113,113,.75)',dash:[4,3]});
+    items.push({x:C.L-(d.row+1)*C.pl,y,z:COLZ[col],h:C.H-y,c:RED,stroke:TRGBA('--red-rgb',.75),dash:[4,3]});
   });
   items.sort((a,b)=>b.x-a.x||b.z-a.z||a.y-b.y).forEach(box3d);
   edges([0,1,4,5,8],.4);
   // Labels
-  ctx2.fillStyle='rgba(127,162,255,.6)';ctx2.font='600 12.5px "IBM Plex Mono"';ctx2.textAlign='center';ctx2.textBaseline='middle';
+  ctx2.fillStyle=TRGBA('--accent-rgb',.6);ctx2.font='600 12.5px "IBM Plex Mono"';ctx2.textAlign='center';ctx2.textBaseline='middle';
   let[tx,ty]=pr(C.L,C.H+.25,C.W/2);ctx2.fillText('NOSE',tx,ty-6);
   [tx,ty]=pr(0,C.H+.25,C.W/2);ctx2.fillText('DOOR',tx,ty-6);
   drawScan(L,n);
@@ -516,19 +528,19 @@ function draw(){
 
 function drawScan(L,n){
   const z0=.3,z1=C.W-.3,x0=-2.15,x1=-.35,x=-1.8;
-  poly([pr(x0,0,z0),pr(x1,0,z0),pr(x1,0,z1),pr(x0,0,z1)],'rgba(127,162,255,.08)','rgba(127,162,255,.7)',[5,4]);
-  ctx2.fillStyle='rgba(127,162,255,.85)';ctx2.font='600 12px "IBM Plex Mono"';ctx2.textAlign='center';ctx2.textBaseline='top';
+  poly([pr(x0,0,z0),pr(x1,0,z0),pr(x1,0,z1),pr(x0,0,z1)],TRGBA('--accent-rgb',.08),TRGBA('--accent-rgb',.7),[5,4]);
+  ctx2.fillStyle=TRGBA('--accent-rgb',.85);ctx2.font='600 12px "IBM Plex Mono"';ctx2.textAlign='center';ctx2.textBaseline='top';
   const[lx,ly]=pr((x0+x1)/2,0,z0);
   const t='SCAN ZONE · before the door';
   ctx2.fillText(t,Math.max(lx,ctx2.measureText(t).width/2+6),ly+8);
   if(n>=N||compare)return;
   const st=L.steps[n];
-  let txt,col='#34D399';
-  if(st.left){txt=`No position left for P-${String(st.p+1).padStart(3,'0')}`;col='#F87171'}
+  let txt,col=TK('--green');
+  if(st.left){txt=`No position left for P-${String(st.p+1).padStart(3,'0')}`;col=TK('--red')}
   else{
     const dead=L.dead.filter(d=>d.at===n);
-    if(dead.length){txt=`P-${String(st.p+1).padStart(3,'0')} closes R${dead[0].row+1}: ${dead.length} stack lost`;col='#FBBF24'}
-    else if(st.slot[0]==='t'){const fl=L.rows[st.row][st.slot==='tl'?'fl':'fr'];txt=`P-${String(st.p+1).padStart(3,'0')} stacks: ${(HT[fl]+HT[st.p]).toFixed(2)} m`;col='#34D399'}
+    if(dead.length){txt=`P-${String(st.p+1).padStart(3,'0')} closes R${dead[0].row+1}: ${dead.length} stack lost`;col=TK('--amber')}
+    else if(st.slot[0]==='t'){const fl=L.rows[st.row][st.slot==='tl'?'fl':'fr'];txt=`P-${String(st.p+1).padStart(3,'0')} stacks: ${(HT[fl]+HT[st.p]).toFixed(2)} m`;col=TK('--green')}
     else txt=`P-${String(st.p+1).padStart(3,'0')} → floor R${st.row+1}`
   }
   box3d({x,y:0,z:(C.W-C.pw)/2,h:HT[st.p],c:COL[pclass(HT[st.p])],stroke:col,txt:HT[st.p].toFixed(2)});

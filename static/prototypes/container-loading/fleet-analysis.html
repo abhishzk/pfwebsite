@@ -3,16 +3,28 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Fleet Analysis · 83 Export Containers</title>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>(function(){var d=false;try{d=localStorage.getItem('theme')==='dark'}catch(e){}var r=document.documentElement;r.dataset.theme=d?'dark':'light';r.style.colorScheme=d?'dark':'light';addEventListener('storage',function(e){if(e.key==='theme')location.reload()});var cs=null,c={};window.TK=function(k){if(!cs)cs=getComputedStyle(r);return c[k]||(c[k]=cs.getPropertyValue(k).trim())};window.TRGBA=function(k,a){return'rgba('+TK(k)+','+a+')'}})();</script>
 <style>
 :root{
-  --ground:#111419;--panel:#191D23;--panel2:#22272F;--rule:#303741;
-  --accent:#7FA2FF;--accent-dim:rgba(127,162,255,.16);
-  --green:#34D399;--green-dim:rgba(52,211,153,.12);
-  --amber:#FBBF24;--amber-dim:rgba(251,191,36,.12);
-  --red:#F87171;--red-dim:rgba(248,113,113,.12);
-  --purple:#A78BFA;--purple-dim:rgba(167,139,250,.14);
+  --ground:#F3F5F7;--panel:#FFFFFF;--panel2:#E9EDF1;--rule:#D5DBE2;--deep:#E6EBF0;--canvas0:#E3E8EE;--lane:#EEF1F4;
+  --accent:#2456D8;--accent-rgb:36,86,216;--accent-dim:rgba(36,86,216,.12);--on-accent:#FFFFFF;
+  --green:#0E8F61;--green-rgb:14,143,97;--green-dim:rgba(14,143,97,.12);
+  --amber:#B45309;--amber-rgb:180,83,9;--amber-dim:rgba(180,83,9,.12);
+  --red:#D13C3C;--red-rgb:209,60,60;--red-dim:rgba(209,60,60,.1);
+  --purple:#6A4BD1;--purple-rgb:106,75,209;--purple-dim:rgba(106,75,209,.12);--purple-text:#4B32A8;
+  --ink:#15191F;--muted:#5D6672;--dim:#6C7683;
+  --line-rgb:213,219,226;--muted-rgb:93,102,114;--ground-rgb:243,245,247;--edge-rgb:21,25,31;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;--sans:'Manrope',system-ui,sans-serif;color-scheme:light;
+}
+:root[data-theme='dark']{
+  --ground:#111419;--panel:#191D23;--panel2:#22272F;--rule:#303741;--deep:#0D1014;--canvas0:#0D1014;--lane:#151A20;
+  --accent:#7FA2FF;--accent-rgb:127,162,255;--accent-dim:rgba(127,162,255,.16);--on-accent:#0C1220;
+  --green:#34D399;--green-rgb:52,211,153;--green-dim:rgba(52,211,153,.12);
+  --amber:#FBBF24;--amber-rgb:251,191,36;--amber-dim:rgba(251,191,36,.12);
+  --red:#F87171;--red-rgb:248,113,113;--red-dim:rgba(248,113,113,.12);
+  --purple:#A78BFA;--purple-rgb:167,139,250;--purple-dim:rgba(167,139,250,.14);--purple-text:#D9CFFF;
   --ink:#F0F3F6;--muted:#A7B0BB;--dim:#8B95A2;
-  --mono:'IBM Plex Mono',ui-monospace,monospace;--sans:'Manrope',system-ui,sans-serif;
+  --line-rgb:48,55,65;--muted-rgb:167,176,187;--ground-rgb:17,20,25;--edge-rgb:13,16,20;color-scheme:dark;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--ground);color:var(--ink);font:16px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
@@ -63,7 +75,7 @@ body{background:var(--ground);color:var(--ink);font:16px/1.5 var(--sans);-webkit
 .dist-axis{display:flex;justify-content:space-between;font:11.5px var(--mono);color:var(--dim);padding-top:4px}
 
 .findings{background:var(--panel);border:1px solid var(--rule);border-radius:5px;padding:14px;margin-top:8px}
-.finding{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid rgba(48,55,65,.4)}
+.finding{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid rgba(var(--line-rgb),.4)}
 .finding:last-child{border-bottom:none}
 .f-num{font:600 22px var(--mono);min-width:60px;color:var(--accent)}
 .f-txt{font-size:14px;color:var(--muted);line-height:1.5}
@@ -79,7 +91,7 @@ body{background:var(--ground);color:var(--ink);font:16px/1.5 var(--sans);-webkit
   .content{grid-template-columns:1fr}
   .card{border-right:none}
 }
-*{scrollbar-width:thin;scrollbar-color:#303741 transparent}
+*{scrollbar-width:thin;scrollbar-color:var(--rule) transparent}
 </style>
 </head>
 <body>
@@ -191,7 +203,7 @@ c6.innerHTML=`<div class="ch">Door × destination heatmap</div><div class="cs">C
     ${doors.map(door=>`<div class="hm-label">${door}</div>${dests.map(dest=>{
       const n=doorDest[door+'/'+dest];
       const alpha=n?0.2+0.8*(n/maxDD):0;
-      return `<div class="hm-cell" style="background:rgba(127,162,255,${alpha})">${n||''}</div>`;
+      return `<div class="hm-cell" style="background:rgba(34,160,243,${alpha})">${n||''}</div>`;
     }).join('')}`).join('')}
   </div>`;
 content.appendChild(c6);
@@ -233,38 +245,38 @@ setTimeout(()=>{
   const pw=W-pad.l-pad.r,ph=H-pad.t-pad.b;
 
   // Grid
-  ctx.strokeStyle='rgba(48,55,65,.5)';ctx.lineWidth=1;
+  ctx.strokeStyle=TRGBA('--line-rgb',.5);ctx.lineWidth=1;
   for(let v=0;v<=100;v+=20){
     const x=pad.l+v/100*pw;
     ctx.beginPath();ctx.moveTo(x,pad.t);ctx.lineTo(x,H-pad.b);ctx.stroke();
-    ctx.fillStyle='#8B95A2';ctx.font='11.5px "IBM Plex Mono"';ctx.textAlign='center';
+    ctx.fillStyle=TK('--dim');ctx.font='11.5px "IBM Plex Mono"';ctx.textAlign='center';
     ctx.fillText(v+'%',x,H-pad.b+18);
   }
   for(let v=0;v<=100;v+=20){
     const y=H-pad.b-v/100*ph;
     ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();
-    ctx.fillStyle='#8B95A2';ctx.font='11.5px "IBM Plex Mono"';ctx.textAlign='right';
+    ctx.fillStyle=TK('--dim');ctx.font='11.5px "IBM Plex Mono"';ctx.textAlign='right';
     ctx.fillText(v+'%',pad.l-8,y+4);
   }
 
   // 90% payload line
   const y90=H-pad.b-90/100*ph;
-  ctx.strokeStyle='rgba(251,191,36,.5)';ctx.setLineDash([4,3]);
+  ctx.strokeStyle=TRGBA('--amber-rgb',.5);ctx.setLineDash([4,3]);
   ctx.beginPath();ctx.moveTo(pad.l,y90);ctx.lineTo(W-pad.r,y90);ctx.stroke();
   ctx.setLineDash([]);
-  ctx.fillStyle='#FBBF24';ctx.font='600 11.5px "IBM Plex Mono"';ctx.textAlign='left';
+  ctx.fillStyle=TK('--amber');ctx.font='600 11.5px "IBM Plex Mono"';ctx.textAlign='left';
   ctx.textAlign='right';ctx.fillText('90% payload',W-pad.r-6,y90-6);
 
   // Points
-  const skuColors={'ALT-STATOR':'#7FA2FF','BRAKE-ROTOR':'#F87171','CAST-HOUSING':'#FBBF24',
-    'HARNESS-ASSY':'#34D399','PLASTIC-CLIP':'#A78BFA','SENSOR-MOD':'#FB923C','TRIM-PANEL':'#38BDF8'};
+  const skuColors={'ALT-STATOR':TK('--accent'),'BRAKE-ROTOR':TK('--red'),'CAST-HOUSING':TK('--amber'),
+    'HARNESS-ASSY':TK('--green'),'PLASTIC-CLIP':TK('--purple'),'SENSOR-MOD':'#FB923C','TRIM-PANEL':'#38BDF8'};
   data.forEach(d=>{
     const x=pad.l+d.volPct/100*pw;
     const y=H-pad.b-d.payPct/100*ph;
     ctx.beginPath();ctx.arc(x,y,5.5,0,Math.PI*2);
-    ctx.fillStyle=skuColors[d.sku]||'#7FA2FF';ctx.globalAlpha=0.8;ctx.fill();ctx.globalAlpha=1;
+    ctx.fillStyle=skuColors[d.sku]||TK('--accent');ctx.globalAlpha=0.8;ctx.fill();ctx.globalAlpha=1;
     if(d.notes.includes('partial')){
-      ctx.strokeStyle='#F87171';ctx.lineWidth=2;ctx.stroke();
+      ctx.strokeStyle=TK('--red');ctx.lineWidth=2;ctx.stroke();
     }
   });
 
@@ -274,7 +286,7 @@ setTimeout(()=>{
   Object.entries(skuColors).forEach(([sku,col])=>{
     const y=ly+li*20;
     ctx.fillStyle=col;ctx.beginPath();ctx.arc(lx,y,4.5,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='#A7B0BB';ctx.font='11.5px "IBM Plex Mono"';ctx.textAlign='left';
+    ctx.fillStyle=TK('--muted');ctx.font='11.5px "IBM Plex Mono"';ctx.textAlign='left';
     ctx.fillText(sku,lx+12,y+4);
     li++;
   });

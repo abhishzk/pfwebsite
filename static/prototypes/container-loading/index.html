@@ -5,16 +5,28 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>(function(){var d=false;try{d=localStorage.getItem('theme')==='dark'}catch(e){}var r=document.documentElement;r.dataset.theme=d?'dark':'light';r.style.colorScheme=d?'dark':'light';addEventListener('storage',function(e){if(e.key==='theme')location.reload()});var cs=null,c={};window.TK=function(k){if(!cs)cs=getComputedStyle(r);return c[k]||(c[k]=cs.getPropertyValue(k).trim())};window.TRGBA=function(k,a){return'rgba('+TK(k)+','+a+')'}})();</script>
 <style>
 :root{
-  --ground:#111419; --panel:#191D23; --panel2:#22272F; --rule:#303741;
-  --accent:#7FA2FF; --accent-dim:rgba(127,162,255,.16);
-  --green:#34D399; --green-dim:rgba(52,211,153,.12);
-  --amber:#FBBF24; --amber-dim:rgba(251,191,36,.12);
-  --red:#F87171; --red-dim:rgba(248,113,113,.12);
-  --purple:#A78BFA; --purple-dim:rgba(167,139,250,.14);
-  --ink:#F0F3F6; --muted:#A7B0BB; --dim:#8B95A2;
-  --mono:'IBM Plex Mono',ui-monospace,monospace; --sans:'Manrope',system-ui,sans-serif;
+  --ground:#F3F5F7;--panel:#FFFFFF;--panel2:#E9EDF1;--rule:#D5DBE2;--deep:#E6EBF0;--canvas0:#E3E8EE;--lane:#EEF1F4;
+  --accent:#2456D8;--accent-rgb:36,86,216;--accent-dim:rgba(36,86,216,.12);--on-accent:#FFFFFF;
+  --green:#0E8F61;--green-rgb:14,143,97;--green-dim:rgba(14,143,97,.12);
+  --amber:#B45309;--amber-rgb:180,83,9;--amber-dim:rgba(180,83,9,.12);
+  --red:#D13C3C;--red-rgb:209,60,60;--red-dim:rgba(209,60,60,.1);
+  --purple:#6A4BD1;--purple-rgb:106,75,209;--purple-dim:rgba(106,75,209,.12);--purple-text:#4B32A8;
+  --ink:#15191F;--muted:#5D6672;--dim:#6C7683;
+  --line-rgb:213,219,226;--muted-rgb:93,102,114;--ground-rgb:243,245,247;--edge-rgb:21,25,31;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;--sans:'Manrope',system-ui,sans-serif;color-scheme:light;
+}
+:root[data-theme='dark']{
+  --ground:#111419;--panel:#191D23;--panel2:#22272F;--rule:#303741;--deep:#0D1014;--canvas0:#0D1014;--lane:#151A20;
+  --accent:#7FA2FF;--accent-rgb:127,162,255;--accent-dim:rgba(127,162,255,.16);--on-accent:#0C1220;
+  --green:#34D399;--green-rgb:52,211,153;--green-dim:rgba(52,211,153,.12);
+  --amber:#FBBF24;--amber-rgb:251,191,36;--amber-dim:rgba(251,191,36,.12);
+  --red:#F87171;--red-rgb:248,113,113;--red-dim:rgba(248,113,113,.12);
+  --purple:#A78BFA;--purple-rgb:167,139,250;--purple-dim:rgba(167,139,250,.14);--purple-text:#D9CFFF;
+  --ink:#F0F3F6;--muted:#A7B0BB;--dim:#8B95A2;
+  --line-rgb:48,55,65;--muted-rgb:167,176,187;--ground-rgb:17,20,25;--edge-rgb:13,16,20;color-scheme:dark;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--ground);color:var(--ink);font:16px/1.5 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -42,22 +54,22 @@ b{font-weight:600;color:var(--ink)}
 .vs{color:var(--dim);font:13px var(--mono)}
 .cam{font:500 12px var(--mono);padding:2px 7px;border-radius:2px;background:var(--green-dim);color:var(--green);letter-spacing:.06em}
 
-.c3d{position:relative;background:linear-gradient(180deg,#0D1014 0%,#111419 100%);flex:1 1 0;min-height:300px;max-height:55vh;overflow:hidden}
+.c3d{position:relative;background:linear-gradient(180deg,var(--canvas0) 0%,var(--ground) 100%);flex:1 1 0;min-height:300px;max-height:55vh;overflow:hidden}
 .c3d canvas{position:absolute;inset:0;width:100%;height:100%}
 .legend{position:absolute;left:16px;top:12px;display:flex;gap:14px;flex-wrap:wrap;font:12.5px var(--mono);color:var(--muted);z-index:2}
 .sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
 .seg{position:absolute;right:16px;top:10px;display:none;background:var(--panel);border:1px solid var(--rule);border-radius:5px;padding:3px;z-index:2}
 .seg.on{display:flex}
 .seg button{background:none;color:var(--muted);font-size:13.5px;padding:5px 10px;border-radius:3px}
-.seg button.act{background:var(--accent);color:#0C1220}
+.seg button.act{background:var(--accent);color:var(--on-accent)}
 
-.start{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;background:rgba(13,16,20,.9);z-index:5;padding:20px;transition:opacity .4s;text-align:center}
+.start{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;background:rgba(var(--ground-rgb),.9);z-index:5;padding:20px;transition:opacity .4s;text-align:center}
 .start.gone{opacity:0;visibility:hidden;transition:opacity .4s,visibility 0s .4s}
 .start h2{font-size:24px;font-weight:700;line-height:1.2}
 .start p{color:var(--muted);font-size:15.5px;max-width:470px;line-height:1.6}
 .start small{font-size:13px;color:var(--dim);max-width:470px}
 
-.stage{display:flex;gap:8px;align-items:stretch;padding:10px 20px;border-top:1px solid var(--rule);background:#151A20;overflow-x:auto;min-height:86px}
+.stage{display:flex;gap:8px;align-items:stretch;padding:10px 20px;border-top:1px solid var(--rule);background:var(--lane);overflow-x:auto;min-height:86px}
 .stage-lbl{font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);min-width:92px;display:flex;flex-direction:column;justify-content:center;flex-shrink:0}
 .stage-lbl span{color:var(--muted);letter-spacing:0;text-transform:none;font-size:12.5px;margin-top:3px}
 .chip{flex-shrink:0;display:flex;gap:8px;align-items:flex-end;padding:7px 10px;border:1px solid var(--rule);border-radius:4px;background:var(--ground);min-width:86px}
@@ -80,10 +92,10 @@ b{font-weight:600;color:var(--ink)}
 .ctrls{display:flex;align-items:center;gap:10px;padding:10px 20px;border-top:1px solid var(--rule);background:var(--panel)}
 .btn{padding:6px 14px;border-radius:4px;font-size:14px;font-weight:500}
 .btn:disabled{opacity:.35;cursor:default}
-.pri{background:var(--accent);color:#0C1220}
+.pri{background:var(--accent);color:var(--on-accent)}
 .gho{background:transparent;color:var(--muted);border:1px solid var(--rule)}
-.grn{background:var(--green);color:#111419;font-weight:600}
-.aut{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(167,139,250,.3)}
+.grn{background:var(--green);color:var(--ground);font-weight:600}
+.aut{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(var(--purple-rgb),.3)}
 .aut.on{background:var(--purple);color:#fff}
 .track{flex:1;height:3px;background:var(--rule);border-radius:2px;overflow:hidden}
 .fill{height:100%;background:var(--accent);transition:width .3s}
@@ -101,9 +113,9 @@ b{font-weight:600;color:var(--ink)}
 
 .card{border-radius:5px;padding:13px 14px;display:none;margin-bottom:8px}
 .card.on{display:block}
-.c-amber{background:var(--amber-dim);border:1px solid rgba(251,191,36,.3)}
-.c-green{background:var(--green-dim);border:1px solid rgba(52,211,153,.3)}
-.c-red{background:var(--red-dim);border:1px solid rgba(248,113,113,.3)}
+.c-amber{background:var(--amber-dim);border:1px solid rgba(var(--amber-rgb),.3)}
+.c-green{background:var(--green-dim);border:1px solid rgba(var(--green-rgb),.3)}
+.c-red{background:var(--red-dim);border:1px solid rgba(var(--red-rgb),.3)}
 .c-grey{background:var(--ground);border:1px solid var(--rule)}
 .ct{font-weight:600;font-size:14.5px;margin-bottom:5px}
 .cb{font-size:14px;color:var(--muted);line-height:1.55}
@@ -128,7 +140,7 @@ b{font-weight:600;color:var(--ink)}
 
 .feed{display:flex;flex-direction:column;gap:4px}
 .fi{display:grid;grid-template-columns:8px 56px 1fr auto auto;gap:8px;align-items:center;padding:5px 8px;background:var(--ground);border:1px solid var(--rule);border-radius:3px;font-size:13px}
-.fi.new{border-color:var(--accent)} .fi.warn{border-color:rgba(248,113,113,.5)} .fi.swap{border-color:var(--green);background:var(--green-dim)} .fi.left{border-color:var(--red);background:var(--red-dim)}
+.fi.new{border-color:var(--accent)} .fi.warn{border-color:rgba(var(--red-rgb),.5)} .fi.swap{border-color:var(--green);background:var(--green-dim)} .fi.left{border-color:var(--red);background:var(--red-dim)}
 .fd{width:8px;height:8px;border-radius:2px}
 .fid{font:12.5px var(--mono)}
 .fpl{color:var(--muted);font-size:12.5px}
@@ -137,7 +149,7 @@ b{font-weight:600;color:var(--ink)}
 .fc.hi{background:var(--green-dim);color:var(--green)} .fc.lo{background:var(--red-dim);color:var(--red)}
 .empty{color:var(--dim);font-size:13.5px}
 
-.res{position:fixed;inset:0;background:rgba(17,20,25,.93);display:none;z-index:100;backdrop-filter:blur(6px);padding:20px;overflow-y:auto}
+.res{position:fixed;inset:0;background:rgba(var(--ground-rgb),.93);display:none;z-index:100;backdrop-filter:blur(6px);padding:20px;overflow-y:auto}
 .res.on{display:flex}
 .rc{background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:32px;max-width:600px;width:100%;margin:auto}
 .rc:focus{outline:none}
@@ -169,8 +181,8 @@ b{font-weight:600;color:var(--ink)}
   .rg{grid-template-columns:1fr}
 }
 .tn{width:100%;border-collapse:collapse;margin:6px 0 8px;font-size:14px}.tn td{padding:4px 6px;border-bottom:1px solid var(--rule);vertical-align:top}.tn td:nth-child(2){font-family:var(--mono);color:var(--ink);white-space:nowrap}
-.simbar{background:rgba(167,139,250,.16);color:#D9CFFF;font-size:14px;padding:6px 20px;border-bottom:1px solid rgba(167,139,250,.35)}.simbar b{color:#fff}
-*{scrollbar-width:thin;scrollbar-color:#303741 transparent}
+.simbar{background:rgba(var(--purple-rgb),.16);color:var(--purple-text);font-size:14px;padding:6px 20px;border-bottom:1px solid rgba(var(--purple-rgb),.35)}.simbar b{color:var(--ink)}
+*{scrollbar-width:thin;scrollbar-color:var(--rule) transparent}
 .ctrls{position:sticky;bottom:0;z-index:3;border-top:1px solid var(--rule)}
 .left>:not(.c3d){flex-shrink:0}
 </style>
@@ -211,7 +223,7 @@ b{font-weight:600;color:var(--ink)}
       <span><i class="sw" style="background:#2DD4BF"></i>short ≤1.15 m</span>
       <span><i class="sw" style="background:#3B82F6"></i>medium</span>
       <span><i class="sw" style="background:#8B5CF6"></i>tall ≥1.40 m</span>
-      <span><i class="sw" style="background:rgba(248,113,113,.35);outline:1px dashed #F87171"></i>stack position lost</span>
+      <span><i class="sw" style="background:rgba(var(--red-rgb),.35);outline:1px dashed var(--red)"></i>stack position lost</span>
     </div>
     <div class="seg" id="seg">
       <button id="seg-b" onclick="setCompare('B')">Platform sequence</button>
@@ -220,7 +232,7 @@ b{font-weight:600;color:var(--ink)}
     <div class="start" id="start">
       <h2>Will all 38 pallets make it into this container?</h2>
       <p>This simulation checks pallets in staging and shows the shift lead when changing the loading order could help more pallets fit.</p>
-      <p style="color:#C4B5FD;font-weight:600;font-size:13px">Real shipment totals. Simulated pallets, sequence and outcome.</p>
+      <p style="color:var(--purple);font-weight:600;font-size:13px">Real shipment totals. Simulated pallets, sequence and outcome.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
         <button class="btn pri" style="padding:10px 24px;font-size:14px" onclick="begin(true)">Watch the load ▸</button>
         <button class="btn gho" style="padding:10px 24px;font-size:14px" onclick="begin(false)">Step through</button>
@@ -348,8 +360,8 @@ const atDecision = () => step===K && !decision && !compare;
 // ── 3D ──
 const cv=$('cv'), ctx=cv.getContext('2d'); let W,H,s,ox,oy;
 const COL = { short:['#5EEAD4','#2DD4BF','#0F9E8E'], med:['#93C5FD','#3B82F6','#1D4ED8'], tall:['#C4B5FD','#8B5CF6','#5B21B6'] };
-const RED = ['rgba(248,113,113,.28)','rgba(248,113,113,.16)','rgba(248,113,113,.12)'];
-const GRN = ['rgba(52,211,153,.40)','rgba(52,211,153,.22)','rgba(52,211,153,.16)'];
+const RED = [TRGBA('--red-rgb',.28),TRGBA('--red-rgb',.16),TRGBA('--red-rgb',.12)];
+const GRN = [TRGBA('--green-rgb',.40),TRGBA('--green-rgb',.22),TRGBA('--green-rgb',.16)];
 const pr = (x,y,z) => [ox+(x*0.94-z*0.6)*s, oy-(x*0.22+z*0.45+y)*s];
 
 function resize(){
@@ -378,14 +390,14 @@ function pill(ax,ay,lx,ly,text,col){
   ctx.strokeStyle=col; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(ax,ay); ctx.lineTo(lx,ly); ctx.stroke();
   ctx.font='600 13px "IBM Plex Mono"'; const tw=ctx.measureText(text).width+16;
   const bx=Math.max(6,Math.min(W-tw-6,lx-tw/2));
-  ctx.fillStyle='#111419'; ctx.beginPath(); ctx.roundRect(bx,ly-11,tw,22,4); ctx.fill();
+  ctx.fillStyle=TK('--ground'); ctx.beginPath(); ctx.roundRect(bx,ly-11,tw,22,4); ctx.fill();
   ctx.strokeStyle=col; ctx.stroke(); ctx.fillStyle=col; ctx.textAlign='left'; ctx.textBaseline='middle';
   ctx.fillText(text,bx+8,ly);
 }
 const EDGES=[[0,0,0,1,0,0],[0,1,0,1,1,0],[0,0,1,1,0,1],[0,1,1,1,1,1],[0,0,0,0,0,1],[0,1,0,0,1,1],
              [1,0,0,1,0,1],[1,1,0,1,1,1],[0,0,0,0,1,0],[0,0,1,0,1,1],[1,0,0,1,1,0],[1,0,1,1,1,1]];
 function edges(which,alpha){
-  ctx.strokeStyle=`rgba(127,162,255,${alpha})`; ctx.lineWidth=1;
+  ctx.strokeStyle=`rgba(34,160,243,${alpha})`; ctx.lineWidth=1;
   which.forEach(i=>{ const e=EDGES[i], a=pr(e[0]*C.L,e[1]*C.H,e[2]*C.W), b=pr(e[3]*C.L,e[4]*C.H,e[5]*C.W);
     ctx.beginPath(); ctx.moveTo(...a); ctx.lineTo(...b); ctx.stroke(); });
 }
@@ -393,13 +405,13 @@ function draw(){
   if(!W) return;
   ctx.clearRect(0,0,W,H);
   const L=layout(), n=Math.min(step,N);
-  poly([pr(0,0,0),pr(C.L,0,0),pr(C.L,0,C.W),pr(0,0,C.W)],'rgba(127,162,255,.06)');
-  poly([pr(0,0,C.W),pr(C.L,0,C.W),pr(C.L,C.H,C.W),pr(0,C.H,C.W)],'rgba(127,162,255,.035)');
-  poly([pr(C.L,0,0),pr(C.L,0,C.W),pr(C.L,C.H,C.W),pr(C.L,C.H,0)],'rgba(127,162,255,.07)');
+  poly([pr(0,0,0),pr(C.L,0,0),pr(C.L,0,C.W),pr(0,0,C.W)],TRGBA('--accent-rgb',.06));
+  poly([pr(0,0,C.W),pr(C.L,0,C.W),pr(C.L,C.H,C.W),pr(0,C.H,C.W)],TRGBA('--accent-rgb',.035));
+  poly([pr(C.L,0,0),pr(C.L,0,C.W),pr(C.L,C.H,C.W),pr(C.L,C.H,0)],TRGBA('--accent-rgb',.07));
   edges([2,3,6,7,9,10,11],.28);
-  ctx.strokeStyle='rgba(127,162,255,.12)';
+  ctx.strokeStyle=TRGBA('--accent-rgb',.12);
   for(let r=1;r<C.rows;r++){ const x=C.L-r*C.pl; ctx.beginPath(); ctx.moveTo(...pr(x,0,0)); ctx.lineTo(...pr(x,0,C.W)); ctx.stroke(); }
-  ctx.fillStyle='rgba(167,176,187,.55)'; ctx.font='12.5px "IBM Plex Mono"'; ctx.textAlign='center'; ctx.textBaseline='top';
+  ctx.fillStyle=TRGBA('--muted-rgb',.55); ctx.font='12.5px "IBM Plex Mono"'; ctx.textAlign='center'; ctx.textBaseline='top';
   for(let r=0;r<C.rows;r++){ const [tx,ty]=pr(C.L-(r+.5)*C.pl,0,0); ctx.fillText('R'+(r+1),tx,ty+6); }
 
   const items=[];
@@ -407,43 +419,43 @@ function draw(){
     if(st.left) return;
     const col=st.slot[1]==='l'?0:1, top=st.slot[0]==='t';
     items.push({x:C.L-(st.row+1)*C.pl, y: top?HT[L.rows[st.row][col?'fr':'fl']]:0, z:COLZ[col], h:HT[st.p],
-      c:COL[P[st.p].cls], stroke: k===n-1&&!compare?'#fff':'rgba(13,16,20,.55)', txt:HT[st.p].toFixed(2)});
+      c:COL[P[st.p].cls], stroke: k===n-1&&!compare?TK('--ink'):TRGBA('--edge-rgb',.55), txt:HT[st.p].toFixed(2)});
   });
   L.dead.filter(d=>d.at<n).forEach(d=>{
     const col=d.slot==='tl'?0:1, y=HT[L.rows[d.row][col?'fr':'fl']];
-    items.push({x:C.L-(d.row+1)*C.pl, y, z:COLZ[col], h:C.H-y, c:RED, stroke:'rgba(248,113,113,.75)', dash:[4,3]});
+    items.push({x:C.L-(d.row+1)*C.pl, y, z:COLZ[col], h:C.H-y, c:RED, stroke:TRGBA('--red-rgb',.75), dash:[4,3]});
   });
   const gx=C.L-(DROW+1)*C.pl;
-  const gBad={x:gx, y:HT[FR], z:COLZ[1], h:HT[NXT], c:RED, stroke:'#F87171', dash:[5,3], txt:P[NXT].id};
-  const gGood={x:gx, y:HT[FL], z:COLZ[0], h:HT[ALT], c:GRN, stroke:'#34D399', dash:[5,3], txt:P[ALT].id};
+  const gBad={x:gx, y:HT[FR], z:COLZ[1], h:HT[NXT], c:RED, stroke:TK('--red'), dash:[5,3], txt:P[NXT].id};
+  const gGood={x:gx, y:HT[FL], z:COLZ[0], h:HT[ALT], c:GRN, stroke:TK('--green'), dash:[5,3], txt:P[ALT].id};
   if(atDecision()) items.push(gBad,gGood);
   items.sort((a,b)=>b.x-a.x || b.z-a.z || a.y-b.y).forEach(box);
   edges([0,1,4,5,8],.4);
 
-  ctx.fillStyle='rgba(127,162,255,.6)'; ctx.font='600 12.5px "IBM Plex Mono"'; ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillStyle=TRGBA('--accent-rgb',.6); ctx.font='600 12.5px "IBM Plex Mono"'; ctx.textAlign='center'; ctx.textBaseline='middle';
   let [tx,ty]=pr(C.L,C.H+.25,C.W/2); ctx.fillText('NOSE',tx,ty-6);
   [tx,ty]=pr(0,C.H+.25,C.W/2); ctx.fillText('DOOR',tx,ty-6);
   drawScan(L,n);
 
   if(atDecision()){
     const a=pr(gx+C.pl/2,HT[FR]+HT[NXT],COLZ[1]+C.pw/2), b=pr(gx+C.pl/2,HT[FL]+HT[ALT],COLZ[0]+C.pw/2);
-    pill(a[0],a[1],a[0]-70,Math.max(52,a[1]-60),`Preview: ${P[NXT].id} on ${P[FR].id} = ${(HT[FR]+HT[NXT]).toFixed(2)} m > roof ${C.H} m`,'#F87171');
-    pill(b[0],b[1],b[0]+90,b[1]-18,`Preview: ${P[ALT].id} on ${P[FL].id} = ${(HT[FL]+HT[ALT]).toFixed(2)} m ✓`,'#34D399');
+    pill(a[0],a[1],a[0]-70,Math.max(52,a[1]-60),`Preview: ${P[NXT].id} on ${P[FR].id} = ${(HT[FR]+HT[NXT]).toFixed(2)} m > roof ${C.H} m`,TK('--red'));
+    pill(b[0],b[1],b[0]+90,b[1]-18,`Preview: ${P[ALT].id} on ${P[FL].id} = ${(HT[FL]+HT[ALT]).toFixed(2)} m ✓`,TK('--green'));
   }
 }
 
 // Pre-load check: the next pallet stands in the scan zone outside the door until it passes.
 function drawScan(L,n){
   const z0=.3, z1=C.W-.3, x0=-2.15, x1=-.35, x=-1.8;
-  poly([pr(x0,0,z0),pr(x1,0,z0),pr(x1,0,z1),pr(x0,0,z1)],'rgba(127,162,255,.08)','rgba(127,162,255,.7)',[5,4]);
-  ctx.fillStyle='rgba(127,162,255,.85)'; ctx.font='600 12px "IBM Plex Mono"'; ctx.textAlign='center'; ctx.textBaseline='top';
+  poly([pr(x0,0,z0),pr(x1,0,z0),pr(x1,0,z1),pr(x0,0,z1)],TRGBA('--accent-rgb',.08),TRGBA('--accent-rgb',.7),[5,4]);
+  ctx.fillStyle=TRGBA('--accent-rgb',.85); ctx.font='600 12px "IBM Plex Mono"'; ctx.textAlign='center'; ctx.textBaseline='top';
   const [lx,ly]=pr((x0+x1)/2,0,z0); { const t='SCAN ZONE · before the door'; ctx.fillText(t,Math.max(lx,ctx.measureText(t).width/2+6),ly+8); }
   if(n>=N || compare) return;
   const p=L.seq[n], st=L.steps[n], dead=L.dead.filter(d=>d.at===n);
-  let txt, col='#34D399';
-  if(atDecision()){ txt=`✕ Hold ${P[p].id}: stacks to ${(HT[FR]+HT[p]).toFixed(2)} m > ${C.lim} m`; col='#F87171'; }
-  else if(st.left){ txt=`✕ ${P[p].id}: no position left`; col='#F87171'; }
-  else if(dead.length){ txt=`⚠ ${P[p].id} closes R${dead[0].row+1}: ${dead.length} stack position${dead.length>1?'s':''} lost`; col='#FBBF24'; }
+  let txt, col=TK('--green');
+  if(atDecision()){ txt=`✕ Hold ${P[p].id}: stacks to ${(HT[FR]+HT[p]).toFixed(2)} m > ${C.lim} m`; col=TK('--red'); }
+  else if(st.left){ txt=`✕ ${P[p].id}: no position left`; col=TK('--red'); }
+  else if(dead.length){ txt=`⚠ ${P[p].id} closes R${dead[0].row+1}: ${dead.length} stack position${dead.length>1?'s':''} lost`; col=TK('--amber'); }
   else if(st.slot[0]==='t'){ const fl=L.rows[st.row][st.slot==='tl'?'fl':'fr']; txt=`✓ ${P[p].id} stacks on ${P[fl].id}: ${(HT[fl]+HT[p]).toFixed(2)} m`; }
   else txt=`✓ ${P[p].id} → floor R${st.row+1}`;
   box({x, y:0, z:(C.W-C.pw)/2, h:HT[p], c:COL[P[p].cls], stroke:col, txt:HT[p].toFixed(2)});
