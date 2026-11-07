@@ -128,7 +128,7 @@ b{font-weight:600;color:var(--ink)}
 .epick .fbtn:hover:not(.act){color:var(--ink)}
 .epick .ki{font:12.5px var(--mono);color:var(--dim);display:flex;gap:4px;align-items:center}
 .sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
-.cvw{position:relative;background:linear-gradient(180deg,var(--canvas0) 0%,var(--ground) 100%);flex:1 1 0;min-height:300px;max-height:55vh;overflow:hidden}
+.cvw{position:relative;background:linear-gradient(180deg,var(--canvas0) 0%,var(--ground) 100%);flex:1 1 0;min-height:340px;max-height:55vh;overflow:hidden}
 .cvw canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
 .seqnote{display:none;padding:8px 16px;border-bottom:1px solid var(--rule);background:var(--panel);font-size:13.5px;line-height:1.45;color:var(--muted)}
 .seqnote.on{display:block}
@@ -136,11 +136,12 @@ b{font-weight:600;color:var(--ink)}
 .seqnote .ok{color:var(--green)} .seqnote .warn{color:var(--amber)}
 .seqnote button{background:none;border:none;padding:0;margin-left:6px;color:var(--accent);font:inherit;cursor:pointer;text-decoration:underline}
 .hint{position:absolute;left:14px;bottom:10px;font:12.5px var(--mono);color:var(--dim);pointer-events:none}
-.start{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;background:rgba(var(--ground-rgb),.9);z-index:5;padding:20px;text-align:center}
+.start{position:absolute;inset:0;display:flex;align-items:center;justify-content:safe center;flex-direction:column;gap:12px;overflow-y:auto;background:rgba(var(--ground-rgb),.9);z-index:5;padding:20px;text-align:center}
 .start.gone{display:none}
 .start h2{font-size:23px;font-weight:700;line-height:1.25;max-width:560px}
 .start p{color:var(--muted);font-size:15.5px;max-width:520px;line-height:1.6}
 .start small{font-size:13px;color:var(--dim);max-width:520px}
+@media(max-height:820px){.start{gap:9px;padding:14px 20px}.start h2{font-size:20px}.start p{font-size:14.5px;line-height:1.5}.start small{font-size:12px;line-height:1.45}}
 
 .lane{display:flex;gap:8px;align-items:stretch;padding:9px 16px;border-top:1px solid var(--rule);background:var(--lane);overflow-x:auto;min-height:84px}
 .lane-l{font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);min-width:96px;display:flex;flex-direction:column;justify-content:center;flex-shrink:0}

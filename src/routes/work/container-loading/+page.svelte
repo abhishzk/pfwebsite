@@ -375,7 +375,7 @@
 		</p>
 		<p class="note-link">
 			<button class="text-link" type="button" on:click={openNote}>
-				How it is built: the engineering note <span aria-hidden="true">→</span>
+				What it would take to make this real: the engineering note <span aria-hidden="true">→</span>
 			</button>
 		</p>
 	</CaseStudySection>
