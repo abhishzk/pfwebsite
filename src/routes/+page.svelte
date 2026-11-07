@@ -33,7 +33,8 @@
 				url: 'https://abhishzk.com',
 				image: 'https://abhishzk.com/images/headshot.webp',
 				jobTitle: 'Product Manager',
-				description: 'Product Manager in Dublin, Ireland. 0-to-1, enterprise SaaS and AI in production.',
+				description:
+					'Product Manager in Dublin, Ireland. 0-to-1, enterprise SaaS and AI in production.',
 				address: {
 					'@type': 'PostalAddress',
 					addressLocality: 'Dublin',
