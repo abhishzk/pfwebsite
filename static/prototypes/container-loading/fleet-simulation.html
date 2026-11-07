@@ -1,1041 +1,232 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<title>Fleet Simulation · 83 Export Containers</title>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
-			rel="stylesheet"
-		/>
-		<style>
-			:root {
-				--ground: #052d41;
-				--panel: #0a3a52;
-				--panel2: #0e4562;
-				--rule: #1a5573;
-				--accent: #22a0f3;
-				--accent-dim: rgba(34, 160, 243, 0.16);
-				--green: #34d399;
-				--green-dim: rgba(52, 211, 153, 0.12);
-				--amber: #fbbf24;
-				--amber-dim: rgba(251, 191, 36, 0.12);
-				--red: #f87171;
-				--red-dim: rgba(248, 113, 113, 0.12);
-				--purple: #a78bfa;
-				--purple-dim: rgba(167, 139, 250, 0.14);
-				--ink: #fff;
-				--muted: #9bc1d8;
-				--dim: #6a97b3;
-				--mono: 'JetBrains Mono', ui-monospace, monospace;
-				--sans: 'Inter', system-ui, sans-serif;
-			}
-			* {
-				box-sizing: border-box;
-				margin: 0;
-				padding: 0;
-			}
-			body {
-				background: var(--ground);
-				color: var(--ink);
-				font: 16px/1.5 var(--sans);
-				-webkit-font-smoothing: antialiased;
-			}
-			button {
-				font-family: var(--sans);
-				cursor: pointer;
-				border: none;
-			}
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fleet Simulation · 83 Export Containers</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#111419;--panel:#191D23;--panel2:#22272F;--rule:#303741;
+  --accent:#7FA2FF;--accent-dim:rgba(127,162,255,.16);
+  --green:#34D399;--green-dim:rgba(52,211,153,.12);
+  --amber:#FBBF24;--amber-dim:rgba(251,191,36,.12);
+  --red:#F87171;--red-dim:rgba(248,113,113,.12);
+  --purple:#A78BFA;--purple-dim:rgba(167,139,250,.14);
+  --ink:#F0F3F6;--muted:#A7B0BB;--dim:#8B95A2;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;--sans:'Manrope',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font:16px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+button{font-family:var(--sans);cursor:pointer;border:none}
 
-			.topbar {
-				display: flex;
-				align-items: center;
-				gap: 14px;
-				padding: 10px 20px;
-				border-bottom: 1px solid var(--rule);
-				background: var(--panel);
-				flex-wrap: wrap;
-			}
-			.logo {
-				font: 600 15px var(--mono);
-				letter-spacing: 0.08em;
-				text-transform: uppercase;
-				color: var(--accent);
-			}
-			.sep {
-				width: 1px;
-				height: 18px;
-				background: var(--rule);
-			}
-			.ctx {
-				color: var(--muted);
-				font-size: 15px;
-			}
-			.sim {
-				font: 500 11px var(--mono);
-				letter-spacing: 0.1em;
-				text-transform: uppercase;
-				color: var(--purple);
-				background: var(--purple-dim);
-				padding: 3px 7px;
-				border-radius: 2px;
-				margin-left: auto;
-			}
-			.nav {
-				display: flex;
-				gap: 2px;
-				padding: 0 16px;
-				background: var(--panel);
-				border-bottom: 1px solid var(--rule);
-				overflow-x: auto;
-			}
-			.nl {
-				color: var(--muted);
-				padding: 9px 14px;
-				font: 15px var(--sans);
-				text-decoration: none;
-				border-bottom: 2px solid transparent;
-				white-space: nowrap;
-			}
-			.nl:hover {
-				color: var(--ink);
-			}
-			.nl.act {
-				color: var(--ink);
-				border-bottom-color: var(--accent);
-			}
-			.simbar {
-				background: rgba(167, 139, 250, 0.16);
-				color: #d9cfff;
-				font-size: 14px;
-				padding: 6px 20px;
-				border-bottom: 1px solid rgba(167, 139, 250, 0.35);
-			}
-			.simbar b {
-				color: #fff;
-			}
+.topbar{display:flex;align-items:center;gap:14px;padding:10px 20px;border-bottom:1px solid var(--rule);background:var(--panel);flex-wrap:wrap}
+.logo{font:600 15px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.sep{width:1px;height:18px;background:var(--rule)}
+.ctx{color:var(--muted);font-size:15px}
+.sim{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--purple);background:var(--purple-dim);padding:3px 7px;border-radius:2px;margin-left:auto}
+.nav{display:flex;gap:2px;padding:0 16px;background:var(--panel);border-bottom:1px solid var(--rule);overflow-x:auto}
+.nl{color:var(--muted);padding:9px 14px;font:15px var(--sans);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap}
+.nl:hover{color:var(--ink)}.nl.act{color:var(--ink);border-bottom-color:var(--accent)}
+.simbar{background:rgba(167,139,250,.16);color:#D9CFFF;font-size:14px;padding:6px 20px;border-bottom:1px solid rgba(167,139,250,.35)}
+.simbar b{color:#fff}
 
-			.kpis {
-				display: grid;
-				grid-template-columns: repeat(6, 1fr);
-				border-bottom: 1px solid var(--rule);
-			}
-			.kpi {
-				padding: 16px 20px;
-				border-right: 1px solid var(--rule);
-			}
-			.kpi:last-child {
-				border-right: none;
-			}
-			.kl {
-				font: 500 11.5px var(--mono);
-				letter-spacing: 0.12em;
-				text-transform: uppercase;
-				color: var(--dim);
-			}
-			.kv {
-				font: 600 26px/1.2 var(--mono);
-			}
-			.kn {
-				font: 12.5px var(--mono);
-				color: var(--dim);
-				margin-top: 2px;
-			}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);border-bottom:1px solid var(--rule)}
+.kpi{padding:16px 20px;border-right:1px solid var(--rule)}
+.kpi:last-child{border-right:none}
+.kl{font:500 11.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.kv{font:600 26px/1.2 var(--mono)}
+.kn{font:12.5px var(--mono);color:var(--dim);margin-top:2px}
 
-			.filters {
-				display: flex;
-				gap: 8px;
-				padding: 12px 20px;
-				border-bottom: 1px solid var(--rule);
-				flex-wrap: wrap;
-				align-items: center;
-			}
-			.filters label {
-				font: 500 11.5px var(--mono);
-				letter-spacing: 0.1em;
-				text-transform: uppercase;
-				color: var(--dim);
-			}
-			.fbtn {
-				font: 13px var(--mono);
-				padding: 4px 10px;
-				border-radius: 3px;
-				background: var(--panel2);
-				color: var(--muted);
-				border: 1px solid var(--rule);
-			}
-			.fbtn.act {
-				background: var(--accent);
-				color: #fff;
-				border-color: var(--accent);
-			}
+.filters{display:flex;gap:8px;padding:12px 20px;border-bottom:1px solid var(--rule);flex-wrap:wrap;align-items:center}
+.filters label{font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.fbtn{font:13px var(--mono);padding:4px 10px;border-radius:3px;background:var(--panel2);color:var(--muted);border:1px solid var(--rule)}
+.fbtn.act{background:var(--accent);color:#0C1220;border-color:var(--accent)}
 
-			.grid {
-				display: grid;
-				grid-template-columns: 1fr 440px;
-				min-height: 0;
-			}
-			.left {
-				overflow-y: auto;
-				max-height: calc(100vh - 220px);
-			}
-			.right {
-				border-left: 1px solid var(--rule);
-				overflow-y: auto;
-				max-height: calc(100vh - 220px);
-				background: var(--panel);
-			}
+.grid{display:grid;grid-template-columns:1fr 440px;min-height:0}
+.left{overflow-y:auto;max-height:calc(100vh - 220px)}
+.right{border-left:1px solid var(--rule);overflow-y:auto;max-height:calc(100vh - 220px);background:var(--panel)}
 
-			table {
-				width: 100%;
-				border-collapse: collapse;
-				font-size: 14px;
-			}
-			th {
-				position: sticky;
-				top: 0;
-				background: var(--panel);
-				font: 500 11.5px var(--mono);
-				letter-spacing: 0.1em;
-				text-transform: uppercase;
-				color: var(--dim);
-				text-align: left;
-				padding: 8px 12px;
-				border-bottom: 1px solid var(--rule);
-				cursor: pointer;
-				user-select: none;
-				white-space: nowrap;
-			}
-			th:hover {
-				color: var(--accent);
-			}
-			th.sorted::after {
-				content: ' ▾';
-				color: var(--accent);
-			}
-			th.sorted.asc::after {
-				content: ' ▴';
-			}
-			td {
-				padding: 6px 12px;
-				border-bottom: 1px solid rgba(26, 85, 115, 0.4);
-				white-space: nowrap;
-			}
-			tr {
-				cursor: pointer;
-				transition: background 0.15s;
-			}
-			tr:hover {
-				background: var(--panel2);
-			}
-			tr.selected {
-				background: var(--accent-dim);
-			}
-			.mono {
-				font-family: var(--mono);
-			}
-			.tag {
-				font: 600 10.5px var(--mono);
-				letter-spacing: 0.08em;
-				text-transform: uppercase;
-				padding: 2px 5px;
-				border-radius: 2px;
-				display: inline-block;
-			}
-			.t-ok {
-				background: var(--green-dim);
-				color: var(--green);
-			}
-			.t-fix {
-				background: var(--amber-dim);
-				color: var(--amber);
-			}
-			.t-stuck {
-				background: var(--red-dim);
-				color: var(--red);
-			}
-			.bar-bg {
-				width: 60px;
-				height: 6px;
-				background: var(--rule);
-				border-radius: 3px;
-				display: inline-block;
-				vertical-align: middle;
-			}
-			.bar-fg {
-				height: 100%;
-				border-radius: 3px;
-			}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{position:sticky;top:0;background:var(--panel);font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-align:left;padding:8px 12px;border-bottom:1px solid var(--rule);cursor:pointer;user-select:none;white-space:nowrap}
+th:hover{color:var(--accent)}
+th.sorted::after{content:' ▾';color:var(--accent)}
+th.sorted.asc::after{content:' ▴'}
+td{padding:6px 12px;border-bottom:1px solid rgba(48,55,65,.4);white-space:nowrap}
+tr{cursor:pointer;transition:background .15s}
+tr:hover{background:var(--panel2)}
+tr.selected{background:var(--accent-dim)}
+.mono{font-family:var(--mono)}
+.tag{font:600 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:2px 5px;border-radius:2px;display:inline-block}
+.t-ok{background:var(--green-dim);color:var(--green)}
+.t-fix{background:var(--amber-dim);color:var(--amber)}
+.t-stuck{background:var(--red-dim);color:var(--red)}
+.bar-bg{width:60px;height:6px;background:var(--rule);border-radius:3px;display:inline-block;vertical-align:middle}
+.bar-fg{height:100%;border-radius:3px}
 
-			.detail {
-				padding: 16px;
-			}
-			.dh {
-				font: 600 16px var(--sans);
-				margin-bottom: 4px;
-			}
-			.ds {
-				font: 13px var(--mono);
-				color: var(--dim);
-				margin-bottom: 16px;
-			}
-			.d-kpis {
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-				gap: 8px;
-				margin-bottom: 16px;
-			}
-			.dk {
-				background: var(--ground);
-				border: 1px solid var(--rule);
-				border-radius: 5px;
-				padding: 10px 12px;
-			}
-			.dk .kl {
-				margin-bottom: 2px;
-			}
-			.dk .kv {
-				font-size: 20px;
-			}
-			.dk.best {
-				border-color: var(--green);
-			}
-			.pallet-row {
-				display: flex;
-				align-items: flex-end;
-				gap: 3px;
-				margin: 10px 0;
-				min-height: 90px;
-				padding: 4px 0;
-			}
-			.pallet {
-				flex: 1;
-				min-width: 0;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-			}
-			.pallet .bar {
-				width: 100%;
-				max-width: 14px;
-				border-radius: 2px;
-			}
-			.pallet.left-behind .bar {
-				outline: 1px dashed var(--red);
-			}
-			.legend {
-				font: 12.5px var(--mono);
-				color: var(--dim);
-				margin: 12px 0 8px;
-				display: flex;
-				gap: 12px;
-				flex-wrap: wrap;
-			}
-			.legend i {
-				display: inline-block;
-				width: 8px;
-				height: 8px;
-				border-radius: 2px;
-				vertical-align: -1px;
-				margin-right: 3px;
-			}
-			.sec-hd {
-				font: 500 11.5px var(--mono);
-				letter-spacing: 0.12em;
-				text-transform: uppercase;
-				color: var(--dim);
-				margin: 16px 0 8px;
-				display: flex;
-				align-items: center;
-				gap: 8px;
-			}
-			.sec-hd::after {
-				content: '';
-				flex: 1;
-				height: 1px;
-				background: var(--rule);
-			}
-			.note {
-				font-size: 13px;
-				color: var(--muted);
-				line-height: 1.6;
-				background: var(--ground);
-				border: 1px solid var(--rule);
-				border-radius: 5px;
-				padding: 10px 12px;
-				margin-top: 12px;
-			}
-			.empty-detail {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				height: 200px;
-				color: var(--dim);
-				font-size: 15px;
-			}
-			.back {
-				font: 14px var(--sans);
-				background: none;
-				color: var(--accent);
-				padding: 0;
-				margin-bottom: 12px;
-				text-decoration: underline;
-				text-underline-offset: 3px;
-			}
+.detail{padding:16px}
+.dh{font:600 16px var(--sans);margin-bottom:4px}
+.ds{font:13px var(--mono);color:var(--dim);margin-bottom:16px}
+.d-kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.dk{background:var(--ground);border:1px solid var(--rule);border-radius:5px;padding:10px 12px}
+.dk .kl{margin-bottom:2px}
+.dk .kv{font-size:20px}
+.dk.best{border-color:var(--green)}
+.pallet-row{display:flex;align-items:flex-end;gap:3px;margin:10px 0;min-height:90px;padding:4px 0}
+.pallet{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center}
+.pallet .bar{width:100%;max-width:14px;border-radius:2px}
+.pallet.left-behind .bar{outline:1px dashed var(--red)}
+.legend{font:12.5px var(--mono);color:var(--dim);margin:12px 0 8px;display:flex;gap:12px;flex-wrap:wrap}
+.legend i{display:inline-block;width:8px;height:8px;border-radius:2px;vertical-align:-1px;margin-right:3px}
+.sec-hd{font:500 11.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:16px 0 8px;display:flex;align-items:center;gap:8px}
+.sec-hd::after{content:'';flex:1;height:1px;background:var(--rule)}
+.note{font-size:13px;color:var(--muted);line-height:1.6;background:var(--ground);border:1px solid var(--rule);border-radius:5px;padding:10px 12px;margin-top:12px}
+.empty-detail{display:flex;align-items:center;justify-content:center;height:200px;color:var(--dim);font-size:15px}
+.back{font:14px var(--sans);background:none;color:var(--accent);padding:0;margin-bottom:12px;text-decoration:underline;text-underline-offset:3px}
 
-			.chart {
-				margin: 16px 0;
-			}
-			.chart-bar {
-				display: flex;
-				align-items: center;
-				gap: 8px;
-				margin: 3px 0;
-			}
-			.chart-label {
-				font: 12.5px var(--mono);
-				color: var(--muted);
-				min-width: 100px;
-				text-align: right;
-			}
-			.chart-fill {
-				height: 14px;
-				border-radius: 2px;
-				min-width: 1px;
-				transition: width 0.3s;
-			}
-			.chart-val {
-				font: 12.5px var(--mono);
-				color: var(--dim);
-			}
+.chart{margin:16px 0}
+.chart-bar{display:flex;align-items:center;gap:8px;margin:3px 0}
+.chart-label{font:12.5px var(--mono);color:var(--muted);min-width:100px;text-align:right}
+.chart-fill{height:14px;border-radius:2px;min-width:1px;transition:width .3s}
+.chart-val{font:12.5px var(--mono);color:var(--dim)}
 
-			@media (max-width: 900px) {
-				.kpis {
-					grid-template-columns: repeat(3, 1fr);
-				}
-				.kpi:nth-child(3) {
-					border-right: none;
-				}
-				.kpi:nth-child(-n + 3) {
-					border-bottom: 1px solid var(--rule);
-				}
-				.grid {
-					grid-template-columns: 1fr;
-				}
-				.left,
-				.right {
-					max-height: none;
-				}
-				.right {
-					border-left: none;
-					border-top: 1px solid var(--rule);
-				}
-			}
-			* {
-				scrollbar-width: thin;
-				scrollbar-color: #1a5573 transparent;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="topbar">
-			<div class="logo">Platform</div>
-			<div class="sep"></div>
-			<div class="ctx"><b>Kessler Automotive</b> · Kraków Plant 2 · Fleet simulation</div>
-			<div class="sim">Simulated · all heights generated</div>
-		</div>
-		<nav class="nav">
-			<a href="enterprise.html" class="nl">Enterprise</a>
-			<a href="fleet-simulation.html" class="nl act">Fleet table</a>
-			<a href="fleet-analysis.html" class="nl">Fleet analysis</a>
-			<a href="fleet-live.html" class="nl">Fleet live</a>
-		</nav>
-		<div class="simbar">
-			<b>Fleet sequencing simulation</b> across all 83 export containers from the August shipping
-			log. Pallet heights are generated per SKU family; loading sequence and outcomes are simulated.
-			No real measurements exist.
-		</div>
+@media(max-width:900px){
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .kpi:nth-child(3){border-right:none}
+  .kpi:nth-child(-n+3){border-bottom:1px solid var(--rule)}
+  .grid{grid-template-columns:1fr}
+  .left,.right{max-height:none}
+  .right{border-left:none;border-top:1px solid var(--rule)}
+}
+*{scrollbar-width:thin;scrollbar-color:#303741 transparent}
+</style>
+</head>
+<body>
 
-		<div class="kpis" id="kpis"></div>
-		<div class="filters" id="filters"></div>
-		<div class="grid">
-			<div class="left">
-				<table>
-					<thead id="thead"></thead>
-					<tbody id="tbody"></tbody>
-				</table>
-			</div>
-			<div class="right" id="detail">
-				<div class="empty-detail">Select a container to see its simulation</div>
-			</div>
-		</div>
+<div class="topbar">
+  <div class="logo">Platform</div>
+  <div class="sep"></div>
+  <div class="ctx"><b>Kessler Automotive</b> · Kraków Plant 2 · Fleet simulation</div>
+  <div class="sim">Simulated · all heights generated</div>
+</div>
+<nav class="nav">
+  <a href="enterprise.html" class="nl">Enterprise</a>
+  <a href="fleet-simulation.html" class="nl act">Fleet table</a>
+  <a href="fleet-analysis.html" class="nl">Fleet analysis</a>
+  <a href="fleet-live.html" class="nl">Fleet live</a>
+</nav>
+<div class="simbar"><b>Fleet sequencing simulation</b> across all 83 export containers from the August shipping log. Pallet heights are generated per SKU family; loading sequence and outcomes are simulated. No real measurements exist.</div>
 
-		<script>
-			// ── Data: [id, door, dest, sku, pallets, kg, vol_m3, fill%, notes] ──
-			const FLEET = [
-				[
-					'SHP-2026-4110',
-					'D09',
-					'UK-Felixstowe',
-					'ALT-STATOR',
-					30,
-					25890,
-					42.0,
-					80,
-					'dunnage added'
-				],
-				[
-					'SHP-2026-4107',
-					'D09',
-					'SE-Gothenburg',
-					'TRIM-PANEL',
-					29,
-					4122,
-					60.9,
-					0,
-					'reslotted mid-load'
-				],
-				['SHP-2026-4101', 'D12', 'NL-Rotterdam', 'CAST-HOUSING', 25, 24509, 33.75, 60, ''],
-				['SHP-2026-4116', 'D09', 'UK-Felixstowe', 'CAST-HOUSING', 26, 25416, 35.1, 50, ''],
-				[
-					'SHP-2026-4119',
-					'D10',
-					'SE-Gothenburg',
-					'BRAKE-ROTOR',
-					23,
-					25713,
-					29.9,
-					0,
-					'late trailer arrival'
-				],
-				['SHP-2026-4117', 'D13', 'DE-Bremerhaven', 'PLASTIC-CLIP', 34, 3262, 64.6, 100, ''],
-				['SHP-2026-4113', 'D12', 'NL-Rotterdam', 'CAST-HOUSING', 25, 24430, 33.75, 70, ''],
-				[
-					'SHP-2026-4120',
-					'D13',
-					'NL-Rotterdam',
-					'ALT-STATOR',
-					30,
-					25862,
-					42.0,
-					60,
-					'late trailer arrival'
-				],
-				[
-					'SHP-2026-4114',
-					'D10',
-					'SE-Gothenburg',
-					'TRIM-PANEL',
-					31,
-					4406,
-					65.1,
-					100,
-					'late trailer arrival'
-				],
-				[
-					'SHP-2026-4122',
-					'D10',
-					'DE-Bremerhaven',
-					'BRAKE-ROTOR',
-					23,
-					25823,
-					29.9,
-					60,
-					'partial - balance ships next day'
-				],
-				[
-					'SHP-2026-4127',
-					'D13',
-					'UK-Felixstowe',
-					'TRIM-PANEL',
-					31,
-					4515,
-					65.1,
-					100,
-					'partial - balance ships next day'
-				],
-				['SHP-2026-4130', 'D13', 'SE-Gothenburg', 'ALT-STATOR', 29, 24821, 40.6, 60, ''],
-				['SHP-2026-4129', 'D14', 'DE-Bremerhaven', 'ALT-STATOR', 28, 24130, 39.2, 60, ''],
-				['SHP-2026-4141', 'D11', 'UK-Felixstowe', 'ALT-STATOR', 28, 24132, 39.2, 0, ''],
-				['SHP-2026-4137', 'D13', 'DE-Bremerhaven', 'CAST-HOUSING', 25, 24434, 33.75, 50, ''],
-				['SHP-2026-4132', 'D13', 'SE-Gothenburg', 'ALT-STATOR', 29, 25055, 40.6, 60, ''],
-				['SHP-2026-4138', 'D11', 'NL-Rotterdam', 'PLASTIC-CLIP', 35, 3391, 66.5, 100, ''],
-				[
-					'SHP-2026-4134',
-					'D14',
-					'UK-Felixstowe',
-					'ALT-STATOR',
-					28,
-					24157,
-					39.2,
-					60,
-					'late trailer arrival'
-				],
-				[
-					'SHP-2026-4149',
-					'D09',
-					'DE-Bremerhaven',
-					'BRAKE-ROTOR',
-					23,
-					25880,
-					29.9,
-					0,
-					'reslotted mid-load'
-				],
-				['SHP-2026-4148', 'D13', 'NL-Rotterdam', 'ALT-STATOR', 28, 24067, 39.2, 70, ''],
-				['SHP-2026-4145', 'D09', 'SE-Gothenburg', 'CAST-HOUSING', 26, 25458, 35.1, 0, ''],
-				[
-					'SHP-2026-4150',
-					'D10',
-					'DE-Bremerhaven',
-					'HARNESS-ASSY',
-					37,
-					7847,
-					64.75,
-					100,
-					'double-stack refused by driver'
-				],
-				['SHP-2026-4144', 'D13', 'UK-Felixstowe', 'BRAKE-ROTOR', 23, 25690, 29.9, 40, ''],
-				['SHP-2026-4155', 'D11', 'NL-Rotterdam', 'ALT-STATOR', 30, 25717, 42.0, 70, ''],
-				['SHP-2026-4157', 'D13', 'DE-Bremerhaven', 'ALT-STATOR', 30, 25735, 42.0, 70, ''],
-				['SHP-2026-4164', 'D11', 'DE-Bremerhaven', 'SENSOR-MOD', 43, 11263, 66.65, 100, ''],
-				['SHP-2026-4169', 'D14', 'UK-Felixstowe', 'CAST-HOUSING', 25, 24560, 33.75, 0, ''],
-				['SHP-2026-4165', 'D09', 'DE-Bremerhaven', 'ALT-STATOR', 30, 25837, 42.0, 60, ''],
-				['SHP-2026-4171', 'D10', 'DE-Bremerhaven', 'CAST-HOUSING', 24, 23546, 32.4, 0, ''],
-				['SHP-2026-4172', 'D12', 'NL-Rotterdam', 'PLASTIC-CLIP', 33, 3123, 62.7, 100, ''],
-				['SHP-2026-4163', 'D11', 'DE-Bremerhaven', 'ALT-STATOR', 29, 24875, 40.6, 0, ''],
-				['SHP-2026-4168', 'D09', 'DE-Bremerhaven', 'TRIM-PANEL', 31, 4395, 65.1, 100, ''],
-				[
-					'SHP-2026-4174',
-					'D11',
-					'UK-Felixstowe',
-					'ALT-STATOR',
-					28,
-					24193,
-					39.2,
-					0,
-					'double-stack refused by driver'
-				],
-				[
-					'SHP-2026-4186',
-					'D14',
-					'DE-Bremerhaven',
-					'BRAKE-ROTOR',
-					21,
-					23624,
-					27.3,
-					60,
-					'double-stack refused by driver'
-				],
-				[
-					'SHP-2026-4185',
-					'D12',
-					'UK-Felixstowe',
-					'ALT-STATOR',
-					29,
-					24906,
-					40.6,
-					0,
-					'reslotted mid-load'
-				],
-				[
-					'SHP-2026-4184',
-					'D09',
-					'UK-Felixstowe',
-					'ALT-STATOR',
-					29,
-					25013,
-					40.6,
-					60,
-					'partial - balance ships next day'
-				],
-				[
-					'SHP-2026-4191',
-					'D14',
-					'UK-Felixstowe',
-					'HARNESS-ASSY',
-					37,
-					7819,
-					64.75,
-					100,
-					'reslotted mid-load'
-				],
-				[
-					'SHP-2026-4189',
-					'D13',
-					'NL-Rotterdam',
-					'PLASTIC-CLIP',
-					34,
-					3134,
-					64.6,
-					100,
-					'dunnage added'
-				],
-				[
-					'SHP-2026-4190',
-					'D11',
-					'DE-Bremerhaven',
-					'BRAKE-ROTOR',
-					22,
-					24732,
-					28.6,
-					50,
-					'waiting on QA hold release'
-				],
-				['SHP-2026-4192', 'D09', 'DE-Bremerhaven', 'CAST-HOUSING', 26, 25464, 35.1, 60, ''],
-				[
-					'SHP-2026-4194',
-					'D11',
-					'NL-Rotterdam',
-					'BRAKE-ROTOR',
-					23,
-					25855,
-					29.9,
-					50,
-					'dunnage added'
-				],
-				[
-					'SHP-2026-4187',
-					'D10',
-					'UK-Felixstowe',
-					'PLASTIC-CLIP',
-					34,
-					3231,
-					64.6,
-					100,
-					'waiting on QA hold release'
-				],
-				['SHP-2026-4195', 'D09', 'NL-Rotterdam', 'HARNESS-ASSY', 36, 7616, 63.0, 90, ''],
-				[
-					'SHP-2026-4197',
-					'D14',
-					'DE-Bremerhaven',
-					'ALT-STATOR',
-					30,
-					25837,
-					42.0,
-					60,
-					'double-stack refused by driver'
-				],
-				['SHP-2026-4199', 'D13', 'UK-Felixstowe', 'CAST-HOUSING', 26, 25444, 35.1, 50, ''],
-				['SHP-2026-4200', 'D10', 'UK-Felixstowe', 'CAST-HOUSING', 25, 24525, 33.75, 60, ''],
-				['SHP-2026-4209', 'D14', 'DE-Bremerhaven', 'ALT-STATOR', 30, 25705, 42.0, 70, ''],
-				[
-					'SHP-2026-4208',
-					'D13',
-					'DE-Bremerhaven',
-					'ALT-STATOR',
-					28,
-					24019,
-					39.2,
-					0,
-					'late trailer arrival'
-				],
-				[
-					'SHP-2026-4204',
-					'D10',
-					'SE-Gothenburg',
-					'CAST-HOUSING',
-					26,
-					25507,
-					35.1,
-					50,
-					'partial - balance ships next day'
-				],
-				[
-					'SHP-2026-4212',
-					'D09',
-					'DE-Bremerhaven',
-					'ALT-STATOR',
-					28,
-					24178,
-					39.2,
-					60,
-					'double-stack refused by driver'
-				],
-				['SHP-2026-4205', 'D10', 'UK-Felixstowe', 'BRAKE-ROTOR', 23, 25690, 29.9, 50, ''],
-				['SHP-2026-4213', 'D09', 'UK-Felixstowe', 'CAST-HOUSING', 24, 23577, 32.4, 40, ''],
-				['SHP-2026-4217', 'D14', 'UK-Felixstowe', 'ALT-STATOR', 29, 24845, 40.6, 80, ''],
-				['SHP-2026-4214', 'D10', 'SE-Gothenburg', 'CAST-HOUSING', 25, 24436, 33.75, 0, ''],
-				['SHP-2026-4225', 'D11', 'NL-Rotterdam', 'ALT-STATOR', 29, 24941, 40.6, 0, ''],
-				[
-					'SHP-2026-4227',
-					'D12',
-					'NL-Rotterdam',
-					'HARNESS-ASSY',
-					38,
-					8039,
-					66.5,
-					100,
-					'reslotted mid-load'
-				],
-				[
-					'SHP-2026-4231',
-					'D11',
-					'SE-Gothenburg',
-					'ALT-STATOR',
-					28,
-					24051,
-					39.2,
-					0,
-					'partial - balance ships next day'
-				],
-				[
-					'SHP-2026-4239',
-					'D10',
-					'NL-Rotterdam',
-					'BRAKE-ROTOR',
-					23,
-					25823,
-					29.9,
-					50,
-					'dunnage added'
-				],
-				['SHP-2026-4240', 'D11', 'UK-Felixstowe', 'ALT-STATOR', 28, 24085, 39.2, 0, ''],
-				['SHP-2026-4238', 'D10', 'NL-Rotterdam', 'PLASTIC-CLIP', 35, 3430, 66.5, 100, ''],
-				['SHP-2026-4241', 'D14', 'DE-Bremerhaven', 'TRIM-PANEL', 30, 4247, 63.0, 0, ''],
-				['SHP-2026-4252', 'D09', 'UK-Felixstowe', 'BRAKE-ROTOR', 21, 23498, 27.3, 60, ''],
-				['SHP-2026-4250', 'D14', 'DE-Bremerhaven', 'HARNESS-ASSY', 38, 8057, 66.5, 100, ''],
-				['SHP-2026-4245', 'D14', 'UK-Felixstowe', 'BRAKE-ROTOR', 23, 25855, 29.9, 60, ''],
-				['SHP-2026-4254', 'D12', 'UK-Felixstowe', 'CAST-HOUSING', 25, 24587, 33.75, 70, ''],
-				['SHP-2026-4249', 'D09', 'UK-Felixstowe', 'ALT-STATOR', 30, 25827, 42.0, 0, ''],
-				['SHP-2026-4243', 'D13', 'NL-Rotterdam', 'BRAKE-ROTOR', 22, 24605, 28.6, 40, ''],
-				['SHP-2026-4253', 'D13', 'UK-Felixstowe', 'CAST-HOUSING', 25, 24388, 33.75, 0, ''],
-				['SHP-2026-4246', 'D09', 'SE-Gothenburg', 'HARNESS-ASSY', 38, 8062, 66.5, 100, ''],
-				['SHP-2026-4259', 'D12', 'NL-Rotterdam', 'CAST-HOUSING', 26, 25407, 35.1, 70, ''],
-				['SHP-2026-4256', 'D12', 'NL-Rotterdam', 'BRAKE-ROTOR', 22, 24635, 28.6, 0, ''],
-				['SHP-2026-4263', 'D09', 'DE-Bremerhaven', 'BRAKE-ROTOR', 23, 25804, 29.9, 40, ''],
-				['SHP-2026-4255', 'D10', 'DE-Bremerhaven', 'CAST-HOUSING', 25, 24592, 33.75, 50, ''],
-				['SHP-2026-4257', 'D12', 'SE-Gothenburg', 'CAST-HOUSING', 26, 25592, 35.1, 60, ''],
-				['SHP-2026-4266', 'D10', 'UK-Felixstowe', 'ALT-STATOR', 30, 25705, 42.0, 0, ''],
-				[
-					'SHP-2026-4269',
-					'D14',
-					'SE-Gothenburg',
-					'CAST-HOUSING',
-					25,
-					24391,
-					33.75,
-					0,
-					'reslotted mid-load'
-				],
-				['SHP-2026-4270', 'D12', 'NL-Rotterdam', 'ALT-STATOR', 29, 24841, 40.6, 0, ''],
-				['SHP-2026-4267', 'D14', 'DE-Bremerhaven', 'ALT-STATOR', 28, 24011, 39.2, 60, ''],
-				['SHP-2026-4271', 'D13', 'NL-Rotterdam', 'TRIM-PANEL', 31, 4615, 65.1, 0, 'dunnage added'],
-				[
-					'SHP-2026-4282',
-					'D10',
-					'NL-Rotterdam',
-					'CAST-HOUSING',
-					25,
-					24574,
-					33.75,
-					0,
-					'double-stack refused by driver'
-				],
-				[
-					'SHP-2026-4278',
-					'D10',
-					'SE-Gothenburg',
-					'BRAKE-ROTOR',
-					22,
-					24638,
-					28.6,
-					40,
-					'reslotted mid-load'
-				],
-				['SHP-2026-4283', 'D12', 'SE-Gothenburg', 'ALT-STATOR', 30, 25722, 42.0, 80, ''],
-				[
-					'SHP-2026-4274',
-					'D09',
-					'SE-Gothenburg',
-					'ALT-STATOR',
-					28,
-					24026,
-					39.2,
-					60,
-					'waiting on QA hold release'
-				]
-			];
+<div class="kpis" id="kpis"></div>
+<div class="filters" id="filters"></div>
+<div class="grid">
+  <div class="left"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
+  <div class="right" id="detail"><div class="empty-detail">Select a container to see its simulation</div></div>
+</div>
 
-			// ── Container spec ──
-			const C = {
-				L: 12.03,
-				W: 2.35,
-				H: 2.69,
-				vol: 67,
-				kg: 26000,
-				lim: 2.62,
-				rows: 10,
-				pl: 1.2,
-				pw: 1.0
-			};
+<script>
+// ── Data: [id, door, dest, sku, pallets, kg, vol_m3, fill%, notes] ──
+const FLEET=[["SHP-2026-4110","D09","UK-Felixstowe","ALT-STATOR",30,25890,42.0,80,"dunnage added"],["SHP-2026-4107","D09","SE-Gothenburg","TRIM-PANEL",29,4122,60.9,0,"reslotted mid-load"],["SHP-2026-4101","D12","NL-Rotterdam","CAST-HOUSING",25,24509,33.75,60,""],["SHP-2026-4116","D09","UK-Felixstowe","CAST-HOUSING",26,25416,35.1,50,""],["SHP-2026-4119","D10","SE-Gothenburg","BRAKE-ROTOR",23,25713,29.9,0,"late trailer arrival"],["SHP-2026-4117","D13","DE-Bremerhaven","PLASTIC-CLIP",34,3262,64.6,100,""],["SHP-2026-4113","D12","NL-Rotterdam","CAST-HOUSING",25,24430,33.75,70,""],["SHP-2026-4120","D13","NL-Rotterdam","ALT-STATOR",30,25862,42.0,60,"late trailer arrival"],["SHP-2026-4114","D10","SE-Gothenburg","TRIM-PANEL",31,4406,65.1,100,"late trailer arrival"],["SHP-2026-4122","D10","DE-Bremerhaven","BRAKE-ROTOR",23,25823,29.9,60,"partial - balance ships next day"],["SHP-2026-4127","D13","UK-Felixstowe","TRIM-PANEL",31,4515,65.1,100,"partial - balance ships next day"],["SHP-2026-4130","D13","SE-Gothenburg","ALT-STATOR",29,24821,40.6,60,""],["SHP-2026-4129","D14","DE-Bremerhaven","ALT-STATOR",28,24130,39.2,60,""],["SHP-2026-4141","D11","UK-Felixstowe","ALT-STATOR",28,24132,39.2,0,""],["SHP-2026-4137","D13","DE-Bremerhaven","CAST-HOUSING",25,24434,33.75,50,""],["SHP-2026-4132","D13","SE-Gothenburg","ALT-STATOR",29,25055,40.6,60,""],["SHP-2026-4138","D11","NL-Rotterdam","PLASTIC-CLIP",35,3391,66.5,100,""],["SHP-2026-4134","D14","UK-Felixstowe","ALT-STATOR",28,24157,39.2,60,"late trailer arrival"],["SHP-2026-4149","D09","DE-Bremerhaven","BRAKE-ROTOR",23,25880,29.9,0,"reslotted mid-load"],["SHP-2026-4148","D13","NL-Rotterdam","ALT-STATOR",28,24067,39.2,70,""],["SHP-2026-4145","D09","SE-Gothenburg","CAST-HOUSING",26,25458,35.1,0,""],["SHP-2026-4150","D10","DE-Bremerhaven","HARNESS-ASSY",37,7847,64.75,100,"double-stack refused by driver"],["SHP-2026-4144","D13","UK-Felixstowe","BRAKE-ROTOR",23,25690,29.9,40,""],["SHP-2026-4155","D11","NL-Rotterdam","ALT-STATOR",30,25717,42.0,70,""],["SHP-2026-4157","D13","DE-Bremerhaven","ALT-STATOR",30,25735,42.0,70,""],["SHP-2026-4164","D11","DE-Bremerhaven","SENSOR-MOD",43,11263,66.65,100,""],["SHP-2026-4169","D14","UK-Felixstowe","CAST-HOUSING",25,24560,33.75,0,""],["SHP-2026-4165","D09","DE-Bremerhaven","ALT-STATOR",30,25837,42.0,60,""],["SHP-2026-4171","D10","DE-Bremerhaven","CAST-HOUSING",24,23546,32.4,0,""],["SHP-2026-4172","D12","NL-Rotterdam","PLASTIC-CLIP",33,3123,62.7,100,""],["SHP-2026-4163","D11","DE-Bremerhaven","ALT-STATOR",29,24875,40.6,0,""],["SHP-2026-4168","D09","DE-Bremerhaven","TRIM-PANEL",31,4395,65.1,100,""],["SHP-2026-4174","D11","UK-Felixstowe","ALT-STATOR",28,24193,39.2,0,"double-stack refused by driver"],["SHP-2026-4186","D14","DE-Bremerhaven","BRAKE-ROTOR",21,23624,27.3,60,"double-stack refused by driver"],["SHP-2026-4185","D12","UK-Felixstowe","ALT-STATOR",29,24906,40.6,0,"reslotted mid-load"],["SHP-2026-4184","D09","UK-Felixstowe","ALT-STATOR",29,25013,40.6,60,"partial - balance ships next day"],["SHP-2026-4191","D14","UK-Felixstowe","HARNESS-ASSY",37,7819,64.75,100,"reslotted mid-load"],["SHP-2026-4189","D13","NL-Rotterdam","PLASTIC-CLIP",34,3134,64.6,100,"dunnage added"],["SHP-2026-4190","D11","DE-Bremerhaven","BRAKE-ROTOR",22,24732,28.6,50,"waiting on QA hold release"],["SHP-2026-4192","D09","DE-Bremerhaven","CAST-HOUSING",26,25464,35.1,60,""],["SHP-2026-4194","D11","NL-Rotterdam","BRAKE-ROTOR",23,25855,29.9,50,"dunnage added"],["SHP-2026-4187","D10","UK-Felixstowe","PLASTIC-CLIP",34,3231,64.6,100,"waiting on QA hold release"],["SHP-2026-4195","D09","NL-Rotterdam","HARNESS-ASSY",36,7616,63.0,90,""],["SHP-2026-4197","D14","DE-Bremerhaven","ALT-STATOR",30,25837,42.0,60,"double-stack refused by driver"],["SHP-2026-4199","D13","UK-Felixstowe","CAST-HOUSING",26,25444,35.1,50,""],["SHP-2026-4200","D10","UK-Felixstowe","CAST-HOUSING",25,24525,33.75,60,""],["SHP-2026-4209","D14","DE-Bremerhaven","ALT-STATOR",30,25705,42.0,70,""],["SHP-2026-4208","D13","DE-Bremerhaven","ALT-STATOR",28,24019,39.2,0,"late trailer arrival"],["SHP-2026-4204","D10","SE-Gothenburg","CAST-HOUSING",26,25507,35.1,50,"partial - balance ships next day"],["SHP-2026-4212","D09","DE-Bremerhaven","ALT-STATOR",28,24178,39.2,60,"double-stack refused by driver"],["SHP-2026-4205","D10","UK-Felixstowe","BRAKE-ROTOR",23,25690,29.9,50,""],["SHP-2026-4213","D09","UK-Felixstowe","CAST-HOUSING",24,23577,32.4,40,""],["SHP-2026-4217","D14","UK-Felixstowe","ALT-STATOR",29,24845,40.6,80,""],["SHP-2026-4214","D10","SE-Gothenburg","CAST-HOUSING",25,24436,33.75,0,""],["SHP-2026-4225","D11","NL-Rotterdam","ALT-STATOR",29,24941,40.6,0,""],["SHP-2026-4227","D12","NL-Rotterdam","HARNESS-ASSY",38,8039,66.5,100,"reslotted mid-load"],["SHP-2026-4231","D11","SE-Gothenburg","ALT-STATOR",28,24051,39.2,0,"partial - balance ships next day"],["SHP-2026-4239","D10","NL-Rotterdam","BRAKE-ROTOR",23,25823,29.9,50,"dunnage added"],["SHP-2026-4240","D11","UK-Felixstowe","ALT-STATOR",28,24085,39.2,0,""],["SHP-2026-4238","D10","NL-Rotterdam","PLASTIC-CLIP",35,3430,66.5,100,""],["SHP-2026-4241","D14","DE-Bremerhaven","TRIM-PANEL",30,4247,63.0,0,""],["SHP-2026-4252","D09","UK-Felixstowe","BRAKE-ROTOR",21,23498,27.3,60,""],["SHP-2026-4250","D14","DE-Bremerhaven","HARNESS-ASSY",38,8057,66.5,100,""],["SHP-2026-4245","D14","UK-Felixstowe","BRAKE-ROTOR",23,25855,29.9,60,""],["SHP-2026-4254","D12","UK-Felixstowe","CAST-HOUSING",25,24587,33.75,70,""],["SHP-2026-4249","D09","UK-Felixstowe","ALT-STATOR",30,25827,42.0,0,""],["SHP-2026-4243","D13","NL-Rotterdam","BRAKE-ROTOR",22,24605,28.6,40,""],["SHP-2026-4253","D13","UK-Felixstowe","CAST-HOUSING",25,24388,33.75,0,""],["SHP-2026-4246","D09","SE-Gothenburg","HARNESS-ASSY",38,8062,66.5,100,""],["SHP-2026-4259","D12","NL-Rotterdam","CAST-HOUSING",26,25407,35.1,70,""],["SHP-2026-4256","D12","NL-Rotterdam","BRAKE-ROTOR",22,24635,28.6,0,""],["SHP-2026-4263","D09","DE-Bremerhaven","BRAKE-ROTOR",23,25804,29.9,40,""],["SHP-2026-4255","D10","DE-Bremerhaven","CAST-HOUSING",25,24592,33.75,50,""],["SHP-2026-4257","D12","SE-Gothenburg","CAST-HOUSING",26,25592,35.1,60,""],["SHP-2026-4266","D10","UK-Felixstowe","ALT-STATOR",30,25705,42.0,0,""],["SHP-2026-4269","D14","SE-Gothenburg","CAST-HOUSING",25,24391,33.75,0,"reslotted mid-load"],["SHP-2026-4270","D12","NL-Rotterdam","ALT-STATOR",29,24841,40.6,0,""],["SHP-2026-4267","D14","DE-Bremerhaven","ALT-STATOR",28,24011,39.2,60,""],["SHP-2026-4271","D13","NL-Rotterdam","TRIM-PANEL",31,4615,65.1,0,"dunnage added"],["SHP-2026-4282","D10","NL-Rotterdam","CAST-HOUSING",25,24574,33.75,0,"double-stack refused by driver"],["SHP-2026-4278","D10","SE-Gothenburg","BRAKE-ROTOR",22,24638,28.6,40,"reslotted mid-load"],["SHP-2026-4283","D12","SE-Gothenburg","ALT-STATOR",30,25722,42.0,80,""],["SHP-2026-4274","D09","SE-Gothenburg","ALT-STATOR",28,24026,39.2,60,"waiting on QA hold release"]];
 
-			// ── SKU height profiles (simulated) ──
-			const SKU_HEIGHTS = {
-				'ALT-STATOR': { mean: 1.28, std: 0.06, canStack: true },
-				'BRAKE-ROTOR': { mean: 1.35, std: 0.04, canStack: false },
-				'CAST-HOUSING': { mean: 1.32, std: 0.05, canStack: false },
-				'HARNESS-ASSY': { mean: 1.26, std: 0.08, canStack: true },
-				'PLASTIC-CLIP': { mean: 1.05, std: 0.07, canStack: true },
-				'SENSOR-MOD': { mean: 0.95, std: 0.06, canStack: true },
-				'TRIM-PANEL': { mean: 1.08, std: 0.09, canStack: true }
-			};
+// ── Container spec ──
+const C={L:12.03,W:2.35,H:2.69,vol:67,kg:26000,lim:2.62,rows:10,pl:1.2,pw:1.0};
 
-			// Seeded PRNG for reproducible heights
-			function mulberry32(a) {
-				return function () {
-					a |= 0;
-					a = (a + 0x6d2b79f5) | 0;
-					let t = Math.imul(a ^ (a >>> 15), 1 | a);
-					t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-					return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-				};
-			}
+// ── SKU height profiles (simulated) ──
+const SKU_HEIGHTS={
+  'ALT-STATOR':{mean:1.28,std:0.06,canStack:true},
+  'BRAKE-ROTOR':{mean:1.35,std:0.04,canStack:false},
+  'CAST-HOUSING':{mean:1.32,std:0.05,canStack:false},
+  'HARNESS-ASSY':{mean:1.26,std:0.08,canStack:true},
+  'PLASTIC-CLIP':{mean:1.05,std:0.07,canStack:true},
+  'SENSOR-MOD':{mean:0.95,std:0.06,canStack:true},
+  'TRIM-PANEL':{mean:1.08,std:0.09,canStack:true}
+};
 
-			function genHeights(n, sku, seed) {
-				const rng = mulberry32(seed),
-					prof = SKU_HEIGHTS[sku] || { mean: 1.2, std: 0.08, canStack: true };
-				const heights = [];
-				for (let i = 0; i < n; i++) {
-					const u1 = rng(),
-						u2 = rng();
-					const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
-					heights.push(Math.max(0.6, Math.min(1.55, prof.mean + z * prof.std)));
-				}
-				return heights;
-			}
+// Seeded PRNG for reproducible heights
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 
-			// ── Loading algorithm (same as index.html) ──
-			function loadSim(heights, canStack) {
-				const N = heights.length,
-					rows = [],
-					steps = [],
-					dead = [];
-				let r = 0;
-				const seq = [...Array(N).keys()];
-				const lim = canStack ? C.lim : 999;
-				seq.forEach((p) => {
-					for (;;) {
-						if (r >= C.rows) {
-							steps.push({ p, left: true });
-							return;
-						}
-						const row = rows[r] || (rows[r] = {});
-						const put = (s) => {
-							row[s] = p;
-							steps.push({ p, row: r, slot: s });
-						};
-						if (row.fl == null) {
-							put('fl');
-							return;
-						}
-						if (row.fr == null) {
-							put('fr');
-							return;
-						}
-						if (canStack) {
-							if (row.tl == null && heights[row.fl] + heights[p] <= lim) {
-								put('tl');
-								return;
-							}
-							if (row.tr == null && heights[row.fr] + heights[p] <= lim) {
-								put('tr');
-								return;
-							}
-						}
-						if (row.tl == null) dead.push({ row: r, slot: 'tl' });
-						if (row.tr == null) dead.push({ row: r, slot: 'tr' });
-						r++;
-					}
-				});
-				const done = steps.filter((s) => !s.left);
-				return {
-					steps,
-					dead,
-					rows,
-					loaded: done.length,
-					left: steps.filter((s) => s.left).length,
-					vol: done.reduce((a, s) => a + C.pl * C.pw * heights[s.p], 0)
-				};
-			}
+function genHeights(n,sku,seed){
+  const rng=mulberry32(seed),prof=SKU_HEIGHTS[sku]||{mean:1.2,std:0.08,canStack:true};
+  const heights=[];
+  for(let i=0;i<n;i++){
+    const u1=rng(),u2=rng();
+    const z=Math.sqrt(-2*Math.log(u1))*Math.cos(2*Math.PI*u2);
+    heights.push(Math.max(0.6,Math.min(1.55,prof.mean+z*prof.std)));
+  }
+  return heights;
+}
 
-			// Try all single swaps to find the best improvement
-			function findBestSwap(heights, canStack) {
-				const base = loadSim(heights, canStack);
-				if (base.left === 0) return { base, best: base, swapFrom: -1, swapTo: -1, improved: false };
-				let best = base,
-					swapFrom = -1,
-					swapTo = -1;
-				const N = heights.length;
-				for (let i = 0; i < N && i < 30; i++) {
-					for (let j = i + 1; j < N && j < i + 20; j++) {
-						const h2 = [...heights];
-						[h2[i], h2[j]] = [h2[j], h2[i]];
-						const r = loadSim(h2, canStack);
-						if (
-							r.loaded > best.loaded ||
-							(r.loaded === best.loaded && r.dead.length < best.dead.length)
-						) {
-							best = r;
-							swapFrom = i;
-							swapTo = j;
-						}
-					}
-				}
-				return { base, best, swapFrom, swapTo, improved: best.loaded > base.loaded };
-			}
+// ── Loading algorithm (same as index.html) ──
+function loadSim(heights,canStack){
+  const N=heights.length,rows=[],steps=[],dead=[];
+  let r=0;
+  const seq=[...Array(N).keys()];
+  const lim=canStack?C.lim:999;
+  seq.forEach(p=>{
+    for(;;){
+      if(r>=C.rows){steps.push({p,left:true});return}
+      const row=rows[r]||(rows[r]={});
+      const put=s=>{row[s]=p;steps.push({p,row:r,slot:s})};
+      if(row.fl==null){put('fl');return}
+      if(row.fr==null){put('fr');return}
+      if(canStack){
+        if(row.tl==null&&heights[row.fl]+heights[p]<=lim){put('tl');return}
+        if(row.tr==null&&heights[row.fr]+heights[p]<=lim){put('tr');return}
+      }
+      if(row.tl==null)dead.push({row:r,slot:'tl'});
+      if(row.tr==null)dead.push({row:r,slot:'tr'});
+      r++;
+    }
+  });
+  const done=steps.filter(s=>!s.left);
+  return{steps,dead,rows,loaded:done.length,left:steps.filter(s=>s.left).length,
+    vol:done.reduce((a,s)=>a+C.pl*C.pw*heights[s.p],0)};
+}
 
-			// ── Run fleet simulation ──
-			const results = FLEET.map((f, idx) => {
-				const [id, door, dest, sku, pallets, kg, vol, fill, notes] = f;
-				const seed = parseInt(id.replace(/\D/g, '')) % 100000;
-				const prof = SKU_HEIGHTS[sku] || { canStack: true };
-				const heights = genHeights(pallets, sku, seed);
-				const sim = findBestSwap(heights, prof.canStack);
-				const payloadPct = Math.round((kg / C.kg) * 100);
-				const volPct = Math.round((vol / C.vol) * 100);
-				const weightBound = payloadPct >= 90;
-				return {
-					idx,
-					id,
-					door,
-					dest,
-					sku,
-					pallets,
-					kg,
-					vol,
-					fill,
-					notes,
-					heights,
-					planned: sim.base.loaded,
-					left: sim.base.left,
-					dead: sim.base.dead.length,
-					bestLoaded: sim.best.loaded,
-					bestLeft: sim.best.left || 0,
-					bestDead: sim.best.dead?.length || 0,
-					improved: sim.improved,
-					swapFrom: sim.swapFrom,
-					swapTo: sim.swapTo,
-					payloadPct,
-					volPct,
-					weightBound,
-					status: sim.base.left === 0 ? 'ok' : sim.improved ? 'fixable' : 'stuck',
-					simVol: sim.base.vol,
-					bestVol: sim.best.vol,
-					canStack: prof.canStack
-				};
-			});
+// Try all single swaps to find the best improvement
+function findBestSwap(heights,canStack){
+  const base=loadSim(heights,canStack);
+  if(base.left===0)return{base,best:base,swapFrom:-1,swapTo:-1,improved:false};
+  let best=base,swapFrom=-1,swapTo=-1;
+  const N=heights.length;
+  for(let i=0;i<N&&i<30;i++){
+    for(let j=i+1;j<N&&j<i+20;j++){
+      const h2=[...heights];[h2[i],h2[j]]=[h2[j],h2[i]];
+      const r=loadSim(h2,canStack);
+      if(r.loaded>best.loaded||(r.loaded===best.loaded&&r.dead.length<best.dead.length)){
+        best=r;swapFrom=i;swapTo=j;
+      }
+    }
+  }
+  return{base,best,swapFrom,swapTo,improved:best.loaded>base.loaded};
+}
 
-			// ── KPIs ──
-			const ok = results.filter((r) => r.status === 'ok').length;
-			const fixable = results.filter((r) => r.status === 'fixable').length;
-			const stuck = results.filter((r) => r.status === 'stuck').length;
-			const totalLeft = results.reduce((a, r) => a + r.left, 0);
-			const totalSaved = results.filter((r) => r.improved).reduce((a, r) => a + r.left, 0);
-			const weightBound = results.filter((r) => r.weightBound).length;
+// ── Run fleet simulation ──
+const results=FLEET.map((f,idx)=>{
+  const [id,door,dest,sku,pallets,kg,vol,fill,notes]=f;
+  const seed=parseInt(id.replace(/\D/g,''))%100000;
+  const prof=SKU_HEIGHTS[sku]||{canStack:true};
+  const heights=genHeights(pallets,sku,seed);
+  const sim=findBestSwap(heights,prof.canStack);
+  const payloadPct=Math.round(kg/C.kg*100);
+  const volPct=Math.round(vol/C.vol*100);
+  const weightBound=payloadPct>=90;
+  return{idx,id,door,dest,sku,pallets,kg,vol,fill,notes,heights,
+    planned:sim.base.loaded,left:sim.base.left,dead:sim.base.dead.length,
+    bestLoaded:sim.best.loaded,bestLeft:sim.best.left||0,bestDead:sim.best.dead?.length||0,
+    improved:sim.improved,swapFrom:sim.swapFrom,swapTo:sim.swapTo,
+    payloadPct,volPct,weightBound,
+    status:sim.base.left===0?'ok':sim.improved?'fixable':'stuck',
+    simVol:sim.base.vol,bestVol:sim.best.vol,canStack:prof.canStack};
+});
 
-			document.getElementById('kpis').innerHTML = `
+// ── KPIs ──
+const ok=results.filter(r=>r.status==='ok').length;
+const fixable=results.filter(r=>r.status==='fixable').length;
+const stuck=results.filter(r=>r.status==='stuck').length;
+const totalLeft=results.reduce((a,r)=>a+r.left,0);
+const totalSaved=results.filter(r=>r.improved).reduce((a,r)=>a+r.left,0);
+const weightBound=results.filter(r=>r.weightBound).length;
+
+document.getElementById('kpis').innerHTML=`
   <div class="kpi"><div class="kl">Containers</div><div class="kv">83</div><div class="kn">export, August 2026</div></div>
   <div class="kpi"><div class="kl">All pallets fit</div><div class="kv" style="color:var(--green)">${ok}</div><div class="kn">no sequencing issue</div></div>
   <div class="kpi"><div class="kl">Fixable by swap</div><div class="kv" style="color:var(--amber)">${fixable}</div><div class="kn">single swap saves a pallet</div></div>
@@ -1043,130 +234,99 @@
   <div class="kpi"><div class="kl">Pallets at risk</div><div class="kv">${totalLeft}</div><div class="kn">${totalSaved} recoverable</div></div>
   <div class="kpi"><div class="kl">≥90% payload</div><div class="kv">${weightBound}</div><div class="kn">weight-bound loads</div></div>`;
 
-			// ── Filters ──
-			const skus = [...new Set(FLEET.map((f) => f[3]))].sort();
-			let filterSku = 'ALL',
-				filterStatus = 'ALL';
-			function renderFilters() {
-				const fEl = document.getElementById('filters');
-				fEl.innerHTML = `<label>SKU</label>
-    <button class="fbtn ${filterSku === 'ALL' ? 'act' : ''}" onclick="setSku('ALL')">All</button>
-    ${skus.map((s) => `<button class="fbtn ${filterSku === s ? 'act' : ''}" onclick="setSku('${s}')">${s}</button>`).join('')}
+// ── Filters ──
+const skus=[...new Set(FLEET.map(f=>f[3]))].sort();
+let filterSku='ALL',filterStatus='ALL';
+function renderFilters(){
+  const fEl=document.getElementById('filters');
+  fEl.innerHTML=`<label>SKU</label>
+    <button class="fbtn ${filterSku==='ALL'?'act':''}" onclick="setSku('ALL')">All</button>
+    ${skus.map(s=>`<button class="fbtn ${filterSku===s?'act':''}" onclick="setSku('${s}')">${s}</button>`).join('')}
     <div style="width:1px;height:18px;background:var(--rule);margin:0 4px"></div>
     <label>Status</label>
-    <button class="fbtn ${filterStatus === 'ALL' ? 'act' : ''}" onclick="setStatus('ALL')">All</button>
-    <button class="fbtn ${filterStatus === 'ok' ? 'act' : ''}" onclick="setStatus('ok')">OK</button>
-    <button class="fbtn ${filterStatus === 'fixable' ? 'act' : ''}" onclick="setStatus('fixable')">Fixable</button>
-    <button class="fbtn ${filterStatus === 'stuck' ? 'act' : ''}" onclick="setStatus('stuck')">Stuck</button>`;
-			}
-			function setSku(s) {
-				filterSku = s;
-				renderFilters();
-				renderTable();
-			}
-			function setStatus(s) {
-				filterStatus = s;
-				renderFilters();
-				renderTable();
-			}
+    <button class="fbtn ${filterStatus==='ALL'?'act':''}" onclick="setStatus('ALL')">All</button>
+    <button class="fbtn ${filterStatus==='ok'?'act':''}" onclick="setStatus('ok')">OK</button>
+    <button class="fbtn ${filterStatus==='fixable'?'act':''}" onclick="setStatus('fixable')">Fixable</button>
+    <button class="fbtn ${filterStatus==='stuck'?'act':''}" onclick="setStatus('stuck')">Stuck</button>`;
+}
+function setSku(s){filterSku=s;renderFilters();renderTable()}
+function setStatus(s){filterStatus=s;renderFilters();renderTable()}
 
-			// ── Table ──
-			let sortCol = 'status',
-				sortAsc = true,
-				selected = null;
-			const cols = [
-				{ key: 'id', label: 'Shipment', w: '130px' },
-				{ key: 'sku', label: 'SKU' },
-				{ key: 'pallets', label: 'Pallets', num: true },
-				{ key: 'payloadPct', label: 'Payload', num: true },
-				{ key: 'volPct', label: 'Vol', num: true },
-				{ key: 'planned', label: 'Planned', num: true },
-				{ key: 'bestLoaded', label: 'Best', num: true },
-				{ key: 'status', label: 'Status' }
-			];
+// ── Table ──
+let sortCol='status',sortAsc=true,selected=null;
+const cols=[
+  {key:'id',label:'Shipment',w:'130px'},
+  {key:'sku',label:'SKU'},
+  {key:'pallets',label:'Pallets',num:true},
+  {key:'payloadPct',label:'Payload',num:true},
+  {key:'volPct',label:'Vol',num:true},
+  {key:'planned',label:'Planned',num:true},
+  {key:'bestLoaded',label:'Best',num:true},
+  {key:'status',label:'Status'}
+];
 
-			function renderTable() {
-				document.getElementById('thead').innerHTML =
-					'<tr>' +
-					cols
-						.map(
-							(c) =>
-								`<th class="${sortCol === c.key ? 'sorted' : ''}${sortCol === c.key && sortAsc ? ' asc' : ''}" onclick="sort('${c.key}')">${c.label}</th>`
-						)
-						.join('') +
-					'</tr>';
+function renderTable(){
+  document.getElementById('thead').innerHTML='<tr>'+cols.map(c=>
+    `<th class="${sortCol===c.key?'sorted':''}${sortCol===c.key&&sortAsc?' asc':''}" onclick="sort('${c.key}')">${c.label}</th>`
+  ).join('')+'</tr>';
 
-				let data = results.filter((r) => {
-					if (filterSku !== 'ALL' && r.sku !== filterSku) return false;
-					if (filterStatus !== 'ALL' && r.status !== filterStatus) return false;
-					return true;
-				});
-				data.sort((a, b) => {
-					let va = a[sortCol],
-						vb = b[sortCol];
-					if (sortCol === 'status') {
-						va = { stuck: 0, fixable: 1, ok: 2 }[va];
-						vb = { stuck: 0, fixable: 1, ok: 2 }[vb];
-					}
-					if (typeof va === 'string') return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
-					return sortAsc ? va - vb : vb - va;
-				});
+  let data=results.filter(r=>{
+    if(filterSku!=='ALL'&&r.sku!==filterSku)return false;
+    if(filterStatus!=='ALL'&&r.status!==filterStatus)return false;
+    return true;
+  });
+  data.sort((a,b)=>{
+    let va=a[sortCol],vb=b[sortCol];
+    if(sortCol==='status'){va={stuck:0,fixable:1,ok:2}[va];vb={stuck:0,fixable:1,ok:2}[vb]}
+    if(typeof va==='string')return sortAsc?va.localeCompare(vb):vb.localeCompare(va);
+    return sortAsc?va-vb:vb-va;
+  });
 
-				document.getElementById('tbody').innerHTML = data
-					.map((r) => {
-						const tag =
-							r.status === 'ok'
-								? '<span class="tag t-ok">OK</span>'
-								: r.status === 'fixable'
-									? `<span class="tag t-fix">SWAP SAVES ${r.left}</span>`
-									: `<span class="tag t-stuck">${r.left} LEFT</span>`;
-						const payBar = `<span class="bar-bg"><span class="bar-fg" style="width:${Math.min(100, r.payloadPct)}%;background:${r.payloadPct >= 90 ? 'var(--amber)' : 'var(--accent)'}"></span></span> <span class="mono" style="font-size:10px">${r.payloadPct}%</span>`;
-						const volBar = `<span class="bar-bg"><span class="bar-fg" style="width:${Math.min(100, r.volPct)}%;background:var(--purple)"></span></span> <span class="mono" style="font-size:10px">${r.volPct}%</span>`;
-						return `<tr class="${selected === r.idx ? 'selected' : ''}" onclick="showDetail(${r.idx})">
+  document.getElementById('tbody').innerHTML=data.map(r=>{
+    const tag=r.status==='ok'?'<span class="tag t-ok">OK</span>'
+      :r.status==='fixable'?`<span class="tag t-fix">SWAP SAVES ${r.left}</span>`
+      :`<span class="tag t-stuck">${r.left} LEFT</span>`;
+    const payBar=`<span class="bar-bg"><span class="bar-fg" style="width:${Math.min(100,r.payloadPct)}%;background:${r.payloadPct>=90?'var(--amber)':'var(--accent)'}"></span></span> <span class="mono" style="font-size:10px">${r.payloadPct}%</span>`;
+    const volBar=`<span class="bar-bg"><span class="bar-fg" style="width:${Math.min(100,r.volPct)}%;background:var(--purple)"></span></span> <span class="mono" style="font-size:10px">${r.volPct}%</span>`;
+    return `<tr class="${selected===r.idx?'selected':''}" onclick="showDetail(${r.idx})">
       <td class="mono" style="font-size:11px">${r.id}</td>
       <td style="font-size:11px">${r.sku}</td>
       <td class="mono">${r.pallets}</td>
       <td>${payBar}</td>
       <td>${volBar}</td>
       <td class="mono">${r.planned}/${r.pallets}</td>
-      <td class="mono" style="color:${r.improved ? 'var(--green)' : 'var(--muted)'}">${r.bestLoaded}/${r.pallets}</td>
+      <td class="mono" style="color:${r.improved?'var(--green)':'var(--muted)'}">${r.bestLoaded}/${r.pallets}</td>
       <td>${tag}</td></tr>`;
-					})
-					.join('');
-			}
-			function sort(key) {
-				if (sortCol === key) sortAsc = !sortAsc;
-				else {
-					sortCol = key;
-					sortAsc = key === 'status' ? true : false;
-				}
-				renderTable();
-			}
+  }).join('');
+}
+function sort(key){
+  if(sortCol===key)sortAsc=!sortAsc;
+  else{sortCol=key;sortAsc=key==='status'?true:false}
+  renderTable();
+}
 
-			// ── Detail panel ──
-			function showDetail(idx) {
-				selected = idx;
-				renderTable();
-				const r = results[idx];
-				const heights = r.heights;
-				const maxH = Math.max(...heights);
-				const palletBars = heights
-					.map((h, i) => {
-						const pct = Math.round((h / 1.6) * 80);
-						const col = h >= 1.4 ? '#8B5CF6' : h <= 1.15 ? '#2DD4BF' : '#3B82F6';
-						const isLeft = i >= r.planned && r.left > 0;
-						return `<div class="pallet${isLeft ? ' left-behind' : ''}" title="P-${String(i + 1).padStart(3, '0')} · ${h.toFixed(2)} m"><div class="bar" style="height:${pct}px;background:${col}"></div></div>`;
-					})
-					.join('');
+// ── Detail panel ──
+function showDetail(idx){
+  selected=idx;
+  renderTable();
+  const r=results[idx];
+  const heights=r.heights;
+  const maxH=Math.max(...heights);
+  const palletBars=heights.map((h,i)=>{
+    const pct=Math.round(h/1.6*80);
+    const col=h>=1.40?'#8B5CF6':h<=1.15?'#2DD4BF':'#3B82F6';
+    const isLeft=i>=r.planned&&r.left>0;
+    return `<div class="pallet${isLeft?' left-behind':''}" title="P-${String(i+1).padStart(3,'0')} · ${h.toFixed(2)} m"><div class="bar" style="height:${pct}px;background:${col}"></div></div>`;
+  }).join('');
 
-				document.getElementById('detail').innerHTML = `<div class="detail">
+  document.getElementById('detail').innerHTML=`<div class="detail">
     <button class="back" onclick="clearDetail()">← Fleet overview</button>
     <div class="dh">${r.id} · ${r.dest}</div>
-    <div class="ds">${r.sku} · ${r.pallets} pallets · ${(r.kg / 1000).toFixed(1)}t · ${r.vol} m³ declared${r.notes ? ' · ' + r.notes : ''}</div>
+    <div class="ds">${r.sku} · ${r.pallets} pallets · ${(r.kg/1000).toFixed(1)}t · ${r.vol} m³ declared${r.notes?' · '+r.notes:''}</div>
 
     <div class="d-kpis">
-      <div class="dk"><div class="kl">Load plan (sim)</div><div class="kv" style="color:${r.left ? 'var(--amber)' : 'var(--green)'}">${r.planned}/${r.pallets}</div><div class="kn">${r.dead} stack positions lost</div></div>
-      <div class="dk${r.improved ? ' best' : ''}"><div class="kl">${r.improved ? 'Best swap (sim)' : 'No improvement'}</div><div class="kv" style="color:${r.improved ? 'var(--green)' : 'var(--muted)'}">${r.bestLoaded}/${r.pallets}</div><div class="kn">${r.improved ? 'swap P-' + String(r.swapFrom + 1).padStart(3, '0') + ' ↔ P-' + String(r.swapTo + 1).padStart(3, '0') : 'all swaps tried'}</div></div>
+      <div class="dk"><div class="kl">Load plan (sim)</div><div class="kv" style="color:${r.left?'var(--amber)':'var(--green)'}">${r.planned}/${r.pallets}</div><div class="kn">${r.dead} stack positions lost</div></div>
+      <div class="dk${r.improved?' best':''}"><div class="kl">${r.improved?'Best swap (sim)':'No improvement'}</div><div class="kv" style="color:${r.improved?'var(--green)':'var(--muted)'}">${r.bestLoaded}/${r.pallets}</div><div class="kn">${r.improved?'swap P-'+String(r.swapFrom+1).padStart(3,'0')+' ↔ P-'+String(r.swapTo+1).padStart(3,'0'):'all swaps tried'}</div></div>
     </div>
 
     <div class="sec-hd">Simulated pallet heights · ${r.sku}</div>
@@ -1174,32 +334,30 @@
       <span><i style="background:#2DD4BF"></i>≤1.15 m</span>
       <span><i style="background:#3B82F6"></i>medium</span>
       <span><i style="background:#8B5CF6"></i>≥1.40 m</span>
-      ${r.left ? '<span><i style="background:transparent;outline:1px dashed var(--red)"></i>left at dock</span>' : ''}
+      ${r.left?'<span><i style="background:transparent;outline:1px dashed var(--red)"></i>left at dock</span>':''}
     </div>
     <div class="pallet-row">${palletBars}</div>
 
     <div class="sec-hd">Load constraints</div>
     <div class="d-kpis">
-      <div class="dk"><div class="kl">Payload</div><div class="kv">${r.payloadPct}%</div><div class="kn">${r.weightBound ? 'Weight-bound' : 'Volume-bound'}</div></div>
+      <div class="dk"><div class="kl">Payload</div><div class="kv">${r.payloadPct}%</div><div class="kn">${r.weightBound?'Weight-bound':'Volume-bound'}</div></div>
       <div class="dk"><div class="kl">Declared volume</div><div class="kv">${r.volPct}%</div><div class="kn">${r.vol} / ${C.vol} m³</div></div>
     </div>
     <div class="d-kpis">
-      <div class="dk"><div class="kl">Can stack</div><div class="kv" style="font-size:16px">${r.canStack ? 'Yes (assumed)' : 'No'}</div><div class="kn">${r.canStack ? 'limit ' + C.lim + ' m' : 'single-high only'}</div></div>
-      <div class="dk"><div class="kl">Keyed fill</div><div class="kv" style="font-size:16px">${r.fill ? r.fill + '%' : '—'}</div><div class="kn">operator entry</div></div>
+      <div class="dk"><div class="kl">Can stack</div><div class="kv" style="font-size:16px">${r.canStack?'Yes (assumed)':'No'}</div><div class="kn">${r.canStack?'limit '+C.lim+' m':'single-high only'}</div></div>
+      <div class="dk"><div class="kl">Keyed fill</div><div class="kv" style="font-size:16px">${r.fill?r.fill+'%':'—'}</div><div class="kn">operator entry</div></div>
     </div>
 
-    <div class="note"><b style="color:var(--purple)">All pallet heights are generated</b> from a per-SKU distribution (${SKU_HEIGHTS[r.sku]?.mean.toFixed(2) || '?'} m ± ${SKU_HEIGHTS[r.sku]?.std.toFixed(2) || '?'} m). The exporter has never measured pallet dimensions. The loading algorithm, stacking permission${r.canStack ? '' : ' (denied for ' + r.sku + ')'} and swap search are simulated. This shows the <em>shape</em> of the opportunity, not measured outcomes.</div>
+    <div class="note"><b style="color:var(--purple)">All pallet heights are generated</b> from a per-SKU distribution (${SKU_HEIGHTS[r.sku]?.mean.toFixed(2)||'?'} m ± ${SKU_HEIGHTS[r.sku]?.std.toFixed(2)||'?'} m). The exporter has never measured pallet dimensions. The loading algorithm, stacking permission${r.canStack?'':' (denied for '+r.sku+')'} and swap search are simulated. This shows the <em>shape</em> of the opportunity, not measured outcomes.</div>
   </div>`;
-			}
-			function clearDetail() {
-				selected = null;
-				renderTable();
-				document.getElementById('detail').innerHTML =
-					'<div class="empty-detail">Select a container to see its simulation</div>';
-			}
+}
+function clearDetail(){
+  selected=null;
+  renderTable();
+  document.getElementById('detail').innerHTML='<div class="empty-detail">Select a container to see its simulation</div>';
+}
 
-			renderFilters();
-			renderTable();
-		</script>
-	</body>
-</html>
+renderFilters();
+renderTable();
+</script>
+</body></html>
