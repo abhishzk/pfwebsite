@@ -219,8 +219,8 @@ export const caseStudies: CaseStudy[] = [
 		},
 		metrics: [
 			{ value: '83', label: 'export shipments analysed' },
-			{ value: '64 / 83', label: 'near the payload ceiling' },
-			{ value: '35 / 36', label: 'simulated stuck loads are single-high families' },
+			{ value: '64 / 83', label: 'containers already near their weight limit' },
+			{ value: '35 / 36', label: 'simulated stuck loads are parts that cannot be stacked' },
 			{ value: '5', label: 'linked prototype views' }
 		]
 	},

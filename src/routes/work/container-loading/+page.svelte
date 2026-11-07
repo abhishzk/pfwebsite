@@ -104,16 +104,58 @@
 <main id="main-content">
 	<CaseStudyHero {study} />
 
+	<CaseStudySection title="In short." tone="soft">
+		<dl class="brief">
+			<div>
+				<dt>The problem</dt>
+				<dd>
+					An automotive parts exporter believed its shipping containers left the plant 30% empty and
+					asked for an alert when one was under-filled.
+				</dd>
+			</div>
+			<div>
+				<dt>The catch</dt>
+				<dd>
+					By the time a container is full, the doors are sealed and the driver leaves within
+					minutes. An alert then changes nothing.
+				</dd>
+			</div>
+			<div>
+				<dt>What I built</dt>
+				<dd>
+					A browser prototype that checks pallets while they still wait outside the container, and
+					tells the shift lead which pallet to load first so that everything fits.
+				</dd>
+			</div>
+			<div>
+				<dt>What I found</dt>
+				<dd>
+					In the 83 real shipments, most of the visible empty space is really a weight limit. In my
+					simulation, most loads that do not fit cannot be fixed by reordering at all: stacking
+					rules matter more. Pallet heights are simulated, and the prototype says so on every
+					screen.
+				</dd>
+			</div>
+			<div>
+				<dt>Try it</dt>
+				<dd>
+					Open the Container demo below, press <b>Watch the load</b>, and accept or override the
+					recommendation when it appears.
+				</dd>
+			</div>
+		</dl>
+	</CaseStudySection>
+
 	<CaseStudySection title="The customer asked for an alert nobody could act on.">
 		<p>
-			This is a deliberate product study, built from an industrial computer-vision brief. The
-			customer, an automotive parts exporter, believed its containers left the plant 30% empty. The
-			VP of Operations wanted a real-time alert when a container was going out under-filled.
+			This is a self-directed product study, built from a customer brief I was given. The customer,
+			an automotive parts exporter, believed its containers left the plant 30% empty. The VP of
+			Operations wanted a real-time alert when a container was going out under-filled.
 		</p>
 		<p>
 			The logistics manager pushed back: the doors are sealed and the driver is moving about four
-			minutes after the last pallet goes in. In my first submission I agreed with him and set the
-			alert aside, focusing instead on the shipping export.
+			minutes after the last pallet goes in. My first answer agreed with him and set the alert
+			aside, focusing instead on the shipping export.
 		</p>
 		<DecisionBlock title="The real question was when to alert, not whether.">
 			<p>
@@ -395,6 +437,49 @@
 <EngineeringNote bind:open={noteOpen} />
 
 <style>
+	.brief {
+		display: grid;
+		margin: 0;
+		border: 1px solid var(--line);
+		border-radius: var(--radius);
+		overflow: hidden;
+		background: var(--surface);
+	}
+
+	.brief div {
+		display: grid;
+		grid-template-columns: 130px 1fr;
+		gap: 20px;
+		padding: 18px 22px;
+		border-bottom: 1px solid var(--line);
+	}
+
+	.brief div:last-child {
+		border-bottom: 0;
+	}
+
+	.brief dt {
+		padding-top: 3px;
+		color: var(--accent-strong);
+		font-family: 'IBM Plex Mono', ui-monospace, monospace;
+		font-size: 0.72rem;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+	}
+
+	.brief dd {
+		margin: 0;
+		color: var(--ink);
+		line-height: 1.65;
+	}
+
+	@media (max-width: 560px) {
+		.brief div {
+			grid-template-columns: 1fr;
+			gap: 4px;
+		}
+	}
+
 	.finding-grid,
 	.trust-grid {
 		display: grid;
