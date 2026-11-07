@@ -60,12 +60,20 @@
 			'@type': 'Person',
 			name: 'Abhishek Kumar',
 			alternateName: 'abhishzk',
-			url: 'https://abhishzk.com'
+			jobTitle: 'Product Manager',
+			url: 'https://abhishzk.com',
+			sameAs: ['https://www.linkedin.com/in/abhishzk/']
 		},
 		dateCreated: '2026-09-30',
 		dateModified: '2026-11-07',
 		learningResourceType: 'Product management case study',
-		about: ['Product Management', 'Computer Vision', 'Logistics', 'Prototyping', 'Simulation']
+		about: [
+			'Product Management',
+			'Product Discovery',
+			'Computer Vision',
+			'Logistics',
+			'Prototyping'
+		]
 	};
 	const structuredDataHtml = `<script type="application/ld+json">${JSON.stringify(
 		structuredData
@@ -73,7 +81,7 @@
 </script>
 
 <svelte:head>
-	<title>Container Loading Concept Case Study | Abhishek Kumar</title>
+	<title>Container Loading Product Case Study | Abhishek Kumar</title>
 	<meta name="description" content={description} />
 	<link rel="canonical" href="https://abhishzk.com/work/container-loading" />
 	<meta property="og:type" content="article" />

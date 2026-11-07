@@ -34,7 +34,9 @@
 			'@type': 'Person',
 			name: 'Abhishek Kumar',
 			alternateName: 'abhishzk',
-			url: 'https://abhishzk.com'
+			jobTitle: 'Product Manager',
+			url: 'https://abhishzk.com',
+			sameAs: ['https://www.linkedin.com/in/abhishzk/']
 		},
 		dateCreated: '2026-06-15',
 		dateModified: '2026-09-09',

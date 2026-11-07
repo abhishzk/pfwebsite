@@ -25,7 +25,9 @@
 			'@type': 'Person',
 			name: 'Abhishek Kumar',
 			alternateName: 'abhishzk',
-			url: 'https://abhishzk.com'
+			jobTitle: 'Product Manager',
+			url: 'https://abhishzk.com',
+			sameAs: ['https://www.linkedin.com/in/abhishzk/']
 		},
 		dateModified: '2026-11-07',
 		about: ['Product Management', 'Data Product', 'Visa Sponsorship', 'Two-sided Marketplace']

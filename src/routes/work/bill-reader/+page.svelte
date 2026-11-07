@@ -23,7 +23,9 @@
 			'@type': 'Person',
 			name: 'Abhishek Kumar',
 			alternateName: 'abhishzk',
-			url: 'https://abhishzk.com'
+			jobTitle: 'Product Manager',
+			url: 'https://abhishzk.com',
+			sameAs: ['https://www.linkedin.com/in/abhishzk/']
 		},
 		dateModified: '2026-09-01',
 		about: ['Product Management', 'AI Product', 'Energy Billing', 'Human Review']
