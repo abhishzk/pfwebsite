@@ -1,283 +1,1024 @@
-<!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Fleet Analysis · 83 Export Containers</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --ground:#052D41;--panel:#0A3A52;--panel2:#0E4562;--rule:#1A5573;
-  --accent:#22A0F3;--accent-dim:rgba(34,160,243,.16);
-  --green:#34D399;--green-dim:rgba(52,211,153,.12);
-  --amber:#FBBF24;--amber-dim:rgba(251,191,36,.12);
-  --red:#F87171;--red-dim:rgba(248,113,113,.12);
-  --purple:#A78BFA;--purple-dim:rgba(167,139,250,.14);
-  --ink:#fff;--muted:#9BC1D8;--dim:#6A97B3;
-  --mono:'JetBrains Mono',ui-monospace,monospace;--sans:'Inter',system-ui,sans-serif;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--ground);color:var(--ink);font:16px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>Fleet Analysis · 83 Export Containers</title>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			:root {
+				--ground: #052d41;
+				--panel: #0a3a52;
+				--panel2: #0e4562;
+				--rule: #1a5573;
+				--accent: #22a0f3;
+				--accent-dim: rgba(34, 160, 243, 0.16);
+				--green: #34d399;
+				--green-dim: rgba(52, 211, 153, 0.12);
+				--amber: #fbbf24;
+				--amber-dim: rgba(251, 191, 36, 0.12);
+				--red: #f87171;
+				--red-dim: rgba(248, 113, 113, 0.12);
+				--purple: #a78bfa;
+				--purple-dim: rgba(167, 139, 250, 0.14);
+				--ink: #fff;
+				--muted: #9bc1d8;
+				--dim: #6a97b3;
+				--mono: 'JetBrains Mono', ui-monospace, monospace;
+				--sans: 'Inter', system-ui, sans-serif;
+			}
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				background: var(--ground);
+				color: var(--ink);
+				font: 16px/1.5 var(--sans);
+				-webkit-font-smoothing: antialiased;
+			}
 
-.topbar{display:flex;align-items:center;gap:14px;padding:10px 20px;border-bottom:1px solid var(--rule);background:var(--panel);flex-wrap:wrap}
-.logo{font:600 15px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
-.sep{width:1px;height:18px;background:var(--rule)}
-.ctx{color:var(--muted);font-size:15px}
-.ctx b{color:var(--ink);font-weight:600}
-.badge{font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:var(--green-dim);color:var(--green);margin-left:auto}
-.nav{display:flex;gap:2px;padding:0 16px;background:var(--panel);border-bottom:1px solid var(--rule);overflow-x:auto}
-.nl{color:var(--muted);padding:9px 14px;font:15px var(--sans);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap}
-.nl:hover{color:var(--ink)}.nl.act{color:var(--ink);border-bottom-color:var(--accent)}
+			.topbar {
+				display: flex;
+				align-items: center;
+				gap: 14px;
+				padding: 10px 20px;
+				border-bottom: 1px solid var(--rule);
+				background: var(--panel);
+				flex-wrap: wrap;
+			}
+			.logo {
+				font: 600 15px var(--mono);
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--accent);
+			}
+			.sep {
+				width: 1px;
+				height: 18px;
+				background: var(--rule);
+			}
+			.ctx {
+				color: var(--muted);
+				font-size: 15px;
+			}
+			.ctx b {
+				color: var(--ink);
+				font-weight: 600;
+			}
+			.badge {
+				font: 500 11.5px var(--mono);
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				padding: 3px 8px;
+				border-radius: 3px;
+				background: var(--green-dim);
+				color: var(--green);
+				margin-left: auto;
+			}
+			.nav {
+				display: flex;
+				gap: 2px;
+				padding: 0 16px;
+				background: var(--panel);
+				border-bottom: 1px solid var(--rule);
+				overflow-x: auto;
+			}
+			.nl {
+				color: var(--muted);
+				padding: 9px 14px;
+				font: 15px var(--sans);
+				text-decoration: none;
+				border-bottom: 2px solid transparent;
+				white-space: nowrap;
+			}
+			.nl:hover {
+				color: var(--ink);
+			}
+			.nl.act {
+				color: var(--ink);
+				border-bottom-color: var(--accent);
+			}
 
-.kpis{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--rule)}
-.kpi{padding:16px 20px;border-right:1px solid var(--rule)}
-.kpi:last-child{border-right:none}
-.kl{font:500 11.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
-.kv{font:600 28px/1.2 var(--mono)}
-.kn{font:12.5px var(--mono);color:var(--dim);margin-top:2px}
+			.kpis {
+				display: grid;
+				grid-template-columns: repeat(5, 1fr);
+				border-bottom: 1px solid var(--rule);
+			}
+			.kpi {
+				padding: 16px 20px;
+				border-right: 1px solid var(--rule);
+			}
+			.kpi:last-child {
+				border-right: none;
+			}
+			.kl {
+				font: 500 11.5px var(--mono);
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+				color: var(--dim);
+			}
+			.kv {
+				font: 600 28px/1.2 var(--mono);
+			}
+			.kn {
+				font: 12.5px var(--mono);
+				color: var(--dim);
+				margin-top: 2px;
+			}
 
-.content{display:grid;grid-template-columns:1fr 1fr;gap:0}
-.card{padding:20px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
-.card:nth-child(2n){border-right:none}
-.ch{font:600 16px var(--sans);margin-bottom:4px}
-.cs{font:12.5px var(--mono);color:var(--dim);margin-bottom:16px}
+			.content {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 0;
+			}
+			.card {
+				padding: 20px;
+				border-right: 1px solid var(--rule);
+				border-bottom: 1px solid var(--rule);
+			}
+			.card:nth-child(2n) {
+				border-right: none;
+			}
+			.ch {
+				font: 600 16px var(--sans);
+				margin-bottom: 4px;
+			}
+			.cs {
+				font: 12.5px var(--mono);
+				color: var(--dim);
+				margin-bottom: 16px;
+			}
 
-.scatter{position:relative;width:100%;aspect-ratio:16/10;background:var(--panel);border:1px solid var(--rule);border-radius:5px;overflow:hidden}
-.scatter canvas{width:100%;height:100%}
-.ax{position:absolute;font:11.5px var(--mono);color:var(--dim)}
-.ax-x{bottom:4px;left:50%;transform:translateX(-50%)}
-.ax-y{top:50%;left:6px;transform:rotate(-90deg) translateX(-50%);transform-origin:left center}
+			.scatter {
+				position: relative;
+				width: 100%;
+				aspect-ratio: 16/10;
+				background: var(--panel);
+				border: 1px solid var(--rule);
+				border-radius: 5px;
+				overflow: hidden;
+			}
+			.scatter canvas {
+				width: 100%;
+				height: 100%;
+			}
+			.ax {
+				position: absolute;
+				font: 11.5px var(--mono);
+				color: var(--dim);
+			}
+			.ax-x {
+				bottom: 4px;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+			.ax-y {
+				top: 50%;
+				left: 6px;
+				transform: rotate(-90deg) translateX(-50%);
+				transform-origin: left center;
+			}
 
-.bar-chart{display:flex;flex-direction:column;gap:4px}
-.bar-row{display:flex;align-items:center;gap:8px}
-.bar-label{font:12.5px var(--mono);color:var(--muted);min-width:110px;text-align:right;white-space:nowrap}
-.bar-track{flex:1;height:18px;background:var(--rule);border-radius:2px;position:relative;overflow:hidden}
-.bar-fill{height:100%;border-radius:2px;display:flex;align-items:center;padding-left:6px;font:600 11.5px var(--mono);color:var(--ground);min-width:1px;transition:width .4s}
-.bar-val{font:12.5px var(--mono);color:var(--dim);min-width:30px}
+			.bar-chart {
+				display: flex;
+				flex-direction: column;
+				gap: 4px;
+			}
+			.bar-row {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+			.bar-label {
+				font: 12.5px var(--mono);
+				color: var(--muted);
+				min-width: 110px;
+				text-align: right;
+				white-space: nowrap;
+			}
+			.bar-track {
+				flex: 1;
+				height: 18px;
+				background: var(--rule);
+				border-radius: 2px;
+				position: relative;
+				overflow: hidden;
+			}
+			.bar-fill {
+				height: 100%;
+				border-radius: 2px;
+				display: flex;
+				align-items: center;
+				padding-left: 6px;
+				font: 600 11.5px var(--mono);
+				color: var(--ground);
+				min-width: 1px;
+				transition: width 0.4s;
+			}
+			.bar-val {
+				font: 12.5px var(--mono);
+				color: var(--dim);
+				min-width: 30px;
+			}
 
-.heatmap{display:grid;gap:2px}
-.hm-cell{border-radius:2px;display:flex;align-items:center;justify-content:center;font:600 13px var(--mono);min-height:36px}
-.hm-label{font:11.5px var(--mono);color:var(--dim);display:flex;align-items:center;justify-content:center}
+			.heatmap {
+				display: grid;
+				gap: 2px;
+			}
+			.hm-cell {
+				border-radius: 2px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font: 600 13px var(--mono);
+				min-height: 36px;
+			}
+			.hm-label {
+				font: 11.5px var(--mono);
+				color: var(--dim);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
 
-.dist{display:flex;align-items:flex-end;gap:1px;height:100px;padding:8px 0}
-.dist-bar{flex:1;background:var(--accent);border-radius:1px 1px 0 0;min-width:4px;position:relative}
-.dist-bar:hover::after{content:attr(data-tip);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:var(--panel);border:1px solid var(--rule);padding:2px 6px;border-radius:3px;font:11.5px var(--mono);color:var(--ink);white-space:nowrap;z-index:2}
-.dist-axis{display:flex;justify-content:space-between;font:11.5px var(--mono);color:var(--dim);padding-top:4px}
+			.dist {
+				display: flex;
+				align-items: flex-end;
+				gap: 1px;
+				height: 100px;
+				padding: 8px 0;
+			}
+			.dist-bar {
+				flex: 1;
+				background: var(--accent);
+				border-radius: 1px 1px 0 0;
+				min-width: 4px;
+				position: relative;
+			}
+			.dist-bar:hover::after {
+				content: attr(data-tip);
+				position: absolute;
+				bottom: 100%;
+				left: 50%;
+				transform: translateX(-50%);
+				background: var(--panel);
+				border: 1px solid var(--rule);
+				padding: 2px 6px;
+				border-radius: 3px;
+				font: 11.5px var(--mono);
+				color: var(--ink);
+				white-space: nowrap;
+				z-index: 2;
+			}
+			.dist-axis {
+				display: flex;
+				justify-content: space-between;
+				font: 11.5px var(--mono);
+				color: var(--dim);
+				padding-top: 4px;
+			}
 
-.findings{background:var(--panel);border:1px solid var(--rule);border-radius:5px;padding:14px;margin-top:8px}
-.finding{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid rgba(26,85,115,.4)}
-.finding:last-child{border-bottom:none}
-.f-num{font:600 22px var(--mono);min-width:60px;color:var(--accent)}
-.f-txt{font-size:14px;color:var(--muted);line-height:1.5}
-.f-txt b{color:var(--ink)}
+			.findings {
+				background: var(--panel);
+				border: 1px solid var(--rule);
+				border-radius: 5px;
+				padding: 14px;
+				margin-top: 8px;
+			}
+			.finding {
+				display: flex;
+				gap: 10px;
+				padding: 6px 0;
+				border-bottom: 1px solid rgba(26, 85, 115, 0.4);
+			}
+			.finding:last-child {
+				border-bottom: none;
+			}
+			.f-num {
+				font: 600 22px var(--mono);
+				min-width: 60px;
+				color: var(--accent);
+			}
+			.f-txt {
+				font-size: 14px;
+				color: var(--muted);
+				line-height: 1.5;
+			}
+			.f-txt b {
+				color: var(--ink);
+			}
 
-.note{grid-column:1/-1;padding:16px 20px;font-size:13px;color:var(--dim);line-height:1.6;border-top:1px solid var(--rule);background:var(--panel)}
-.note b{color:var(--muted)}
+			.note {
+				grid-column: 1/-1;
+				padding: 16px 20px;
+				font-size: 13px;
+				color: var(--dim);
+				line-height: 1.6;
+				border-top: 1px solid var(--rule);
+				background: var(--panel);
+			}
+			.note b {
+				color: var(--muted);
+			}
 
-@media(max-width:900px){
-  .kpis{grid-template-columns:repeat(3,1fr)}
-  .kpi:nth-child(3){border-right:none}
-  .kpi:nth-child(-n+3){border-bottom:1px solid var(--rule)}
-  .content{grid-template-columns:1fr}
-  .card{border-right:none}
-}
-*{scrollbar-width:thin;scrollbar-color:#1A5573 transparent}
-</style>
-</head>
-<body>
+			@media (max-width: 900px) {
+				.kpis {
+					grid-template-columns: repeat(3, 1fr);
+				}
+				.kpi:nth-child(3) {
+					border-right: none;
+				}
+				.kpi:nth-child(-n + 3) {
+					border-bottom: 1px solid var(--rule);
+				}
+				.content {
+					grid-template-columns: 1fr;
+				}
+				.card {
+					border-right: none;
+				}
+			}
+			* {
+				scrollbar-width: thin;
+				scrollbar-color: #1a5573 transparent;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="topbar">
+			<div class="logo">Platform</div>
+			<div class="sep"></div>
+			<div class="ctx"><b>Kessler Automotive</b> · Kraków Plant 2 · Fleet analysis</div>
+			<div class="badge">Real shipping data</div>
+		</div>
+		<nav class="nav">
+			<a href="enterprise.html" class="nl">Enterprise</a>
+			<a href="fleet-simulation.html" class="nl">Fleet table</a>
+			<a href="fleet-analysis.html" class="nl act">Fleet analysis</a>
+			<a href="fleet-live.html" class="nl">Fleet live</a>
+		</nav>
 
-<div class="topbar">
-  <div class="logo">Platform</div>
-  <div class="sep"></div>
-  <div class="ctx"><b>Kessler Automotive</b> · Kraków Plant 2 · Fleet analysis</div>
-  <div class="badge">Real shipping data</div>
-</div>
-<nav class="nav">
-  <a href="enterprise.html" class="nl">Enterprise</a>
-  <a href="fleet-simulation.html" class="nl">Fleet table</a>
-  <a href="fleet-analysis.html" class="nl act">Fleet analysis</a>
-  <a href="fleet-live.html" class="nl">Fleet live</a>
-</nav>
+		<div class="kpis" id="kpis"></div>
+		<div class="content" id="content"></div>
 
-<div class="kpis" id="kpis"></div>
-<div class="content" id="content"></div>
+		<script>
+			const FLEET = [
+				[
+					'SHP-2026-4110',
+					'D09',
+					'UK-Felixstowe',
+					'ALT-STATOR',
+					30,
+					25890,
+					42.0,
+					80,
+					'dunnage added'
+				],
+				[
+					'SHP-2026-4107',
+					'D09',
+					'SE-Gothenburg',
+					'TRIM-PANEL',
+					29,
+					4122,
+					60.9,
+					0,
+					'reslotted mid-load'
+				],
+				['SHP-2026-4101', 'D12', 'NL-Rotterdam', 'CAST-HOUSING', 25, 24509, 33.75, 60, ''],
+				['SHP-2026-4116', 'D09', 'UK-Felixstowe', 'CAST-HOUSING', 26, 25416, 35.1, 50, ''],
+				[
+					'SHP-2026-4119',
+					'D10',
+					'SE-Gothenburg',
+					'BRAKE-ROTOR',
+					23,
+					25713,
+					29.9,
+					0,
+					'late trailer arrival'
+				],
+				['SHP-2026-4117', 'D13', 'DE-Bremerhaven', 'PLASTIC-CLIP', 34, 3262, 64.6, 100, ''],
+				['SHP-2026-4113', 'D12', 'NL-Rotterdam', 'CAST-HOUSING', 25, 24430, 33.75, 70, ''],
+				[
+					'SHP-2026-4120',
+					'D13',
+					'NL-Rotterdam',
+					'ALT-STATOR',
+					30,
+					25862,
+					42.0,
+					60,
+					'late trailer arrival'
+				],
+				[
+					'SHP-2026-4114',
+					'D10',
+					'SE-Gothenburg',
+					'TRIM-PANEL',
+					31,
+					4406,
+					65.1,
+					100,
+					'late trailer arrival'
+				],
+				[
+					'SHP-2026-4122',
+					'D10',
+					'DE-Bremerhaven',
+					'BRAKE-ROTOR',
+					23,
+					25823,
+					29.9,
+					60,
+					'partial - balance ships next day'
+				],
+				[
+					'SHP-2026-4127',
+					'D13',
+					'UK-Felixstowe',
+					'TRIM-PANEL',
+					31,
+					4515,
+					65.1,
+					100,
+					'partial - balance ships next day'
+				],
+				['SHP-2026-4130', 'D13', 'SE-Gothenburg', 'ALT-STATOR', 29, 24821, 40.6, 60, ''],
+				['SHP-2026-4129', 'D14', 'DE-Bremerhaven', 'ALT-STATOR', 28, 24130, 39.2, 60, ''],
+				['SHP-2026-4141', 'D11', 'UK-Felixstowe', 'ALT-STATOR', 28, 24132, 39.2, 0, ''],
+				['SHP-2026-4137', 'D13', 'DE-Bremerhaven', 'CAST-HOUSING', 25, 24434, 33.75, 50, ''],
+				['SHP-2026-4132', 'D13', 'SE-Gothenburg', 'ALT-STATOR', 29, 25055, 40.6, 60, ''],
+				['SHP-2026-4138', 'D11', 'NL-Rotterdam', 'PLASTIC-CLIP', 35, 3391, 66.5, 100, ''],
+				[
+					'SHP-2026-4134',
+					'D14',
+					'UK-Felixstowe',
+					'ALT-STATOR',
+					28,
+					24157,
+					39.2,
+					60,
+					'late trailer arrival'
+				],
+				[
+					'SHP-2026-4149',
+					'D09',
+					'DE-Bremerhaven',
+					'BRAKE-ROTOR',
+					23,
+					25880,
+					29.9,
+					0,
+					'reslotted mid-load'
+				],
+				['SHP-2026-4148', 'D13', 'NL-Rotterdam', 'ALT-STATOR', 28, 24067, 39.2, 70, ''],
+				['SHP-2026-4145', 'D09', 'SE-Gothenburg', 'CAST-HOUSING', 26, 25458, 35.1, 0, ''],
+				[
+					'SHP-2026-4150',
+					'D10',
+					'DE-Bremerhaven',
+					'HARNESS-ASSY',
+					37,
+					7847,
+					64.75,
+					100,
+					'double-stack refused by driver'
+				],
+				['SHP-2026-4144', 'D13', 'UK-Felixstowe', 'BRAKE-ROTOR', 23, 25690, 29.9, 40, ''],
+				['SHP-2026-4155', 'D11', 'NL-Rotterdam', 'ALT-STATOR', 30, 25717, 42.0, 70, ''],
+				['SHP-2026-4157', 'D13', 'DE-Bremerhaven', 'ALT-STATOR', 30, 25735, 42.0, 70, ''],
+				['SHP-2026-4164', 'D11', 'DE-Bremerhaven', 'SENSOR-MOD', 43, 11263, 66.65, 100, ''],
+				['SHP-2026-4169', 'D14', 'UK-Felixstowe', 'CAST-HOUSING', 25, 24560, 33.75, 0, ''],
+				['SHP-2026-4165', 'D09', 'DE-Bremerhaven', 'ALT-STATOR', 30, 25837, 42.0, 60, ''],
+				['SHP-2026-4171', 'D10', 'DE-Bremerhaven', 'CAST-HOUSING', 24, 23546, 32.4, 0, ''],
+				['SHP-2026-4172', 'D12', 'NL-Rotterdam', 'PLASTIC-CLIP', 33, 3123, 62.7, 100, ''],
+				['SHP-2026-4163', 'D11', 'DE-Bremerhaven', 'ALT-STATOR', 29, 24875, 40.6, 0, ''],
+				['SHP-2026-4168', 'D09', 'DE-Bremerhaven', 'TRIM-PANEL', 31, 4395, 65.1, 100, ''],
+				[
+					'SHP-2026-4174',
+					'D11',
+					'UK-Felixstowe',
+					'ALT-STATOR',
+					28,
+					24193,
+					39.2,
+					0,
+					'double-stack refused by driver'
+				],
+				[
+					'SHP-2026-4186',
+					'D14',
+					'DE-Bremerhaven',
+					'BRAKE-ROTOR',
+					21,
+					23624,
+					27.3,
+					60,
+					'double-stack refused by driver'
+				],
+				[
+					'SHP-2026-4185',
+					'D12',
+					'UK-Felixstowe',
+					'ALT-STATOR',
+					29,
+					24906,
+					40.6,
+					0,
+					'reslotted mid-load'
+				],
+				[
+					'SHP-2026-4184',
+					'D09',
+					'UK-Felixstowe',
+					'ALT-STATOR',
+					29,
+					25013,
+					40.6,
+					60,
+					'partial - balance ships next day'
+				],
+				[
+					'SHP-2026-4191',
+					'D14',
+					'UK-Felixstowe',
+					'HARNESS-ASSY',
+					37,
+					7819,
+					64.75,
+					100,
+					'reslotted mid-load'
+				],
+				[
+					'SHP-2026-4189',
+					'D13',
+					'NL-Rotterdam',
+					'PLASTIC-CLIP',
+					34,
+					3134,
+					64.6,
+					100,
+					'dunnage added'
+				],
+				[
+					'SHP-2026-4190',
+					'D11',
+					'DE-Bremerhaven',
+					'BRAKE-ROTOR',
+					22,
+					24732,
+					28.6,
+					50,
+					'waiting on QA hold release'
+				],
+				['SHP-2026-4192', 'D09', 'DE-Bremerhaven', 'CAST-HOUSING', 26, 25464, 35.1, 60, ''],
+				[
+					'SHP-2026-4194',
+					'D11',
+					'NL-Rotterdam',
+					'BRAKE-ROTOR',
+					23,
+					25855,
+					29.9,
+					50,
+					'dunnage added'
+				],
+				[
+					'SHP-2026-4187',
+					'D10',
+					'UK-Felixstowe',
+					'PLASTIC-CLIP',
+					34,
+					3231,
+					64.6,
+					100,
+					'waiting on QA hold release'
+				],
+				['SHP-2026-4195', 'D09', 'NL-Rotterdam', 'HARNESS-ASSY', 36, 7616, 63.0, 90, ''],
+				[
+					'SHP-2026-4197',
+					'D14',
+					'DE-Bremerhaven',
+					'ALT-STATOR',
+					30,
+					25837,
+					42.0,
+					60,
+					'double-stack refused by driver'
+				],
+				['SHP-2026-4199', 'D13', 'UK-Felixstowe', 'CAST-HOUSING', 26, 25444, 35.1, 50, ''],
+				['SHP-2026-4200', 'D10', 'UK-Felixstowe', 'CAST-HOUSING', 25, 24525, 33.75, 60, ''],
+				['SHP-2026-4209', 'D14', 'DE-Bremerhaven', 'ALT-STATOR', 30, 25705, 42.0, 70, ''],
+				[
+					'SHP-2026-4208',
+					'D13',
+					'DE-Bremerhaven',
+					'ALT-STATOR',
+					28,
+					24019,
+					39.2,
+					0,
+					'late trailer arrival'
+				],
+				[
+					'SHP-2026-4204',
+					'D10',
+					'SE-Gothenburg',
+					'CAST-HOUSING',
+					26,
+					25507,
+					35.1,
+					50,
+					'partial - balance ships next day'
+				],
+				[
+					'SHP-2026-4212',
+					'D09',
+					'DE-Bremerhaven',
+					'ALT-STATOR',
+					28,
+					24178,
+					39.2,
+					60,
+					'double-stack refused by driver'
+				],
+				['SHP-2026-4205', 'D10', 'UK-Felixstowe', 'BRAKE-ROTOR', 23, 25690, 29.9, 50, ''],
+				['SHP-2026-4213', 'D09', 'UK-Felixstowe', 'CAST-HOUSING', 24, 23577, 32.4, 40, ''],
+				['SHP-2026-4217', 'D14', 'UK-Felixstowe', 'ALT-STATOR', 29, 24845, 40.6, 80, ''],
+				['SHP-2026-4214', 'D10', 'SE-Gothenburg', 'CAST-HOUSING', 25, 24436, 33.75, 0, ''],
+				['SHP-2026-4225', 'D11', 'NL-Rotterdam', 'ALT-STATOR', 29, 24941, 40.6, 0, ''],
+				[
+					'SHP-2026-4227',
+					'D12',
+					'NL-Rotterdam',
+					'HARNESS-ASSY',
+					38,
+					8039,
+					66.5,
+					100,
+					'reslotted mid-load'
+				],
+				[
+					'SHP-2026-4231',
+					'D11',
+					'SE-Gothenburg',
+					'ALT-STATOR',
+					28,
+					24051,
+					39.2,
+					0,
+					'partial - balance ships next day'
+				],
+				[
+					'SHP-2026-4239',
+					'D10',
+					'NL-Rotterdam',
+					'BRAKE-ROTOR',
+					23,
+					25823,
+					29.9,
+					50,
+					'dunnage added'
+				],
+				['SHP-2026-4240', 'D11', 'UK-Felixstowe', 'ALT-STATOR', 28, 24085, 39.2, 0, ''],
+				['SHP-2026-4238', 'D10', 'NL-Rotterdam', 'PLASTIC-CLIP', 35, 3430, 66.5, 100, ''],
+				['SHP-2026-4241', 'D14', 'DE-Bremerhaven', 'TRIM-PANEL', 30, 4247, 63.0, 0, ''],
+				['SHP-2026-4252', 'D09', 'UK-Felixstowe', 'BRAKE-ROTOR', 21, 23498, 27.3, 60, ''],
+				['SHP-2026-4250', 'D14', 'DE-Bremerhaven', 'HARNESS-ASSY', 38, 8057, 66.5, 100, ''],
+				['SHP-2026-4245', 'D14', 'UK-Felixstowe', 'BRAKE-ROTOR', 23, 25855, 29.9, 60, ''],
+				['SHP-2026-4254', 'D12', 'UK-Felixstowe', 'CAST-HOUSING', 25, 24587, 33.75, 70, ''],
+				['SHP-2026-4249', 'D09', 'UK-Felixstowe', 'ALT-STATOR', 30, 25827, 42.0, 0, ''],
+				['SHP-2026-4243', 'D13', 'NL-Rotterdam', 'BRAKE-ROTOR', 22, 24605, 28.6, 40, ''],
+				['SHP-2026-4253', 'D13', 'UK-Felixstowe', 'CAST-HOUSING', 25, 24388, 33.75, 0, ''],
+				['SHP-2026-4246', 'D09', 'SE-Gothenburg', 'HARNESS-ASSY', 38, 8062, 66.5, 100, ''],
+				['SHP-2026-4259', 'D12', 'NL-Rotterdam', 'CAST-HOUSING', 26, 25407, 35.1, 70, ''],
+				['SHP-2026-4256', 'D12', 'NL-Rotterdam', 'BRAKE-ROTOR', 22, 24635, 28.6, 0, ''],
+				['SHP-2026-4263', 'D09', 'DE-Bremerhaven', 'BRAKE-ROTOR', 23, 25804, 29.9, 40, ''],
+				['SHP-2026-4255', 'D10', 'DE-Bremerhaven', 'CAST-HOUSING', 25, 24592, 33.75, 50, ''],
+				['SHP-2026-4257', 'D12', 'SE-Gothenburg', 'CAST-HOUSING', 26, 25592, 35.1, 60, ''],
+				['SHP-2026-4266', 'D10', 'UK-Felixstowe', 'ALT-STATOR', 30, 25705, 42.0, 0, ''],
+				[
+					'SHP-2026-4269',
+					'D14',
+					'SE-Gothenburg',
+					'CAST-HOUSING',
+					25,
+					24391,
+					33.75,
+					0,
+					'reslotted mid-load'
+				],
+				['SHP-2026-4270', 'D12', 'NL-Rotterdam', 'ALT-STATOR', 29, 24841, 40.6, 0, ''],
+				['SHP-2026-4267', 'D14', 'DE-Bremerhaven', 'ALT-STATOR', 28, 24011, 39.2, 60, ''],
+				['SHP-2026-4271', 'D13', 'NL-Rotterdam', 'TRIM-PANEL', 31, 4615, 65.1, 0, 'dunnage added'],
+				[
+					'SHP-2026-4282',
+					'D10',
+					'NL-Rotterdam',
+					'CAST-HOUSING',
+					25,
+					24574,
+					33.75,
+					0,
+					'double-stack refused by driver'
+				],
+				[
+					'SHP-2026-4278',
+					'D10',
+					'SE-Gothenburg',
+					'BRAKE-ROTOR',
+					22,
+					24638,
+					28.6,
+					40,
+					'reslotted mid-load'
+				],
+				['SHP-2026-4283', 'D12', 'SE-Gothenburg', 'ALT-STATOR', 30, 25722, 42.0, 80, ''],
+				[
+					'SHP-2026-4274',
+					'D09',
+					'SE-Gothenburg',
+					'ALT-STATOR',
+					28,
+					24026,
+					39.2,
+					60,
+					'waiting on QA hold release'
+				]
+			];
 
-<script>
-const FLEET=[["SHP-2026-4110","D09","UK-Felixstowe","ALT-STATOR",30,25890,42.0,80,"dunnage added"],["SHP-2026-4107","D09","SE-Gothenburg","TRIM-PANEL",29,4122,60.9,0,"reslotted mid-load"],["SHP-2026-4101","D12","NL-Rotterdam","CAST-HOUSING",25,24509,33.75,60,""],["SHP-2026-4116","D09","UK-Felixstowe","CAST-HOUSING",26,25416,35.1,50,""],["SHP-2026-4119","D10","SE-Gothenburg","BRAKE-ROTOR",23,25713,29.9,0,"late trailer arrival"],["SHP-2026-4117","D13","DE-Bremerhaven","PLASTIC-CLIP",34,3262,64.6,100,""],["SHP-2026-4113","D12","NL-Rotterdam","CAST-HOUSING",25,24430,33.75,70,""],["SHP-2026-4120","D13","NL-Rotterdam","ALT-STATOR",30,25862,42.0,60,"late trailer arrival"],["SHP-2026-4114","D10","SE-Gothenburg","TRIM-PANEL",31,4406,65.1,100,"late trailer arrival"],["SHP-2026-4122","D10","DE-Bremerhaven","BRAKE-ROTOR",23,25823,29.9,60,"partial - balance ships next day"],["SHP-2026-4127","D13","UK-Felixstowe","TRIM-PANEL",31,4515,65.1,100,"partial - balance ships next day"],["SHP-2026-4130","D13","SE-Gothenburg","ALT-STATOR",29,24821,40.6,60,""],["SHP-2026-4129","D14","DE-Bremerhaven","ALT-STATOR",28,24130,39.2,60,""],["SHP-2026-4141","D11","UK-Felixstowe","ALT-STATOR",28,24132,39.2,0,""],["SHP-2026-4137","D13","DE-Bremerhaven","CAST-HOUSING",25,24434,33.75,50,""],["SHP-2026-4132","D13","SE-Gothenburg","ALT-STATOR",29,25055,40.6,60,""],["SHP-2026-4138","D11","NL-Rotterdam","PLASTIC-CLIP",35,3391,66.5,100,""],["SHP-2026-4134","D14","UK-Felixstowe","ALT-STATOR",28,24157,39.2,60,"late trailer arrival"],["SHP-2026-4149","D09","DE-Bremerhaven","BRAKE-ROTOR",23,25880,29.9,0,"reslotted mid-load"],["SHP-2026-4148","D13","NL-Rotterdam","ALT-STATOR",28,24067,39.2,70,""],["SHP-2026-4145","D09","SE-Gothenburg","CAST-HOUSING",26,25458,35.1,0,""],["SHP-2026-4150","D10","DE-Bremerhaven","HARNESS-ASSY",37,7847,64.75,100,"double-stack refused by driver"],["SHP-2026-4144","D13","UK-Felixstowe","BRAKE-ROTOR",23,25690,29.9,40,""],["SHP-2026-4155","D11","NL-Rotterdam","ALT-STATOR",30,25717,42.0,70,""],["SHP-2026-4157","D13","DE-Bremerhaven","ALT-STATOR",30,25735,42.0,70,""],["SHP-2026-4164","D11","DE-Bremerhaven","SENSOR-MOD",43,11263,66.65,100,""],["SHP-2026-4169","D14","UK-Felixstowe","CAST-HOUSING",25,24560,33.75,0,""],["SHP-2026-4165","D09","DE-Bremerhaven","ALT-STATOR",30,25837,42.0,60,""],["SHP-2026-4171","D10","DE-Bremerhaven","CAST-HOUSING",24,23546,32.4,0,""],["SHP-2026-4172","D12","NL-Rotterdam","PLASTIC-CLIP",33,3123,62.7,100,""],["SHP-2026-4163","D11","DE-Bremerhaven","ALT-STATOR",29,24875,40.6,0,""],["SHP-2026-4168","D09","DE-Bremerhaven","TRIM-PANEL",31,4395,65.1,100,""],["SHP-2026-4174","D11","UK-Felixstowe","ALT-STATOR",28,24193,39.2,0,"double-stack refused by driver"],["SHP-2026-4186","D14","DE-Bremerhaven","BRAKE-ROTOR",21,23624,27.3,60,"double-stack refused by driver"],["SHP-2026-4185","D12","UK-Felixstowe","ALT-STATOR",29,24906,40.6,0,"reslotted mid-load"],["SHP-2026-4184","D09","UK-Felixstowe","ALT-STATOR",29,25013,40.6,60,"partial - balance ships next day"],["SHP-2026-4191","D14","UK-Felixstowe","HARNESS-ASSY",37,7819,64.75,100,"reslotted mid-load"],["SHP-2026-4189","D13","NL-Rotterdam","PLASTIC-CLIP",34,3134,64.6,100,"dunnage added"],["SHP-2026-4190","D11","DE-Bremerhaven","BRAKE-ROTOR",22,24732,28.6,50,"waiting on QA hold release"],["SHP-2026-4192","D09","DE-Bremerhaven","CAST-HOUSING",26,25464,35.1,60,""],["SHP-2026-4194","D11","NL-Rotterdam","BRAKE-ROTOR",23,25855,29.9,50,"dunnage added"],["SHP-2026-4187","D10","UK-Felixstowe","PLASTIC-CLIP",34,3231,64.6,100,"waiting on QA hold release"],["SHP-2026-4195","D09","NL-Rotterdam","HARNESS-ASSY",36,7616,63.0,90,""],["SHP-2026-4197","D14","DE-Bremerhaven","ALT-STATOR",30,25837,42.0,60,"double-stack refused by driver"],["SHP-2026-4199","D13","UK-Felixstowe","CAST-HOUSING",26,25444,35.1,50,""],["SHP-2026-4200","D10","UK-Felixstowe","CAST-HOUSING",25,24525,33.75,60,""],["SHP-2026-4209","D14","DE-Bremerhaven","ALT-STATOR",30,25705,42.0,70,""],["SHP-2026-4208","D13","DE-Bremerhaven","ALT-STATOR",28,24019,39.2,0,"late trailer arrival"],["SHP-2026-4204","D10","SE-Gothenburg","CAST-HOUSING",26,25507,35.1,50,"partial - balance ships next day"],["SHP-2026-4212","D09","DE-Bremerhaven","ALT-STATOR",28,24178,39.2,60,"double-stack refused by driver"],["SHP-2026-4205","D10","UK-Felixstowe","BRAKE-ROTOR",23,25690,29.9,50,""],["SHP-2026-4213","D09","UK-Felixstowe","CAST-HOUSING",24,23577,32.4,40,""],["SHP-2026-4217","D14","UK-Felixstowe","ALT-STATOR",29,24845,40.6,80,""],["SHP-2026-4214","D10","SE-Gothenburg","CAST-HOUSING",25,24436,33.75,0,""],["SHP-2026-4225","D11","NL-Rotterdam","ALT-STATOR",29,24941,40.6,0,""],["SHP-2026-4227","D12","NL-Rotterdam","HARNESS-ASSY",38,8039,66.5,100,"reslotted mid-load"],["SHP-2026-4231","D11","SE-Gothenburg","ALT-STATOR",28,24051,39.2,0,"partial - balance ships next day"],["SHP-2026-4239","D10","NL-Rotterdam","BRAKE-ROTOR",23,25823,29.9,50,"dunnage added"],["SHP-2026-4240","D11","UK-Felixstowe","ALT-STATOR",28,24085,39.2,0,""],["SHP-2026-4238","D10","NL-Rotterdam","PLASTIC-CLIP",35,3430,66.5,100,""],["SHP-2026-4241","D14","DE-Bremerhaven","TRIM-PANEL",30,4247,63.0,0,""],["SHP-2026-4252","D09","UK-Felixstowe","BRAKE-ROTOR",21,23498,27.3,60,""],["SHP-2026-4250","D14","DE-Bremerhaven","HARNESS-ASSY",38,8057,66.5,100,""],["SHP-2026-4245","D14","UK-Felixstowe","BRAKE-ROTOR",23,25855,29.9,60,""],["SHP-2026-4254","D12","UK-Felixstowe","CAST-HOUSING",25,24587,33.75,70,""],["SHP-2026-4249","D09","UK-Felixstowe","ALT-STATOR",30,25827,42.0,0,""],["SHP-2026-4243","D13","NL-Rotterdam","BRAKE-ROTOR",22,24605,28.6,40,""],["SHP-2026-4253","D13","UK-Felixstowe","CAST-HOUSING",25,24388,33.75,0,""],["SHP-2026-4246","D09","SE-Gothenburg","HARNESS-ASSY",38,8062,66.5,100,""],["SHP-2026-4259","D12","NL-Rotterdam","CAST-HOUSING",26,25407,35.1,70,""],["SHP-2026-4256","D12","NL-Rotterdam","BRAKE-ROTOR",22,24635,28.6,0,""],["SHP-2026-4263","D09","DE-Bremerhaven","BRAKE-ROTOR",23,25804,29.9,40,""],["SHP-2026-4255","D10","DE-Bremerhaven","CAST-HOUSING",25,24592,33.75,50,""],["SHP-2026-4257","D12","SE-Gothenburg","CAST-HOUSING",26,25592,35.1,60,""],["SHP-2026-4266","D10","UK-Felixstowe","ALT-STATOR",30,25705,42.0,0,""],["SHP-2026-4269","D14","SE-Gothenburg","CAST-HOUSING",25,24391,33.75,0,"reslotted mid-load"],["SHP-2026-4270","D12","NL-Rotterdam","ALT-STATOR",29,24841,40.6,0,""],["SHP-2026-4267","D14","DE-Bremerhaven","ALT-STATOR",28,24011,39.2,60,""],["SHP-2026-4271","D13","NL-Rotterdam","TRIM-PANEL",31,4615,65.1,0,"dunnage added"],["SHP-2026-4282","D10","NL-Rotterdam","CAST-HOUSING",25,24574,33.75,0,"double-stack refused by driver"],["SHP-2026-4278","D10","SE-Gothenburg","BRAKE-ROTOR",22,24638,28.6,40,"reslotted mid-load"],["SHP-2026-4283","D12","SE-Gothenburg","ALT-STATOR",30,25722,42.0,80,""],["SHP-2026-4274","D09","SE-Gothenburg","ALT-STATOR",28,24026,39.2,60,"waiting on QA hold release"]];
+			const VOL_CAP = 67,
+				KG_CAP = 26000;
 
-const VOL_CAP=67,KG_CAP=26000;
+			// Computed fields
+			const data = FLEET.map((f) => ({
+				id: f[0],
+				door: f[1],
+				dest: f[2],
+				sku: f[3],
+				pallets: f[4],
+				kg: f[5],
+				vol: f[6],
+				fill: f[7],
+				notes: f[8],
+				payPct: Math.round((f[5] / KG_CAP) * 100),
+				volPct: Math.round((f[6] / VOL_CAP) * 100),
+				volGap: VOL_CAP - f[6]
+			}));
 
-// Computed fields
-const data=FLEET.map(f=>({id:f[0],door:f[1],dest:f[2],sku:f[3],pallets:f[4],kg:f[5],vol:f[6],fill:f[7],notes:f[8],
-  payPct:Math.round(f[5]/KG_CAP*100),volPct:Math.round(f[6]/VOL_CAP*100),volGap:VOL_CAP-f[6]}));
+			const avgVol = (data.reduce((a, d) => a + d.volPct, 0) / 83).toFixed(1);
+			const avgPay = (data.reduce((a, d) => a + d.payPct, 0) / 83).toFixed(0);
+			const wb = data.filter((d) => d.payPct >= 90).length;
+			const vb = data.filter((d) => d.payPct < 90).length;
+			const partials = data.filter((d) => d.notes.includes('partial')).length;
+			const totalGap = data.reduce((a, d) => a + d.volGap, 0).toFixed(0);
 
-const avgVol=(data.reduce((a,d)=>a+d.volPct,0)/83).toFixed(1);
-const avgPay=(data.reduce((a,d)=>a+d.payPct,0)/83).toFixed(0);
-const wb=data.filter(d=>d.payPct>=90).length;
-const vb=data.filter(d=>d.payPct<90).length;
-const partials=data.filter(d=>d.notes.includes('partial')).length;
-const totalGap=data.reduce((a,d)=>a+d.volGap,0).toFixed(0);
-
-// KPIs
-document.getElementById('kpis').innerHTML=`
+			// KPIs
+			document.getElementById('kpis').innerHTML = `
   <div class="kpi"><div class="kl">Avg declared vol</div><div class="kv">${avgVol}%</div><div class="kn">of ${VOL_CAP} m³ benchmark</div></div>
   <div class="kpi"><div class="kl">Nominal vol gap</div><div class="kv" style="color:var(--amber)">36.6%</div><div class="kn">${totalGap} m³ across 83 loads</div></div>
   <div class="kpi"><div class="kl">≥90% payload</div><div class="kv">${wb}</div><div class="kn">likely weight-bound</div></div>
   <div class="kpi"><div class="kl">&lt;90% payload</div><div class="kv" style="color:var(--accent)">${vb}</div><div class="kn">volume worth measuring</div></div>
   <div class="kpi"><div class="kl">Partial ships</div><div class="kv" style="color:var(--red)">${partials}</div><div class="kn">balance ships next day</div></div>`;
 
-// ── Charts ──
-const content=document.getElementById('content');
+			// ── Charts ──
+			const content = document.getElementById('content');
 
-// 1. Weight vs Volume scatter
-const c1=document.createElement('div');c1.className='card';
-c1.innerHTML=`<div class="ch">Payload vs declared volume</div><div class="cs">Each dot is one container. Above 90% payload line = weight-bound.</div>
+			// 1. Weight vs Volume scatter
+			const c1 = document.createElement('div');
+			c1.className = 'card';
+			c1.innerHTML = `<div class="ch">Payload vs declared volume</div><div class="cs">Each dot is one container. Above 90% payload line = weight-bound.</div>
   <div class="scatter"><canvas id="scatter"></canvas><div class="ax ax-x">Declared volume (% of ${VOL_CAP} m³)</div><div class="ax ax-y">Payload (% of ${KG_CAP} kg)</div></div>`;
-content.appendChild(c1);
+			content.appendChild(c1);
 
-// 2. SKU breakdown
-const skuCounts={};data.forEach(d=>{skuCounts[d.sku]=(skuCounts[d.sku]||0)+1});
-const skuEntries=Object.entries(skuCounts).sort((a,b)=>b[1]-a[1]);
-const maxSku=Math.max(...skuEntries.map(e=>e[1]));
-const c2=document.createElement('div');c2.className='card';
-c2.innerHTML=`<div class="ch">Containers by SKU family</div><div class="cs">${skuEntries.length} product families across 83 exports</div>
-  <div class="bar-chart">${skuEntries.map(([sku,n])=>{
-    const avg=data.filter(d=>d.sku===sku);
-    const akg=Math.round(avg.reduce((a,d)=>a+d.payPct,0)/avg.length);
-    return `<div class="bar-row"><div class="bar-label">${sku}</div><div class="bar-track"><div class="bar-fill" style="width:${n/maxSku*100}%;background:${akg>=90?'var(--amber)':'var(--accent)}'}">${n}</div></div><div class="bar-val">${akg}% pay</div></div>`;
-  }).join('')}</div>`;
-content.appendChild(c2);
+			// 2. SKU breakdown
+			const skuCounts = {};
+			data.forEach((d) => {
+				skuCounts[d.sku] = (skuCounts[d.sku] || 0) + 1;
+			});
+			const skuEntries = Object.entries(skuCounts).sort((a, b) => b[1] - a[1]);
+			const maxSku = Math.max(...skuEntries.map((e) => e[1]));
+			const c2 = document.createElement('div');
+			c2.className = 'card';
+			c2.innerHTML = `<div class="ch">Containers by SKU family</div><div class="cs">${skuEntries.length} product families across 83 exports</div>
+  <div class="bar-chart">${skuEntries
+		.map(([sku, n]) => {
+			const avg = data.filter((d) => d.sku === sku);
+			const akg = Math.round(avg.reduce((a, d) => a + d.payPct, 0) / avg.length);
+			return `<div class="bar-row"><div class="bar-label">${sku}</div><div class="bar-track"><div class="bar-fill" style="width:${(n / maxSku) * 100}%;background:${akg >= 90 ? 'var(--amber)' : 'var(--accent)}'}">${n}</div></div><div class="bar-val">${akg}% pay</div></div>`;
+		})
+		.join('')}</div>`;
+			content.appendChild(c2);
 
-// 3. Destination breakdown
-const destCounts={};data.forEach(d=>{destCounts[d.dest]=(destCounts[d.dest]||0)+1});
-const destEntries=Object.entries(destCounts).sort((a,b)=>b[1]-a[1]);
-const maxDest=Math.max(...destEntries.map(e=>e[1]));
-const c3=document.createElement('div');c3.className='card';
-c3.innerHTML=`<div class="ch">Containers by destination</div><div class="cs">All via Gdansk Port</div>
-  <div class="bar-chart">${destEntries.map(([dest,n])=>`<div class="bar-row"><div class="bar-label">${dest}</div><div class="bar-track"><div class="bar-fill" style="width:${n/maxDest*100}%;background:var(--purple)">${n}</div></div><div class="bar-val"></div></div>`).join('')}</div>`;
-content.appendChild(c3);
+			// 3. Destination breakdown
+			const destCounts = {};
+			data.forEach((d) => {
+				destCounts[d.dest] = (destCounts[d.dest] || 0) + 1;
+			});
+			const destEntries = Object.entries(destCounts).sort((a, b) => b[1] - a[1]);
+			const maxDest = Math.max(...destEntries.map((e) => e[1]));
+			const c3 = document.createElement('div');
+			c3.className = 'card';
+			c3.innerHTML = `<div class="ch">Containers by destination</div><div class="cs">All via Gdansk Port</div>
+  <div class="bar-chart">${destEntries.map(([dest, n]) => `<div class="bar-row"><div class="bar-label">${dest}</div><div class="bar-track"><div class="bar-fill" style="width:${(n / maxDest) * 100}%;background:var(--purple)">${n}</div></div><div class="bar-val"></div></div>`).join('')}</div>`;
+			content.appendChild(c3);
 
-// 4. Volume distribution
-const c4=document.createElement('div');c4.className='card';
-const bins=Array(11).fill(0);
-data.forEach(d=>{const b=Math.min(10,Math.floor(d.volPct/10));bins[b]++});
-const maxBin=Math.max(...bins);
-c4.innerHTML=`<div class="ch">Declared volume distribution</div><div class="cs">% of ${VOL_CAP} m³ benchmark · most loads cluster high or low</div>
-  <div class="dist">${bins.map((n,i)=>`<div class="dist-bar" style="height:${n?Math.max(4,n/maxBin*100):0}%;background:${i>=9?'var(--green)':i<=5?'var(--amber)':'var(--accent)'}" data-tip="${i*10}–${i*10+9}%: ${n}"></div>`).join('')}</div>
+			// 4. Volume distribution
+			const c4 = document.createElement('div');
+			c4.className = 'card';
+			const bins = Array(11).fill(0);
+			data.forEach((d) => {
+				const b = Math.min(10, Math.floor(d.volPct / 10));
+				bins[b]++;
+			});
+			const maxBin = Math.max(...bins);
+			c4.innerHTML = `<div class="ch">Declared volume distribution</div><div class="cs">% of ${VOL_CAP} m³ benchmark · most loads cluster high or low</div>
+  <div class="dist">${bins.map((n, i) => `<div class="dist-bar" style="height:${n ? Math.max(4, (n / maxBin) * 100) : 0}%;background:${i >= 9 ? 'var(--green)' : i <= 5 ? 'var(--amber)' : 'var(--accent)'}" data-tip="${i * 10}–${i * 10 + 9}%: ${n}"></div>`).join('')}</div>
   <div class="dist-axis"><span>0%</span><span>50%</span><span>100%</span></div>`;
-content.appendChild(c4);
+			content.appendChild(c4);
 
-// 5. Weight-bound vs volume-bound
-const c5=document.createElement('div');c5.className='card';
-const wbData=data.filter(d=>d.payPct>=90);
-const vbData=data.filter(d=>d.payPct<90);
-const wbAvgVol=Math.round(wbData.reduce((a,d)=>a+d.volPct,0)/wbData.length);
-const vbAvgVol=Math.round(vbData.reduce((a,d)=>a+d.volPct,0)/vbData.length);
-c5.innerHTML=`<div class="ch">Weight-bound vs volume-bound</div><div class="cs">The 36.6% volume gap means different things for each group</div>
+			// 5. Weight-bound vs volume-bound
+			const c5 = document.createElement('div');
+			c5.className = 'card';
+			const wbData = data.filter((d) => d.payPct >= 90);
+			const vbData = data.filter((d) => d.payPct < 90);
+			const wbAvgVol = Math.round(wbData.reduce((a, d) => a + d.volPct, 0) / wbData.length);
+			const vbAvgVol = Math.round(vbData.reduce((a, d) => a + d.volPct, 0) / vbData.length);
+			c5.innerHTML = `<div class="ch">Weight-bound vs volume-bound</div><div class="cs">The 36.6% volume gap means different things for each group</div>
   <div class="findings">
     <div class="finding"><div class="f-num">${wb}</div><div class="f-txt"><b>Weight-bound (≥90% payload)</b><br>Average declared volume: ${wbAvgVol}%. Headroom here is likely explained by heavy parts that don't fill the cube. Measuring void may confirm it's not recoverable.</div></div>
     <div class="finding"><div class="f-num" style="color:var(--accent)">${vb}</div><div class="f-txt"><b>Volume-bound (&lt;90% payload)</b><br>Average declared volume: ${vbAvgVol}%. These are light loads with high declared cube. Measurement could show whether physical space is actually available.</div></div>
     <div class="finding"><div class="f-num" style="color:var(--red)">${partials}</div><div class="f-txt"><b>Partial ships</b><br>"Balance ships next day" — ${partials} of 83 exports. These are the clearest signal that pallets were left behind. The log doesn't say why.</div></div>
   </div>`;
-content.appendChild(c5);
+			content.appendChild(c5);
 
-// 6. Door heatmap
-const c6=document.createElement('div');c6.className='card';
-const doors=[...new Set(data.map(d=>d.door))].sort();
-const dests=[...new Set(data.map(d=>d.dest))].sort();
-const doorDest={};doors.forEach(d=>dests.forEach(de=>{doorDest[d+'/'+de]=data.filter(r=>r.door===d&&r.dest===de).length}));
-const maxDD=Math.max(...Object.values(doorDest));
-c6.innerHTML=`<div class="ch">Door × destination heatmap</div><div class="cs">Container count per combination</div>
-  <div class="heatmap" style="grid-template-columns:auto ${dests.map(()=>'1fr').join(' ')}">
-    <div class="hm-label"></div>${dests.map(d=>`<div class="hm-label">${d.replace('Gdansk Port / ','')}</div>`).join('')}
-    ${doors.map(door=>`<div class="hm-label">${door}</div>${dests.map(dest=>{
-      const n=doorDest[door+'/'+dest];
-      const alpha=n?0.2+0.8*(n/maxDD):0;
-      return `<div class="hm-cell" style="background:rgba(34,160,243,${alpha})">${n||''}</div>`;
-    }).join('')}`).join('')}
+			// 6. Door heatmap
+			const c6 = document.createElement('div');
+			c6.className = 'card';
+			const doors = [...new Set(data.map((d) => d.door))].sort();
+			const dests = [...new Set(data.map((d) => d.dest))].sort();
+			const doorDest = {};
+			doors.forEach((d) =>
+				dests.forEach((de) => {
+					doorDest[d + '/' + de] = data.filter((r) => r.door === d && r.dest === de).length;
+				})
+			);
+			const maxDD = Math.max(...Object.values(doorDest));
+			c6.innerHTML = `<div class="ch">Door × destination heatmap</div><div class="cs">Container count per combination</div>
+  <div class="heatmap" style="grid-template-columns:auto ${dests.map(() => '1fr').join(' ')}">
+    <div class="hm-label"></div>${dests.map((d) => `<div class="hm-label">${d.replace('Gdansk Port / ', '')}</div>`).join('')}
+    ${doors
+			.map(
+				(door) =>
+					`<div class="hm-label">${door}</div>${dests
+						.map((dest) => {
+							const n = doorDest[door + '/' + dest];
+							const alpha = n ? 0.2 + 0.8 * (n / maxDD) : 0;
+							return `<div class="hm-cell" style="background:rgba(34,160,243,${alpha})">${n || ''}</div>`;
+						})
+						.join('')}`
+			)
+			.join('')}
   </div>`;
-content.appendChild(c6);
+			content.appendChild(c6);
 
-// 7. Keyed fill vs declared vol
-const c7=document.createElement('div');c7.className='card';
-const filled=data.filter(d=>d.fill>0);
-const noFill=data.filter(d=>d.fill===0);
-c7.innerHTML=`<div class="ch">Operator-keyed fill vs declared volume</div><div class="cs">${filled.length} of 83 have a fill entry; ${noFill.length} are blank</div>
+			// 7. Keyed fill vs declared vol
+			const c7 = document.createElement('div');
+			c7.className = 'card';
+			const filled = data.filter((d) => d.fill > 0);
+			const noFill = data.filter((d) => d.fill === 0);
+			c7.innerHTML = `<div class="ch">Operator-keyed fill vs declared volume</div><div class="cs">${filled.length} of 83 have a fill entry; ${noFill.length} are blank</div>
   <div class="findings">
-    <div class="finding"><div class="f-num">${filled.filter(d=>d.fill===100).length}</div><div class="f-txt"><b>Keyed 100%</b> — operator says full. Average declared volume: ${Math.round(filled.filter(d=>d.fill===100).reduce((a,d)=>a+d.volPct,0)/filled.filter(d=>d.fill===100).length)}%. The gap between 100% keyed and actual cube is what a camera could close.</div></div>
+    <div class="finding"><div class="f-num">${filled.filter((d) => d.fill === 100).length}</div><div class="f-txt"><b>Keyed 100%</b> — operator says full. Average declared volume: ${Math.round(filled.filter((d) => d.fill === 100).reduce((a, d) => a + d.volPct, 0) / filled.filter((d) => d.fill === 100).length)}%. The gap between 100% keyed and actual cube is what a camera could close.</div></div>
     <div class="finding"><div class="f-num">${noFill.length}</div><div class="f-txt"><b>No fill recorded</b> — 29% of exports have no operator entry at all. The field is advisory and often skipped.</div></div>
   </div>`;
-content.appendChild(c7);
+			content.appendChild(c7);
 
-// 8. Notes / anomalies
-const c8=document.createElement('div');c8.className='card';
-const noteTypes={};
-data.forEach(d=>{if(d.notes){const k=d.notes.split(' - ')[0].split(',')[0].trim();if(k)noteTypes[k]=(noteTypes[k]||0)+1}});
-const noteEntries=Object.entries(noteTypes).sort((a,b)=>b[1]-a[1]);
-const maxNote=Math.max(...noteEntries.map(e=>e[1]));
-c8.innerHTML=`<div class="ch">Shipping notes</div><div class="cs">Operator notes from the export log</div>
-  <div class="bar-chart">${noteEntries.map(([note,n])=>`<div class="bar-row"><div class="bar-label" style="min-width:200px">${note}</div><div class="bar-track"><div class="bar-fill" style="width:${n/maxNote*100}%;background:var(--amber)">${n}</div></div><div class="bar-val"></div></div>`).join('')}</div>`;
-content.appendChild(c8);
+			// 8. Notes / anomalies
+			const c8 = document.createElement('div');
+			c8.className = 'card';
+			const noteTypes = {};
+			data.forEach((d) => {
+				if (d.notes) {
+					const k = d.notes.split(' - ')[0].split(',')[0].trim();
+					if (k) noteTypes[k] = (noteTypes[k] || 0) + 1;
+				}
+			});
+			const noteEntries = Object.entries(noteTypes).sort((a, b) => b[1] - a[1]);
+			const maxNote = Math.max(...noteEntries.map((e) => e[1]));
+			c8.innerHTML = `<div class="ch">Shipping notes</div><div class="cs">Operator notes from the export log</div>
+  <div class="bar-chart">${noteEntries.map(([note, n]) => `<div class="bar-row"><div class="bar-label" style="min-width:200px">${note}</div><div class="bar-track"><div class="bar-fill" style="width:${(n / maxNote) * 100}%;background:var(--amber)">${n}</div></div><div class="bar-val"></div></div>`).join('')}</div>`;
+			content.appendChild(c8);
 
-// Note
-content.innerHTML+=`<div class="note"><b>Data source:</b> Exporter shipping export, August 2026 (3 weeks). 184 total shipments, 83 export containers (SEA), 101 domestic trailers (ROAD). All figures in this dashboard are from the real shipping log. Declared volume uses the pallet-master figure (one standing number per SKU family), not measured cube. The 36.6% gap is nominal, not measured empty space. Only measurement can establish how much space is physically empty and whether any of it is avoidable.</div>`;
+			// Note
+			content.innerHTML += `<div class="note"><b>Data source:</b> Exporter shipping export, August 2026 (3 weeks). 184 total shipments, 83 export containers (SEA), 101 domestic trailers (ROAD). All figures in this dashboard are from the real shipping log. Declared volume uses the pallet-master figure (one standing number per SKU family), not measured cube. The 36.6% gap is nominal, not measured empty space. Only measurement can establish how much space is physically empty and whether any of it is avoidable.</div>`;
 
-// ── Scatter plot ──
-setTimeout(()=>{
-  const cv=document.getElementById('scatter');
-  if(!cv)return;
-  const rect=cv.parentElement.getBoundingClientRect();
-  const dpr=devicePixelRatio||1;
-  cv.width=rect.width*dpr;cv.height=rect.height*dpr;
-  const ctx=cv.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);
-  const W=rect.width,H=rect.height;
-  const pad={l:52,r:24,t:24,b:40};
-  const pw=W-pad.l-pad.r,ph=H-pad.t-pad.b;
+			// ── Scatter plot ──
+			setTimeout(() => {
+				const cv = document.getElementById('scatter');
+				if (!cv) return;
+				const rect = cv.parentElement.getBoundingClientRect();
+				const dpr = devicePixelRatio || 1;
+				cv.width = rect.width * dpr;
+				cv.height = rect.height * dpr;
+				const ctx = cv.getContext('2d');
+				ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+				const W = rect.width,
+					H = rect.height;
+				const pad = { l: 52, r: 24, t: 24, b: 40 };
+				const pw = W - pad.l - pad.r,
+					ph = H - pad.t - pad.b;
 
-  // Grid
-  ctx.strokeStyle='rgba(26,85,115,.5)';ctx.lineWidth=1;
-  for(let v=0;v<=100;v+=20){
-    const x=pad.l+v/100*pw;
-    ctx.beginPath();ctx.moveTo(x,pad.t);ctx.lineTo(x,H-pad.b);ctx.stroke();
-    ctx.fillStyle='#6A97B3';ctx.font='11.5px "JetBrains Mono"';ctx.textAlign='center';
-    ctx.fillText(v+'%',x,H-pad.b+18);
-  }
-  for(let v=0;v<=100;v+=20){
-    const y=H-pad.b-v/100*ph;
-    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();
-    ctx.fillStyle='#6A97B3';ctx.font='11.5px "JetBrains Mono"';ctx.textAlign='right';
-    ctx.fillText(v+'%',pad.l-8,y+4);
-  }
+				// Grid
+				ctx.strokeStyle = 'rgba(26,85,115,.5)';
+				ctx.lineWidth = 1;
+				for (let v = 0; v <= 100; v += 20) {
+					const x = pad.l + (v / 100) * pw;
+					ctx.beginPath();
+					ctx.moveTo(x, pad.t);
+					ctx.lineTo(x, H - pad.b);
+					ctx.stroke();
+					ctx.fillStyle = '#6A97B3';
+					ctx.font = '11.5px "JetBrains Mono"';
+					ctx.textAlign = 'center';
+					ctx.fillText(v + '%', x, H - pad.b + 18);
+				}
+				for (let v = 0; v <= 100; v += 20) {
+					const y = H - pad.b - (v / 100) * ph;
+					ctx.beginPath();
+					ctx.moveTo(pad.l, y);
+					ctx.lineTo(W - pad.r, y);
+					ctx.stroke();
+					ctx.fillStyle = '#6A97B3';
+					ctx.font = '11.5px "JetBrains Mono"';
+					ctx.textAlign = 'right';
+					ctx.fillText(v + '%', pad.l - 8, y + 4);
+				}
 
-  // 90% payload line
-  const y90=H-pad.b-90/100*ph;
-  ctx.strokeStyle='rgba(251,191,36,.5)';ctx.setLineDash([4,3]);
-  ctx.beginPath();ctx.moveTo(pad.l,y90);ctx.lineTo(W-pad.r,y90);ctx.stroke();
-  ctx.setLineDash([]);
-  ctx.fillStyle='#FBBF24';ctx.font='600 11.5px "JetBrains Mono"';ctx.textAlign='left';
-  ctx.textAlign='right';ctx.fillText('90% payload',W-pad.r-6,y90-6);
+				// 90% payload line
+				const y90 = H - pad.b - (90 / 100) * ph;
+				ctx.strokeStyle = 'rgba(251,191,36,.5)';
+				ctx.setLineDash([4, 3]);
+				ctx.beginPath();
+				ctx.moveTo(pad.l, y90);
+				ctx.lineTo(W - pad.r, y90);
+				ctx.stroke();
+				ctx.setLineDash([]);
+				ctx.fillStyle = '#FBBF24';
+				ctx.font = '600 11.5px "JetBrains Mono"';
+				ctx.textAlign = 'left';
+				ctx.textAlign = 'right';
+				ctx.fillText('90% payload', W - pad.r - 6, y90 - 6);
 
-  // Points
-  const skuColors={'ALT-STATOR':'#22A0F3','BRAKE-ROTOR':'#F87171','CAST-HOUSING':'#FBBF24',
-    'HARNESS-ASSY':'#34D399','PLASTIC-CLIP':'#A78BFA','SENSOR-MOD':'#FB923C','TRIM-PANEL':'#38BDF8'};
-  data.forEach(d=>{
-    const x=pad.l+d.volPct/100*pw;
-    const y=H-pad.b-d.payPct/100*ph;
-    ctx.beginPath();ctx.arc(x,y,5.5,0,Math.PI*2);
-    ctx.fillStyle=skuColors[d.sku]||'#22A0F3';ctx.globalAlpha=0.8;ctx.fill();ctx.globalAlpha=1;
-    if(d.notes.includes('partial')){
-      ctx.strokeStyle='#F87171';ctx.lineWidth=2;ctx.stroke();
-    }
-  });
+				// Points
+				const skuColors = {
+					'ALT-STATOR': '#22A0F3',
+					'BRAKE-ROTOR': '#F87171',
+					'CAST-HOUSING': '#FBBF24',
+					'HARNESS-ASSY': '#34D399',
+					'PLASTIC-CLIP': '#A78BFA',
+					'SENSOR-MOD': '#FB923C',
+					'TRIM-PANEL': '#38BDF8'
+				};
+				data.forEach((d) => {
+					const x = pad.l + (d.volPct / 100) * pw;
+					const y = H - pad.b - (d.payPct / 100) * ph;
+					ctx.beginPath();
+					ctx.arc(x, y, 5.5, 0, Math.PI * 2);
+					ctx.fillStyle = skuColors[d.sku] || '#22A0F3';
+					ctx.globalAlpha = 0.8;
+					ctx.fill();
+					ctx.globalAlpha = 1;
+					if (d.notes.includes('partial')) {
+						ctx.strokeStyle = '#F87171';
+						ctx.lineWidth = 2;
+						ctx.stroke();
+					}
+				});
 
-  // Legend
-  const lx=pad.l+16,ly=H-pad.b-7*20-6;
-  let li=0;
-  Object.entries(skuColors).forEach(([sku,col])=>{
-    const y=ly+li*20;
-    ctx.fillStyle=col;ctx.beginPath();ctx.arc(lx,y,4.5,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='#9BC1D8';ctx.font='11.5px "JetBrains Mono"';ctx.textAlign='left';
-    ctx.fillText(sku,lx+12,y+4);
-    li++;
-  });
-},100);
-</script>
-</body></html>
+				// Legend
+				const lx = pad.l + 16,
+					ly = H - pad.b - 7 * 20 - 6;
+				let li = 0;
+				Object.entries(skuColors).forEach(([sku, col]) => {
+					const y = ly + li * 20;
+					ctx.fillStyle = col;
+					ctx.beginPath();
+					ctx.arc(lx, y, 4.5, 0, Math.PI * 2);
+					ctx.fill();
+					ctx.fillStyle = '#9BC1D8';
+					ctx.font = '11.5px "JetBrains Mono"';
+					ctx.textAlign = 'left';
+					ctx.fillText(sku, lx + 12, y + 4);
+					li++;
+				});
+			}, 100);
+		</script>
+	</body>
+</html>
