@@ -7,20 +7,14 @@
 	<div class="page-shell footer-inner">
 		<div>
 			<strong>Abhishek Kumar</strong>
-			<span>Product Manager in Dublin</span>
+			<span>Product Manager in Dublin, Ireland · @abhishzk</span>
 		</div>
 		<nav aria-label="Footer navigation">
 			<a
 				href={externalLinks.linkedin.href}
 				target="_blank"
-				rel="noreferrer"
+				rel="me noreferrer"
 				on:click={() => trackEvent('linkedin_click', { placement: 'footer' })}>LinkedIn</a
-			>
-			<a
-				href={externalLinks.github.href}
-				target="_blank"
-				rel="noreferrer"
-				on:click={() => trackEvent('github_click', { placement: 'footer' })}>GitHub</a
 			>
 			<a
 				href={externalLinks.resume.href}

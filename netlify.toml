@@ -11,6 +11,11 @@
     cache-control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "/abhishek-kumar-resume.pdf"
+  for = "/Abhishek_Kumar_Resume.pdf"
   [headers.values]
     cache-control = "public, max-age=3600, must-revalidate"
+
+[[headers]]
+  for = "/prototypes/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"

@@ -18,14 +18,9 @@ export const externalLinks = {
 		href: 'https://www.linkedin.com/in/abhishzk/',
 		event: 'linkedin_click'
 	},
-	github: {
-		label: 'GitHub',
-		href: 'https://github.com/abhishzk',
-		event: 'github_click'
-	},
 	resume: {
 		label: 'Resume',
-		href: '/abhishek-kumar-resume.pdf',
+		href: '/Abhishek_Kumar_Resume.pdf',
 		event: 'resume_download'
 	},
 	visaJobsCandidate: {
@@ -52,27 +47,27 @@ export const externalLinks = {
 
 export const visaJobsPublicMetrics: CaseStudyMetric[] = [
 	{
-		value: '6,500+',
+		value: '8,000+',
 		label: 'candidates',
-		verifiedAt: 'September 2026',
+		verifiedAt: 'November 2026',
 		sourceNote: 'Public product figure confirmed by Abhishek'
 	},
 	{
 		value: '216,177',
 		label: 'permit records',
-		verifiedAt: 'September 2026',
+		verifiedAt: 'November 2026',
 		sourceNote: 'VisaJobs public product data'
 	},
 	{
 		value: '23,246',
 		label: 'employers',
-		verifiedAt: 'September 2026',
+		verifiedAt: 'November 2026',
 		sourceNote: 'VisaJobs public product data'
 	},
 	{
-		value: '6,904',
+		value: '4,400+',
 		label: 'live jobs',
-		verifiedAt: 'September 2026',
+		verifiedAt: 'November 2026',
 		sourceNote: 'VisaJobs public product data'
 	},
 	{
@@ -113,7 +108,7 @@ export const caseStudies: CaseStudy[] = [
 			'/images/casestudies/visajobs-product-720.webp 720w, /images/casestudies/visajobs-product-1200.webp 1200w, /images/casestudies/visajobs-product.webp 1440w',
 		decision:
 			'Use official permit history as the trust layer, then connect it to live jobs and decision tools.',
-		result: '6,500+ candidates and a new verified employer product.',
+		result: '8,000+ candidates and a new verified employer product.',
 		imageCaption:
 			'Real VisaJobs product capture showing the search experience built around public permit evidence.',
 		context: {
@@ -272,7 +267,7 @@ export function getCaseStudy(slug: CaseStudy['slug']): CaseStudy {
 }
 
 export const homeMetrics: CaseStudyMetric[] = [
-	{ value: '6,500+', label: 'VisaJobs candidates' },
+	{ value: '8,000+', label: 'VisaJobs candidates' },
 	{ value: '84%', label: 'platform session growth' },
 	{ value: '95%', label: 'accurate document processing' },
 	{ value: '28+', label: 'AI product integrations' }
@@ -325,7 +320,8 @@ export const experience: Experience[] = [
 		summary:
 			'Building a data product that helps international candidates and Irish employers make visa-sponsorship decisions with evidence.',
 		outcomes: [
-			'Grew the candidate product to 6,500+ candidates.',
+			'Grew the candidate product to 8,000+ candidates and 4.9K monthly actives with zero paid acquisition.',
+			'Shipped 43 feature releases with 2 engineers, prioritising from retention and engagement data.',
 			'Expanded into verified employer claiming and job posting.',
 			'Turned official permit data into search, comparison, scoring, and planning tools.'
 		]
@@ -338,6 +334,7 @@ export const experience: Experience[] = [
 		summary:
 			'Owned product delivery for an enterprise energy platform across billing, analytics, onboarding, and international expansion.',
 		outcomes: [
+			'Enabled EUR 800k to 1M+ in delivered customer value across 13 enterprise accounts.',
 			'Increased external sessions by 84% through instrumented product iteration.',
 			'Shipped bill automation with 95% accurate document processing.',
 			'Coordinated a nine-person internal and external delivery group.'

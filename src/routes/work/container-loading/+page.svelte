@@ -21,7 +21,13 @@
 		description,
 		url: 'https://abhishzk.com/work/container-loading',
 		image: 'https://abhishzk.com/images/social/container-loading.png',
-		author: { '@type': 'Person', name: 'Abhishek Kumar', url: 'https://abhishzk.com' },
+		author: {
+			'@id': 'https://abhishzk.com/#person',
+			'@type': 'Person',
+			name: 'Abhishek Kumar',
+			alternateName: 'abhishzk',
+			url: 'https://abhishzk.com'
+		},
 		dateCreated: '2026-09-30',
 		dateModified: '2026-10-08',
 		learningResourceType: 'Product management case study',

@@ -18,7 +18,13 @@
 		description,
 		url: 'https://abhishzk.com/work/bill-reader',
 		image: `https://abhishzk.com${study.image}`,
-		author: { '@type': 'Person', name: 'Abhishek Kumar', url: 'https://abhishzk.com' },
+		author: {
+			'@id': 'https://abhishzk.com/#person',
+			'@type': 'Person',
+			name: 'Abhishek Kumar',
+			alternateName: 'abhishzk',
+			url: 'https://abhishzk.com'
+		},
 		dateModified: '2026-09-01',
 		about: ['Product Management', 'AI Product', 'Energy Billing', 'Human Review']
 	};

@@ -6,7 +6,6 @@ export type AnalyticsEvent =
 	| 'resume_download'
 	| 'case_study_open'
 	| 'linkedin_click'
-	| 'github_click'
 	| 'product_visit';
 
 let initialized = false;

@@ -18,7 +18,13 @@
 		description,
 		url: 'https://abhishzk.com/work/platform-delivery',
 		image: `https://abhishzk.com${study.image}`,
-		author: { '@type': 'Person', name: 'Abhishek Kumar', url: 'https://abhishzk.com' },
+		author: {
+			'@id': 'https://abhishzk.com/#person',
+			'@type': 'Person',
+			name: 'Abhishek Kumar',
+			alternateName: 'abhishzk',
+			url: 'https://abhishzk.com'
+		},
 		dateModified: '2026-09-01',
 		about: ['Product Management', 'B2B SaaS', 'Energy Analytics', 'Platform Adoption']
 	};

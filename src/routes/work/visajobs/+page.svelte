@@ -12,7 +12,7 @@
 
 	const study = getCaseStudy('visajobs');
 	const description =
-		'How Abhishek Kumar built VisaJobs Ireland from a personal job-search problem into a data product for 6,500+ candidates and Irish employers.';
+		'How Abhishek Kumar built VisaJobs Ireland from a personal job-search problem into a data product for 8,000+ candidates and Irish employers.';
 	const structuredData = {
 		'@context': 'https://schema.org',
 		'@type': 'CreativeWork',
@@ -20,8 +20,14 @@
 		description,
 		url: 'https://abhishzk.com/work/visajobs',
 		image: `https://abhishzk.com${study.image}`,
-		author: { '@type': 'Person', name: 'Abhishek Kumar', url: 'https://abhishzk.com' },
-		dateModified: '2026-09-01',
+		author: {
+			'@id': 'https://abhishzk.com/#person',
+			'@type': 'Person',
+			name: 'Abhishek Kumar',
+			alternateName: 'abhishzk',
+			url: 'https://abhishzk.com'
+		},
+		dateModified: '2026-11-07',
 		about: ['Product Management', 'Data Product', 'Visa Sponsorship', 'Two-sided Marketplace']
 	};
 	const structuredDataHtml = `<script type="application/ld+json">${JSON.stringify(

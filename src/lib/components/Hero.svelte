@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { trackEvent } from '$lib/analytics';
-	import { externalLinks } from '$lib/data/portfolio';
+	import { externalLinks, homeMetrics } from '$lib/data/portfolio';
 
 	let portraitFrame: HTMLDivElement;
 
@@ -26,11 +26,15 @@
 			<span class="eyebrow">Open to Product Manager roles</span>
 			<h1>
 				<span>Product Manager</span>
-				<span>building useful, data-rich products.</span>
+				<span
+					>in Ireland. Former Mastercard engineer who takes products from zero to real users.</span
+				>
 			</h1>
 			<p>
-				I lead 0-to-1 and enterprise SaaS products across AI, energy and fintech, from discovery
-				through adoption.
+				I'm Abhishek Kumar (abhishzk), based in Dublin. I grew VisaJobs Ireland from zero to
+				{homeMetrics[0].value} candidates with no paid acquisition, lifted sessions on an enterprise energy
+				platform by
+				{homeMetrics[1].value}, and shipped AI document processing at {homeMetrics[2].value} accuracy.
 			</p>
 			<div class="hero-actions">
 				<a
@@ -41,6 +45,15 @@
 					Start a conversation
 				</a>
 				<a class="button button-secondary" href="#work">View product work</a>
+				<a
+					class="button button-secondary"
+					href={externalLinks.linkedin.href}
+					target="_blank"
+					rel="me noreferrer"
+					on:click={() => trackEvent('linkedin_click', { placement: 'hero' })}
+				>
+					LinkedIn <span aria-hidden="true">↗</span>
+				</a>
 			</div>
 		</div>
 
@@ -57,7 +70,7 @@
 					src="/images/headshot.webp"
 					srcset="/images/headshot-480.webp 480w, /images/headshot-800.webp 800w, /images/headshot.webp 1024w"
 					sizes="(max-width: 900px) 88vw, 32vw"
-					alt="Illustrated portrait of Abhishek Kumar"
+					alt="Illustrated portrait of Abhishek Kumar, Product Manager in Dublin, Ireland"
 					width="1024"
 					height="1024"
 					loading="eager"

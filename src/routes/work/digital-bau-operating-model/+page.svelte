@@ -29,7 +29,13 @@
 		description,
 		url: 'https://abhishzk.com/work/digital-bau-operating-model',
 		image: 'https://abhishzk.com/images/social/digital-bau-operating-model.png',
-		author: { '@type': 'Person', name: 'Abhishek Kumar', url: 'https://abhishzk.com' },
+		author: {
+			'@id': 'https://abhishzk.com/#person',
+			'@type': 'Person',
+			name: 'Abhishek Kumar',
+			alternateName: 'abhishzk',
+			url: 'https://abhishzk.com'
+		},
 		dateCreated: '2026-06-15',
 		dateModified: '2026-09-09',
 		learningResourceType: 'Product management case study',

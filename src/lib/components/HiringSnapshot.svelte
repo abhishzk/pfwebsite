@@ -40,8 +40,8 @@
 				<strong>0-to-1 discovery through enterprise adoption</strong>
 			</div>
 			<div>
-				<span class="fact-label">Working style</span>
-				<strong>Technical, evidence-led, and collaborative</strong>
+				<span class="fact-label">Background</span>
+				<strong>Mastercard software engineer, now Product Manager</strong>
 			</div>
 		</div>
 	</div>
