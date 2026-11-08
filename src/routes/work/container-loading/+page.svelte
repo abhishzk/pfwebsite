@@ -390,13 +390,72 @@
 			decisions also depend on floor positions, stacking rules and rates, so measured cube is one
 			input, not the answer.
 		</p>
-		<h3>What a pilot has to prove</h3>
-		<ul>
-			<li>Camera height error against tape, well inside the decision margins.</li>
-			<li>Access to the load plan and a link between shipments and physical containers.</li>
-			<li>Packaging approval for stacking the product families involved.</li>
-			<li>How often the load plan actually loses positions or leaves pallets behind.</li>
-		</ul>
+	</CaseStudySection>
+
+	<CaseStudySection title="From pilot to operational.">
+		<p>
+			Three people have to say yes, and they need different things. A product that only satisfies
+			the one who holds the budget does not survive the dock.
+		</p>
+		<div class="role-grid">
+			<article>
+				<strong>VP of Operations</strong>
+				<em>Budget holder. Wants a number and a decision.</em>
+				<span>
+					Pilot: a baseline of how often the plan loses positions or pallets, built from real load
+					plans before any camera is installed, and a plain statement that most visible empty space
+					is a weight limit. Operational: a monthly report of pallets protected, advice followed and
+					overridden, and what it saved.
+				</span>
+			</article>
+			<article>
+				<strong>Plant Logistics Manager</strong>
+				<em>Owns the dock. Sceptical, and right to be.</em>
+				<span>
+					Pilot: shadow mode first, so he sees the advice and where it is wrong without the crew
+					acting on it. No alert at the sealing moment, and a hold only when it changes the outcome.
+					Operational: he owns the stacking rules, and repeated overrides tell him which one to
+					review.
+				</span>
+			</article>
+			<article>
+				<strong>Shift lead and loaders</strong>
+				<em>Use it on every load.</em>
+				<span>
+					One message at the moment a decision still exists, an override in one tap with a reason,
+					and no extra scanning beyond pallets whose label was not read.
+				</span>
+			</article>
+		</div>
+		<h3>Four phases, each ending in a decision</h3>
+		<ol class="phase-list">
+			<li>
+				<b>Replay.</b> Run real load plans through the loader and tape-measure a sample of pallets.
+				<span
+					>Exit: the band where sequencing matters is large enough, and stacking rules are signed
+					off.</span
+				>
+			</li>
+			<li>
+				<b>Shadow at one camera door.</b> Read pallets in staging, log advice, show it to nobody.
+				<span
+					>Exit: height error inside target, and the advice would have been right often enough.</span
+				>
+			</li>
+			<li>
+				<b>Live advisory at the same door.</b> The shift lead sees the advice, and every override is
+				logged.
+				<span
+					>Exit: containers and pallets saved against the baseline, and the logistics manager agrees
+					to expand.</span
+				>
+			</li>
+			<li>
+				<b>Operational.</b> More doors (cameras cover 2 of 6 export doors today), a live load-plan
+				feed and the shipment-to-container link.
+				<span>Exit: the monthly report is something the VP uses to decide.</span>
+			</li>
+		</ol>
 	</CaseStudySection>
 
 	<CaseStudySection title="What I learned, and what I would change." tone="soft">
@@ -437,6 +496,56 @@
 <EngineeringNote bind:open={noteOpen} />
 
 <style>
+	.role-grid {
+		display: grid;
+		gap: 12px;
+		margin-block: 30px;
+	}
+
+	.role-grid article {
+		display: grid;
+		gap: 6px;
+		padding: 22px;
+		border: 1px solid var(--line);
+		border-radius: var(--radius);
+		background: var(--surface);
+	}
+
+	.role-grid strong {
+		font-size: 1rem;
+	}
+
+	.role-grid em {
+		color: var(--accent-strong);
+		font-size: 0.82rem;
+		font-style: normal;
+	}
+
+	.role-grid span {
+		color: var(--muted);
+		font-size: 0.92rem;
+		line-height: 1.65;
+	}
+
+	:global(.case-body) ol.phase-list {
+		list-style: decimal;
+		display: grid;
+		gap: 14px;
+		padding-left: 22px;
+	}
+
+	.phase-list li::marker {
+		color: var(--accent-strong);
+		font-weight: 600;
+	}
+
+	.phase-list span {
+		display: block;
+		margin-top: 2px;
+		color: var(--muted);
+		font-size: 0.88rem;
+	}
+
 	.brief {
 		display: grid;
 		margin: 0;

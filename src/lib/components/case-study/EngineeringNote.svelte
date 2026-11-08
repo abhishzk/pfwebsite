@@ -17,33 +17,80 @@
 	</p>
 
 	<h3>What we would build</h3>
+	<p>
+		Start from what exists: the loader and engine in this prototype (deterministic, about a
+		millisecond per full replay, plain JavaScript, no tests yet), cameras that already watch the
+		staging lane, flat-file import, and the reasoning layer for evidence. New work, in build order:
+	</p>
+	<ol>
+		<li>
+			<b>The loader as a tested library, plus a backtest harness.</b> Replay real load plans from the
+			export. No camera needed, and it shows whether the sequencing band is worth chasing at all.
+		</li>
+		<li>
+			<b>A pallet read at staging.</b> ID and height as each pallet enters the lane, joined to its shipment.
+			Cameras installed for safety may not see height to the centimetre. That is the thing to prove.
+		</li>
+		<li>
+			<b>Shadow mode.</b> Run live, log the advice, show it to nobody. Compare it with what the crew did
+			and how the container ended up.
+		</li>
+		<li>
+			<b>The advice surface and outcome log.</b> One message to the shift lead, only inside the window
+			where it can still be acted on, and every override recorded with a reason.
+		</li>
+	</ol>
+	<p>Rules decide; the camera only supplies the inputs.</p>
+
+	<h3>Interfaces</h3>
+	<dl>
+		<div>
+			<dt>Pallet event, in</dt>
+			<dd>Shipment, pallet ID or "unread", height with confidence, time, camera</dd>
+		</div>
+		<div>
+			<dt>Load plan, in</dt>
+			<dd>
+				Shipment, planned pallet order, product family. Treat it as changeable: 7 of 83 loads were
+				re-slotted mid-load.
+			</dd>
+		</div>
+		<div>
+			<dt>Advice, out</dt>
+			<dd>
+				Shipment, pallet to load next, projected result with and without the change, confidence,
+				evidence, level (log, advisory, hold, escalate), and the pallet it stays valid until
+			</dd>
+		</div>
+		<div>
+			<dt>Outcome, log</dt>
+			<dd>The advice, followed or overridden and why, and the final container result</dd>
+		</div>
+	</dl>
+
+	<h3>Targets to hold it to</h3>
+	<p>These are my proposals, not known requirements.</p>
 	<ul>
 		<li>
-			<b>A pallet read at staging.</b> ID and height as each pallet enters the lane, from the existing
-			cameras, joined to its shipment. Cameras installed for safety may not see height to the centimetre.
-			That is the thing to prove.
+			<b>Height:</b> 5 cm of clearance flips the result (table below), so aim for 2 cm or better against
+			tape.
+		</li>
+		<li><b>Identity:</b> advise only on pallets whose ID was read, and track the read rate.</li>
+		<li>
+			<b>Coverage:</b> cameras cover 2 of the 6 export doors, which handled 33 of the 83 loads. Pilot
+			loads must be routed to a covered door.
 		</li>
 		<li>
-			<b>The planned load order,</b> available before loading starts. A flat file refreshed each shift
-			is enough to begin with. A live feed only if the reach window demands it.
-		</li>
-		<li>
-			<b>The loader and recommendation engine from the prototype, as a service.</b> It is deterministic
-			and replays a full load in about a millisecond, so it can re-plan after every pallet. The reasoning
-			layer cites the evidence for each recommendation; it does not make the decision.
-		</li>
-		<li>
-			<b>One message to the shift lead,</b> only inside the window where it can still be acted on, plus
-			a log of what was advised, what the crew did and how the container ended up.
+			<b>Trust:</b> in shadow mode, how often the advice would have been right, before anyone sees it.
 		</li>
 	</ul>
-	<p>Rules decide; the camera only supplies the inputs.</p>
 
 	<h3>What we need from the customer</h3>
 	<ul>
 		<li>
-			Packaging sign-off on what may be double-stacked. Only clips and trim are confirmed; I assume
-			harness pallets stack.
+			Sign-off on what may be double-stacked, from packaging and from drivers: 6 loads logged a
+			driver refusing a double stack. Only clips and trim are confirmed; I assume harness pallets
+			stack.
 		</li>
 		<li>
 			A tape-measured sample of live pallets per family, to bound the height error before any camera
@@ -52,6 +99,10 @@
 		<li>
 			The load order at staging time, and whether a crew can really pull a pallet forward and how
 			far. Eight is my guess.
+		</li>
+		<li>
+			The link between a shipment and its physical container number, which their systems never
+			joined. Without it, outcomes cannot be tied back to a shipment.
 		</li>
 		<li>Reason codes for the partial shipments, to separate stacking from every other cause.</li>
 	</ul>
@@ -152,11 +203,16 @@
 		list-style: disc;
 	}
 
+	ol {
+		list-style: decimal;
+	}
+
 	li::marker {
 		color: var(--faint);
 	}
 
-	ul {
+	ul,
+	ol {
 		display: grid;
 		gap: 10px;
 		padding-left: 20px;
