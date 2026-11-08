@@ -30,7 +30,7 @@
 			</h1>
 			<p>
 				I'm Abhishek Kumar (abhishzk) in Dublin. I own products end to end, from discovery to
-				adoption, and I pull AI features that don't work.
+				adoption, and I ship AI that works in production.
 			</p>
 			<div class="hero-actions">
 				<a
