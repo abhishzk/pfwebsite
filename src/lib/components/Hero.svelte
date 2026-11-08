@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { trackEvent } from '$lib/analytics';
-	import { externalLinks, homeMetrics } from '$lib/data/portfolio';
+	import { externalLinks } from '$lib/data/portfolio';
 
 	let portraitFrame: HTMLDivElement;
 
@@ -26,12 +26,11 @@
 			<span class="eyebrow">Open to Product Manager roles</span>
 			<h1>
 				<span>Product Manager</span>
-				<span>in Ireland. 8,000+ users, zero paid acquisition, 2 engineers.</span>
+				<span>in Ireland.</span>
 			</h1>
 			<p>
-				I'm Abhishek Kumar (abhishzk), based in Dublin. I own products end to end, from discovery to
-				adoption. At Watt Footprint I helped deliver EUR 800k to 1M+ in customer value across 13
-				enterprise accounts. I ship AI into production, and I pull it when it doesn't work.
+				I'm Abhishek Kumar (abhishzk) in Dublin. I own products end to end, from discovery to
+				adoption, and I pull AI features that don't work.
 			</p>
 			<div class="hero-actions">
 				<a
@@ -42,15 +41,6 @@
 					Start a conversation
 				</a>
 				<a class="button button-secondary" href="#work">View product work</a>
-				<a
-					class="button button-secondary"
-					href={externalLinks.linkedin.href}
-					target="_blank"
-					rel="me noreferrer"
-					on:click={() => trackEvent('linkedin_click', { placement: 'hero' })}
-				>
-					LinkedIn <span aria-hidden="true">↗</span>
-				</a>
 			</div>
 		</div>
 
@@ -107,12 +97,8 @@
 		display: block;
 	}
 
-	.hero-copy h1 span:first-child {
+	.hero-copy h1 span {
 		font-size: clamp(3rem, 4.8vw, 4.75rem);
-	}
-
-	.hero-copy h1 span:last-child {
-		font-size: clamp(2rem, 2.45vw, 2.45rem);
 	}
 
 	.hero-copy p {
@@ -203,12 +189,8 @@
 			min-width: 0;
 		}
 
-		.hero-copy h1 span:first-child {
+		.hero-copy h1 span {
 			font-size: clamp(2.75rem, 6.2vw, 4.25rem);
-		}
-
-		.hero-copy h1 span:last-child {
-			font-size: clamp(2.25rem, 5.2vw, 3.3rem);
 		}
 
 		.portrait-wrap {
@@ -222,12 +204,8 @@
 			padding-block: 56px 72px;
 		}
 
-		.hero-copy h1 span:first-child {
+		.hero-copy h1 span {
 			font-size: clamp(1.8rem, 8vw, 2.5rem);
-		}
-
-		.hero-copy h1 span:last-child {
-			font-size: clamp(1.7rem, 7.6vw, 2.35rem);
 		}
 
 		.hero-copy p {
