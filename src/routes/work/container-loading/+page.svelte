@@ -382,7 +382,9 @@
 		<p>
 			Sequencing alone is small. As an illustrative scenario, if every volume-bound export rolled
 			one pallet that sequencing could have saved (about 1/38 of a container each), that would be
-			about nine containers and €8–10k a year. No paid container has been shown saved.
+			about nine containers and €8–10k a year. No paid container has been shown saved. It also
+			ignores the cost of a pallet left behind: slots are booked weekly per lane, and a missed
+			sailing can cost three days.
 		</p>
 		<p>
 			The case for building it is different: a screen the shift lead uses on every load leaves

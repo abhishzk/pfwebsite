@@ -56,8 +56,8 @@
 		<div>
 			<dt>Load plan, in</dt>
 			<dd>
-				Shipment, planned pallet order, product family. Treat it as changeable: 7 of 83 loads were
-				re-slotted mid-load.
+				Shipment, planned pallet order, product family. The plan is advisory, built the afternoon
+				before, and the shift lead overrides it at the dock: 7 of 83 loads were re-slotted mid-load.
 			</dd>
 		</div>
 		<div>
@@ -102,9 +102,10 @@
 			is trusted.
 		</li>
 		<li>
-			The load order at staging time, and whether a crew can really pull a pallet forward and how
-			far. Eight is my guess.
+			The load order as actually executed, not just the advisory plan, and whether a crew can really
+			pull a pallet forward and how far. Eight is my guess.
 		</li>
+		<li>The usable floor length. Their crew say the last metre at the door end is never used.</li>
 		<li>
 			The link between a shipment and its physical container number, which their systems never
 			joined. Without it, outcomes cannot be tied back to a shipment.
@@ -125,6 +126,10 @@
 		<div>
 			<dt>Load order</dt>
 			<dd>The export order, standing in for the real plan</dd>
+		</div>
+		<div>
+			<dt>Length</dt>
+			<dd>All 10 rows of 1.2 m, using nearly the full 12.03 m</dd>
 		</div>
 		<div>
 			<dt>Stack limit</dt>
@@ -163,9 +168,10 @@
 	<p>
 		The loads where advice helps swing from 3 to 31 on 10 cm of clearance; the stuck count never
 		moves because the floor-only rule sets it. Both the size of the opportunity and the cost of bad
-		advice rest on measurements the customer does not have. Mitigation is cheap and layered:
-		tape-measure a sample in week one, compare every camera reading against it, and withhold advice
-		below the confidence bar.
+		advice rest on measurements the customer does not have. Length matters as much: if the last
+		metre at the door end is unusable, as the customer's crew say, the same run drops to 9 rows and
+		gives 35 fit, 8 fixable and 40 stuck. Mitigation is cheap and layered: tape-measure a sample in
+		week one, compare every camera reading against it, and withhold advice below the confidence bar.
 	</p>
 
 	<h3>Does it generalise?</h3>
