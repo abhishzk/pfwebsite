@@ -456,6 +456,15 @@
 				<span>Exit: the monthly report is something the VP uses to decide.</span>
 			</li>
 		</ol>
+		<h3>The ask</h3>
+		<p>
+			To start, I would ask the VP for three things: a covered export door and its shift lead for
+			the pilot loads, a week of tape measurements plus the load plans for those shipments, and
+			packaging and driver sign-off on stacking. The first two phases ask nothing of the crew,
+			because no advice is shown until the logistics manager has watched it in shadow mode. If
+			height error misses its target, the pilot stops there, and the replay still leaves the
+			customer with a measured answer about their own loads.
+		</p>
 	</CaseStudySection>
 
 	<CaseStudySection title="What I learned, and what I would change." tone="soft">

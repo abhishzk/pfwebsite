@@ -40,7 +40,12 @@
 			where it can still be acted on, and every override recorded with a reason.
 		</li>
 	</ol>
-	<p>Rules decide; the camera only supplies the inputs.</p>
+	<p>
+		Rules decide; the camera only supplies the inputs. Why not the alternatives: an alert at the
+		sealed door has no action behind it. Time-lapse analysis is retrospective, so it calibrates
+		heights per family rather than making the live call. The reasoning layer cites evidence, but the
+		decision stays with deterministic rules so every recommendation can be replayed and tested.
+	</p>
 
 	<h3>Interfaces</h3>
 	<dl>
