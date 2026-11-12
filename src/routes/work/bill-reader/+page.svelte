@@ -4,6 +4,7 @@
 	import Contact from '$lib/components/Contact.svelte';
 	import CaseStudyHero from '$lib/components/case-study/CaseStudyHero.svelte';
 	import CaseStudySection from '$lib/components/case-study/CaseStudySection.svelte';
+	import EconomicsBlock from '$lib/components/case-study/EconomicsBlock.svelte';
 	import DecisionBlock from '$lib/components/case-study/DecisionBlock.svelte';
 	import CaseStudyNav from '$lib/components/case-study/CaseStudyNav.svelte';
 	import { getCaseStudy } from '$lib/data/portfolio';
@@ -198,6 +199,25 @@
 			less processing time. The human role shifted from data entry and calculation to focused
 			verification.
 		</p>
+	</CaseStudySection>
+
+	<CaseStudySection title="The economics of review time.">
+		<EconomicsBlock
+			rows={[
+				{
+					label: 'Before',
+					text: 'Ten bills took 60 to 90 minutes to validate by hand: 6 to 9 minutes each.'
+				},
+				{
+					label: 'After',
+					text: '12 to 18 minutes for ten bills, about 1 to 2 minutes each. That saves roughly 5 to 7 minutes per bill.'
+				},
+				{
+					label: 'Depends on',
+					text: 'The review rate. Every bill under the 75% confidence threshold goes to a person, so a higher review rate shrinks the saving. Multiplying by monthly bill volume and analyst cost gives a euro figure. I have not published either input, so I do not state one.'
+				}
+			]}
+		/>
 	</CaseStudySection>
 
 	<CaseStudySection title="What I learned, and what I would change." tone="soft">

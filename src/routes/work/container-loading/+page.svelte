@@ -378,7 +378,7 @@
 		</DecisionBlock>
 	</CaseStudySection>
 
-	<CaseStudySection title="Sizing it honestly.">
+	<CaseStudySection title="The economics, sized honestly.">
 		<p>
 			Sequencing alone is small. As an illustrative scenario, if every volume-bound export rolled
 			one pallet that sequencing could have saved (about 1/38 of a container each), that would be

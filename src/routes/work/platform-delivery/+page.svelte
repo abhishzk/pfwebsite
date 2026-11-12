@@ -4,6 +4,7 @@
 	import Contact from '$lib/components/Contact.svelte';
 	import CaseStudyHero from '$lib/components/case-study/CaseStudyHero.svelte';
 	import CaseStudySection from '$lib/components/case-study/CaseStudySection.svelte';
+	import EconomicsBlock from '$lib/components/case-study/EconomicsBlock.svelte';
 	import DecisionBlock from '$lib/components/case-study/DecisionBlock.svelte';
 	import CaseStudyNav from '$lib/components/case-study/CaseStudyNav.svelte';
 	import { getCaseStudy } from '$lib/data/portfolio';
@@ -189,6 +190,25 @@
 			That change protected the workflows generating the strongest adoption signal and reduced the
 			gap between product promise and daily customer experience.
 		</p>
+	</CaseStudySection>
+
+	<CaseStudySection title="The economics: retention before expansion.">
+		<EconomicsBlock
+			rows={[
+				{
+					label: 'Cost',
+					text: 'A nine-person internal and external group across seven completed sprints, plus extra compute to fix slow loads for the heaviest accounts.'
+				},
+				{
+					label: 'Return',
+					text: '100% logo retention across the engagement and 84% more sessions from the same customer base. Cutting heavy-client loads from over two minutes to about 300 to 400 milliseconds protected the accounts with the deepest use.'
+				},
+				{
+					label: 'Depends on',
+					text: 'Whether account-level adoption really predicts renewal and expansion. That link is the next experiment. Until it is shown, sessions are evidence of use, not of revenue.'
+				}
+			]}
+		/>
 	</CaseStudySection>
 
 	<CaseStudySection title="The result was deeper use across the same customer base." tone="soft">

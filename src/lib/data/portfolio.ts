@@ -311,7 +311,14 @@ export const capabilities: Capability[] = [
 		title: 'Technical product decisions',
 		description:
 			'Work fluently with engineering on architecture, data quality, risk, and delivery trade-offs.',
-		proof: 'Bill Reader and platform delivery',
+		proof: 'Engineering note, container loading',
+		href: '/work/container-loading'
+	},
+	{
+		title: 'Product economics',
+		description:
+			'Size what a product saves or earns, show what the number depends on, and test that before building.',
+		proof: 'Bill Reader review time',
 		href: '/work/bill-reader'
 	}
 ];

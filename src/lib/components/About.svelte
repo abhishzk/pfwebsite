@@ -17,7 +17,8 @@
 			<p>
 				That foundation helps me work closely with engineers without turning technical complexity
 				into the product strategy. I connect architecture, customer behavior, and commercial goals
-				into decisions a team can act on.
+				into decisions a team can act on, and I size the economics early and say what each number
+				depends on.
 			</p>
 		</div>
 

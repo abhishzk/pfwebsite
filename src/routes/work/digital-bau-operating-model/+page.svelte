@@ -4,6 +4,7 @@
 	import Contact from '$lib/components/Contact.svelte';
 	import CaseStudyHero from '$lib/components/case-study/CaseStudyHero.svelte';
 	import CaseStudySection from '$lib/components/case-study/CaseStudySection.svelte';
+	import EconomicsBlock from '$lib/components/case-study/EconomicsBlock.svelte';
 	import DecisionBlock from '$lib/components/case-study/DecisionBlock.svelte';
 	import CaseStudyNav from '$lib/components/case-study/CaseStudyNav.svelte';
 	import MediaFigure from '$lib/components/case-study/MediaFigure.svelte';
@@ -302,6 +303,25 @@
 			<li>Which metrics are trusted and which require a new baseline.</li>
 			<li>How trading, marketing, technology, and stores define a successful release.</li>
 		</ul>
+	</CaseStudySection>
+
+	<CaseStudySection title="The economics of protected capacity.">
+		<EconomicsBlock
+			rows={[
+				{
+					label: 'Cost',
+					text: 'Capacity. A 65/35 run and change split protects about a third of the team for growth, and every incident that eats into it is an opportunity cost.'
+				},
+				{
+					label: 'Return aimed at',
+					text: "The published ambition to triple digital's share by 2030 and grow the digital channel by 130%. Customers who use stores, delivery and Click & Collect spend five times more than in-store-only customers, so protecting the full journey protects the highest-value customers."
+				},
+				{
+					label: 'Depends on',
+					text: 'The split is a hypothesis. Six months of real requests and incident data would show whether it is realistic. These are proposed measures, not achieved results.'
+				}
+			]}
+		/>
 	</CaseStudySection>
 
 	<CaseStudySection title="The proof is the quality of the decisions." tone="soft">

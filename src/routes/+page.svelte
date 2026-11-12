@@ -5,6 +5,7 @@
 	import Metrics from '$lib/components/Metrics.svelte';
 	import WorkGrid from '$lib/components/WorkGrid.svelte';
 	import Approach from '$lib/components/Approach.svelte';
+	import Lenses from '$lib/components/Lenses.svelte';
 	import Capabilities from '$lib/components/Capabilities.svelte';
 	import ExperienceTimeline from '$lib/components/ExperienceTimeline.svelte';
 	import About from '$lib/components/About.svelte';
@@ -58,6 +59,8 @@
 				sameAs: ['https://www.linkedin.com/in/abhishzk/'],
 				knowsAbout: [
 					'Product Management',
+					'Systems Thinking',
+					'Product Economics',
 					'B2B SaaS',
 					'AI Products',
 					'Energy Technology',
@@ -113,6 +116,7 @@
 	</section>
 	<WorkGrid />
 	<Approach />
+	<Lenses />
 	<Capabilities />
 	<ExperienceTimeline />
 	<About />

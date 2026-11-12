@@ -4,6 +4,7 @@
 	import Contact from '$lib/components/Contact.svelte';
 	import CaseStudyHero from '$lib/components/case-study/CaseStudyHero.svelte';
 	import CaseStudySection from '$lib/components/case-study/CaseStudySection.svelte';
+	import EconomicsBlock from '$lib/components/case-study/EconomicsBlock.svelte';
 	import DecisionBlock from '$lib/components/case-study/DecisionBlock.svelte';
 	import CaseStudyNav from '$lib/components/case-study/CaseStudyNav.svelte';
 	import MediaFigure from '$lib/components/case-study/MediaFigure.svelte';
@@ -228,6 +229,25 @@
 			</div>
 		</div>
 		<p class="verification-note mono">Changing product figures verified September 2026.</p>
+	</CaseStudySection>
+
+	<CaseStudySection title="The economics, so far.">
+		<EconomicsBlock
+			rows={[
+				{
+					label: 'Cost',
+					text: 'Me and 2 engineers, with 43 feature releases shipped and no paid acquisition.'
+				},
+				{
+					label: 'Return so far',
+					text: '8,000+ candidates from organic reach. One launch story reached 51,000+ people and produced 1,400+ click-throughs. No revenue is claimed on this page.'
+				},
+				{
+					label: 'Next question',
+					text: 'The employer side is where a revenue model would sit. Before pricing anything I would test whether verified employers get enough qualified candidates to keep posting.'
+				}
+			]}
+		/>
 	</CaseStudySection>
 
 	<CaseStudySection title="What I learned, and what comes next.">
