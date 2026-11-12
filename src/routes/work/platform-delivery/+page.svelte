@@ -197,7 +197,7 @@
 			rows={[
 				{
 					label: 'Value at stake',
-					text: '13 enterprise accounts with documented contract value of at least about EUR 745k. Eleven of them total about EUR 705k, and the UK and UAE accounts sit between EUR 20k and 69k each. 100% logo retention means none of that was lost during the engagement.'
+					text: 'EUR 800k to 1M+ in delivered customer value across 13 enterprise accounts. 100% logo retention means none of those accounts was lost during the engagement.'
 				},
 				{
 					label: 'Cost',
