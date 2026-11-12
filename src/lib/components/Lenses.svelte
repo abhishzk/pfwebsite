@@ -4,12 +4,6 @@
 
 	const lenses = [
 		{
-			title: 'Systems',
-			body: 'I design the whole loop, not the feature: how work enters, earns priority, ships and gets measured.',
-			proof: 'Digital BAU operating model',
-			href: '/work/digital-bau-operating-model'
-		},
-		{
 			title: 'Product',
 			body: 'I start from the constraint and the decision someone has to make, then decide what to build.',
 			proof: 'VisaJobs Ireland',
@@ -26,6 +20,12 @@
 			body: 'I put a number beside every bet, and say what that number depends on.',
 			proof: 'Bill Reader review-time economics',
 			href: '/work/bill-reader'
+		},
+		{
+			title: 'Systems thinking',
+			body: 'I design the whole loop, not the feature: how work enters, earns priority, ships and gets measured.',
+			proof: 'Digital BAU operating model',
+			href: '/work/digital-bau-operating-model'
 		}
 	];
 </script>
